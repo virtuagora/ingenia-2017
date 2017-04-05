@@ -15,7 +15,9 @@
         "swiftmailer/swiftmailer": "^5.4",
         "facebook/graph-sdk": "^5.4.4",
         "jotform/jotform-api-php": "dev-master",
-        "adbario/slim-secure-session-middleware": "^1.2.2"
+        "adbario/slim-secure-session-middleware": "^1.2.2",
+        "league/flysystem": "^1.0",
+        "respect/validation": "^1.1.12"
     },
     "autoload": {
         "psr-4": {

@@ -47,10 +47,23 @@ class Installer {
             $table->increments('id');
             $table->string('name');
             $table->string('jotform')->unique();
+            $table->boolean('has_image')->default(false);
+
+            $table->string('group');
             $table->text('description');
-            $table->boolean('has_image');
+            $table->text('foundation');
+            $table->string('category');
+            $table->text('execution')->nullable();
+            $table->string('place');
+            $table->json('schedule');
+            $table->json('budget');
+            $table->string('total_budget');
+            $table->string('organization')->nullable();
+
             $table->integer('likes')->default(0);
-            $table->string('trace')->nullable();
+            $table->string('name_trace')->nullable();
+            $table->string('group_trace')->nullable();
+
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

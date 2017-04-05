@@ -2,25 +2,50 @@
 
 final class HomeAction extends AbstractAction
 {
-    public function newProject($req, $res, $arg) {
-        $this->logger->info("Hello!");
+    public function newProject($req, $res, $arg)
+    {
         $subId = $arg['sub-id'];
         $subBody = $this->jotform->getSubmission($subId);
         //TODO cambiar al form de ingenia
-        if ($subBody['form_id'] != '70586122874663') {
+        if ($subBody['form_id'] != '70946170891665') {
             throw new \App\Util\AppException('Bad request.', 400);
         }
+
+        $formData = [
+            'jotform' => $subBody['form_id'],
+            'group' => $subBody['project']['answers']['4']['answer'],
+            'name' => $subBody['project']['answers']['81']['answer'],
+            'description' => $subBody['project']['answers']['82']['answer'],
+            'foundation' => $subBody['project']['answers']['83']['answer'],
+            'execution' => isset($subBody['project']['answers']['86'])?
+                $subBody['project']['answers']['86']['answer']: null,
+            'organization' => isset($subBody['project']['answers']['89'])?
+                $subBody['project']['answers']['89']['answer']: null,
+            'schedule' => $subBody['project']['answers']['96']['answer'],
+            'budget' => $subBody['project']['answers']['98']['answer'],
+            'total_budget' => $subBody['project']['answers']['99']['answer'],
+            'place' => $subBody['project']['answers']['179']['answer'],
+            'category' => $subBody['project']['answers']['181']['answer'],
+        ];
         $this->session->set('project', $subBody);
-        $helper = $this->facebook->getRedirectLoginHelper();
-        $permissions = ['email'];
-        $loginUrl = $helper->getLoginUrl(
-            $this->helper->completePathFor('fbCallbackGet'),
-            $permissions
-        );
-        return $res->withRedirect($loginUrl);
+
+        if ($this->session->has('user')) {
+            return $this->view->render($response, 'master.twig');
+        } else {
+            $helper = $this->facebook->getRedirectLoginHelper();
+            $permissions = ['email'];
+            $loginUrl = $helper->getLoginUrl(
+                $this->helper->completePathFor('fbCallbackGet'),
+                $permissions
+            );
+            return $this->view->render($response, 'master.twig', [
+                'fbLink' => $loginUrl,
+            ]);
+        }
     }
 
-    public function facebookLogin($req, $res, $arg) {
+    public function facebookLogin($req, $res, $arg)
+    {
         $helper = $this->facebook->getRedirectLoginHelper();
         $accessToken = $helper->getAccessToken();
         if (!isset($accessToken)) {
@@ -47,7 +72,8 @@ final class HomeAction extends AbstractAction
         return $res->withRedirect($redirectUrl);
     }
 
-    public function registerProject($req, $res, $arg) {
+    public function registerProject($req, $res, $arg)
+    {
         if (!$this->session->has('project')) {
             throw new \App\Util\AppException('Bad request.', 400);
         }
@@ -55,20 +81,47 @@ final class HomeAction extends AbstractAction
         if ($project) {
             throw new \App\Util\AppException('El proyecto ya está registrado.', 400);
         }
-        //TODO cambiar a los campos de ingenia
+
+        $categoryList = array_flip($this->helper->getCategories());
+
+        $project = new \App\Model\Project();
+        $project->name = $this->session->get('project.name');
+        $project->jotform = $this->session->get('project.form_id');
+        $project->group = $this->session->get('project.group');
+        $project->description = $this->session->get('project.description');
+        $project->foundation = $this->session->get('project.foundation');
+        $project->execution = $this->session->get('project.execution');
+        $project->organization = $this->session->get('project.organization');
+        $project->total_budget = $this->session->get('project.total_budget');
+        $project->place = $this->session->get('project.place');
+        if (isset($categoryList[$this->session->get('project.category')])) {
+            $project->category = $categoryList[$this->session->get('project.category')];
+        } else {
+            $project->category = 'social';
+        }
+
+        $project->budget = $this->session->get('project.budget');
+        $project->schedule = $this->session->get('project.schedule');
+
+        $project->name_trace = $this->helper->generateTrace($project->name);
+        $project->group_trace = $this->helper->generateTrace($project->group);
+        $project->save();
+        /* cambiar a los campos de ingenia
         $project = $this->db->query('App:Project')->create([
             'name' => $this->session->get('project.answers.4.answer'),
             'jotform' => $this->session->get('project.id'),
             'description' => $this->session->get('project.answers.5.answer'),
             'user_id' => $this->session->get('user.id'),
         ]);
+        */
         return $res->withRedirect($this->helper->completePathFor(
             'proPictureGet',
             ['pro' => $project->id]
         ));
     }
 
-    public function viewSetImageProject($req, $res, $arg) {
+    public function viewSetImageProject($req, $res, $arg)
+    {
         $project = $this->db->query('App:Project')->findOrFail($arg['pro']);
         $user = $project->user;
         //TODO ver si el control de acceso se hace mas lindo
@@ -81,7 +134,8 @@ final class HomeAction extends AbstractAction
         ]);
     }
 
-    public function setImageProject($req, $res, $arg) {
+    public function setImageProject($req, $res, $arg)
+    {
         $project = $this->db->query('App:Project')->findOrFail($arg['pro']);
         $user = $project->user;
         //TODO ver si el control de acceso se hace mas lindo

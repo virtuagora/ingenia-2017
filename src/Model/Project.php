@@ -6,9 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {    
     protected $table = 'projects';
-    protected $visible = ['id', 'name', 'jotform', 'description', 'has_image', 'likes', 'user'];
-    protected $fillable = ['name', 'jotform', 'description', 'user_id'];
+    protected $visible = [
+        'id', 'name', 'jotform', 'has_image', 'likes', 'user', 'place',
+        'group', 'description', 'foundation', 'category', 'execution',
+        'schedule', 'budget', 'total_budget', 'organization',
+    ];
+    //protected $fillable = ['name', 'jotform', 'description', 'user_id'];
     protected $with = ['user'];
+    protected $casts = [
+        'schedule' => 'json',
+        'budget' => 'json',
+    ];
     
     public function user()
     {

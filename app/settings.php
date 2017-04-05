@@ -57,5 +57,11 @@ return [
             'encryption_key' => null,
             'namespace'      => 'virtuagora',
         ],
+        'filesystem' => [
+            'adapter' => 'League\Flysystem\Adapter\Local',
+            'args' => [
+                __DIR__ . '/../public/files',
+            ],
+        ],
     ],
 ];

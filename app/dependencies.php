@@ -1,4 +1,7 @@
 <?php
+
+use Respect\Validation\Validator as v;
+
 $container = $app->getContainer();
 
 $container['csrf'] = function ($c) {
@@ -46,6 +49,17 @@ $container['jotform'] = function ($c) {
 };
 $container['session'] = function ($c) {
     return new \AdBar\Session('virtuagora');
+};
+$container['filesystem'] = function ($c) {
+    $settings = $c->get('settings')['filesystem'];
+    $adapter = new \ReflectionClass($settings['adapter']);
+    return new League\Flysystem\Filesystem($adapter->newInstanceArgs($settings['args']));
+};
+$container['validation'] = function ($c) {
+    $commentVdt = v::alnum()->length(2, 5000);
+    return [
+        'comment' => $commentVdt,
+    ];
 };
 
 $container['HomeAction'] = function ($c) {
