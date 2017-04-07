@@ -8,7 +8,7 @@
             <form action="" method="POST">
                 <div class="columns is-multiline">
                     <div class="column is-half is-offset-one-quarter">
-                        <img class="logo-vg" src="./assets/img/v-g.svg" alt="">
+                        <img class="logo-vg" src="{{base_url()}}/assets/img/v-g.svg" alt="">
                         <h4 class="title is-4 is-raleway is-600">Subí una imagen de tu proyecto</h4>
                         <h4 class="subtitle is-5 is-300">La misma sera utilizada para ser identificado y tambien para ser compartirla en las redes sociales. <small>Dimensiones recomendadas: 800x565 px</small></h4>
                     </div>
@@ -20,7 +20,7 @@
                                     <div class="column is-half is-offset-one-quarter">
                                         <a id="upload-file" href="#">
                                             <div class="preview-box">
-                                                <figure id="imagen-box" class="image preview is-16by9" style="background-image: url(./assets/img/upload-pic.svg)">
+                                                <figure id="imagen-box" class="image preview is-16by9" style="background-image: url({{base_url()}}/assets/img/upload-pic.svg)">
                                                 </figure>
                                             </div>
                                         </a>
@@ -40,9 +40,9 @@
         <nav class="tabs is-boxed is-fullwidth">
             <div class="container">
                 <ul>
-                    <li><a><img src="./assets/img/logo-virtuagora.svg" alt=""></a></li>
-                    <li><a><img src="./assets/img/gabinetejoven.svg" alt=""></a></li>
-                    <li><a><img src="./assets/img/ingenia-logo2.svg" alt=""></a></li>
+                    <li><a><img src="{{base_url()}}/assets/img/logo-virtuagora.svg" alt=""></a></li>
+                    <li><a><img src="{{base_url()}}/assets/img/gabinetejoven.svg" alt=""></a></li>
+                    <li><a><img src="{{base_url()}}/assets/img/ingenia-logo2.svg" alt=""></a></li>
                 </ul>
             </div>
         </nav>
@@ -67,7 +67,6 @@
             reader.onload = function (e) {
                 $('#imagen-box').css('background-image','url('+e.target.result+')');
             }
-
             reader.readAsDataURL(input.files[0]);
         }
     }

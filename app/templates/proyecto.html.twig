@@ -229,20 +229,17 @@
 
                         </div>
                     </div>
-                    <div class="notification has-text-centered is-warning">
-                        <p class="subtitle is-4 is-300">¡Participá comentando y aportando nuevas ideas!<p>
-                        <a href="#" class="button is-dark is-fullwidth is-outlined is-large is-800">Inicia sesión</a>
-                    </div>
+                    {% if user is not null %}
                     <div class="box">
                         <article class="media">
                             <div class="media-left">
                                 <figure class="image is-64x64">
-                                    <img src="https://pbs.twimg.com/profile_images/821237983219224576/GyC2dS0J.jpg" alt="Image">
+                                    <img src="https://graph.facebook.com/v2.8/{{user.facebook}}/picture?type=normal" alt="{{user.name}}">
                                 </figure>
                             </div>
                             <div class="media-content">
                                 <div class="content is-small">
-                                    <strong>Guillermo Croppi</strong>
+                                    <strong>{{user.name}}</strong>
                                     <div class="field">
                                         <p class="control">
                                             <textarea class="textarea is-small" placeholder="Textarea"></textarea>
@@ -259,6 +256,12 @@
                             </div>
                         </article>
                     </div>
+                    {% else %}
+                    <div class="notification has-text-centered is-warning">
+                        <p class="subtitle is-4 is-300">¡Participá comentando y aportando nuevas ideas!<p>
+                        <a href="{{facebook_login_link()}}" class="button is-dark is-fullwidth is-outlined is-large is-800">Inicia sesión</a>
+                    </div>
+                    {% endif %}
                     <div id="comentarios">
                         {% for comentarioid in 0..10 %}
                         {% include 'comentario.html.twig' %}
