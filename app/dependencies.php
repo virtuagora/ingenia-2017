@@ -67,23 +67,32 @@ $container['HomeAction'] = function ($c) {
 };
 
 $container['errorHandler'] = function ($c) {
-    return function ($request, $response, $exception) use ($c) {
-        $c->get('logger')->info($exception->getMessage());
-        if ($exception instanceof \Facebook\Exceptions\FacebookResponseException) {
-            return $response->withStatus(500)->withJSON([
-                'mensaje' => 'En este momento no podemos comunicarnos con Facebook correctamente.',
+    return function ($req, $res, $e) use ($c) {
+        $json = (substr($req->getHeaderLine('Accept'), 0, 16) == 'application/json');
+        $stat = 200;
+        $mssg = 'Ocurrió un error interno.';
+        $c->get('logger')->info($e->getMessage());
+        if ($e instanceof \Facebook\Exceptions\FacebookResponseException) {
+            $stat = 500;
+            $mssg = 'En este momento no podemos comunicarnos con Facebook correctamente.';
+        } elseif ($e instanceof \Facebook\Exceptions\FacebookSDKException) {
+            $stat = 500;
+            $mssg = 'Facebook no nos permite acceder a tu cuenta en este momento.';
+        } elseif ($e instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            $stat = 404;
+            $mssg = 'Recurso no encontrado.';
+        } elseif ($e instanceof \App\Util\AppException) {
+            $stat = $e->getCode();
+            $mssg = $e->getMessage();
+        }
+        if ($json) {
+            return $res->withStatus($stat)->withJSON([
+                'mensaje' => $mssg,
             ]);
-        } elseif ($exception instanceof \Facebook\Exceptions\FacebookSDKException) {
-            return $response->withStatus(500)->withJSON([
-                'mensaje' => 'acebook no nos permite acceder a tu cuenta en este momento.',
-            ]);
-        } elseif ($exception instanceof \App\Util\AppException) {
-            return $response->withStatus($exception->getCode())->withJSON([
-                'mensaje' => $exception->getMessage(),
+        } else {
+            return $c->get('view')->render($res, 'master.twig', [
+                'mensaje' => $mssg,
             ]);
         }
-        return $response->withStatus(500)->withJSON([
-            'mensaje' => 'Ocurrió un error interno.',
-        ]);
     };
 };

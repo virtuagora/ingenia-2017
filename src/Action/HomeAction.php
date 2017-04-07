@@ -24,7 +24,7 @@ final class HomeAction extends AbstractAction
             'schedule' => $subBody['project']['answers']['96']['answer'],
             'budget' => $subBody['project']['answers']['98']['answer'],
             'total_budget' => $subBody['project']['answers']['99']['answer'],
-            'place' => $subBody['project']['answers']['179']['answer'],
+            'place' => trim($subBody['project']['answers']['179']['answer']),
             'category' => $subBody['project']['answers']['181']['answer'],
         ];
         $this->session->set('project', $subBody);
@@ -54,9 +54,9 @@ final class HomeAction extends AbstractAction
                 $msg += 'Error Code: '.$helper->getErrorCode().'\n';
                 $msg += 'Error Reason: '.$helper->getErrorReason().'\n';
                 $msg += 'Error Description: '.$helper->getErrorDescription();
-                throw new \App\Util\AppException($msg, 401);
+                $this->logger->info($msg);
             }
-            throw new \App\Util\AppException('Bad request.', 400);
+            throw new \App\Util\AppException('Petición de acceso a Facebook inválida.', 400);
         }
         $response = $this->facebook->get('/me?fields=id,name,email', $accessToken);
         $userNode = $response->getGraphUser();
@@ -75,7 +75,7 @@ final class HomeAction extends AbstractAction
     public function registerProject($req, $res, $arg)
     {
         if (!$this->session->has('project')) {
-            throw new \App\Util\AppException('Bad request.', 400);
+            throw new \App\Util\AppException('Petición inválida.', 400);
         }
         $project = $this->db->query('App:Project')->where('jotform', $this->session->get('project'))->first();
         if ($project) {
@@ -145,11 +145,11 @@ final class HomeAction extends AbstractAction
         
         $files = $req->getUploadedFiles();
         if (empty($files['imagen'])) {
-            throw new \App\Util\AppException('No se enviaron los archivos necesarios', 400);
+            throw new \App\Util\AppException('No se envió ninguna imagen.', 400);
         }
         $imgFile = $files['imagen'];
         if ($imgFile->getError() !== UPLOAD_ERR_OK) {
-            throw new \App\Util\AppException('Hubo un error con el archivo firmado recibido', 400);
+            throw new \App\Util\AppException('Hubo un error con la imagen recibida', 400);
         }
         $imgStrm = $imgFile->getStream()->detach();
         $this->filesystem->writeStream('img/projects'.$project->id.'.jpg', $imgStrm);
@@ -162,9 +162,8 @@ final class HomeAction extends AbstractAction
             $project->save();
         }
 
-        return $res->withRedirect($this->helper->completePathFor(
-            'proPictureGet',
-            ['pro' => $project->id]
-        ));
+        return $res->withRedirect(
+            $this->helper->completePathFor('proPictureGet', ['pro' => $project->id])
+        );
     }
 }

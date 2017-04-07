@@ -23,9 +23,8 @@ final class ProjectAction extends AbstractAction
         $project->likes = $project->voters()->count();
         $project->save();
 
-        //TODO ver que se responde
-        return $this->view->render($response, 'master.twig', [
-            'project' => $project,
+        return $res->withJSON([
+            'mensaje' => '¡Proyecto bancado!',
         ]);
     }
 
@@ -45,9 +44,8 @@ final class ProjectAction extends AbstractAction
         $comment->content = $params['content'];
         $comment->save();
 
-        //TODO ver que se responde
-        return $this->view->render($response, 'master.twig', [
-            'project' => $project,
+        return $res->withJSON([
+            'mensaje' => 'Comentario realizado.',
         ]);
     }
 
@@ -67,13 +65,39 @@ final class ProjectAction extends AbstractAction
         $comment->content = $params['content'];
         $comment->save();
 
-        //TODO ver que se responde
-        return $this->view->render($response, 'master.twig', [
-            'project' => $project,
+        return $res->withJSON([
+            'mensaje' => 'Comentario respondido.',
         ]);
     }
 
-    private function startQuery($params = array())
+    public function rateComment($req, $res, $arg)
+    {
+        $userID = $this->session->get('user.id');
+        $comment = $this->db->query('App:Comment')->findOrFail($arg['com']);
+
+        $params = $req->getParsedBody();
+        if (!$this->validator['rate']->validate($params)) {
+            throw new \App\Util\AppException('Parametros invalidos.', 400);
+        }
+
+        $comment->raters()->updateExistingPivot($userID, ['value' => $params['value']]);
+        $comment->votes = $comment->raters->sum('pivot.value');
+        $comment->save();
+        
+        /*
+        if ($comment->raters->contains($userID)) {
+            $comment->raters()->updateExistingPivot($userID, ['value' => $params['value']]);
+        } else {
+            $evento->usuarios()->detach($usuario->id);
+        }
+        */
+
+        return $res->withJSON([
+            'mensaje' => 'Comentario votado.',
+        ]);
+    }
+
+    private function listProjects($params = array())
     {
         $query = $this->db->query('App:Project');
         if (isset($params['categoria'])) {
@@ -98,5 +122,8 @@ final class ProjectAction extends AbstractAction
         }
         $url = $this->helper->currentUrl();
         $paginator = new App\Util\Paginator($query, $url, $params);
+        return $res
+            ->withHeader('Link', $paginator->getLinkHeader())
+            ->withJSON($paginator->rows->toArray());
     }
 }
