@@ -5,32 +5,34 @@
     <!-- Hero content: will be in the middle -->
     <div class="hero-body">
         <div class="container has-text-centered">
-                        <form action="" method="POST">
-            <div class="columns is-multiline">
-                <div class="column is-half is-offset-one-quarter">
-                    <img class="logo-vg" src="./assets/img/v-g.svg" alt="">
-                    <h4 class="title is-4 is-raleway is-600">Subí una imagen de tu proyecto</h4>
-                    <h4 class="subtitle is-5 is-300">La misma sera utilizada para ser identificado y tambien para ser compartirla en las redes sociales. <small>Dimensiones recomendadas: 800x565 px</small></h4>
-                </div>
-                <div class="column is-half is-offset-one-quarter">
-                    <div id="subir-imagen" class="box">
-                            <input type="file" hidden>
-                        <div class="columns">
-                            <div class="column is-half is-offset-one-quarter">
-                                <a id="upload-file" href="#">
-                                    <div class="preview-box">
-                                        <figure id="imagen-box" class="image preview is-16by9" style="background-image: url(./assets/img/upload-pic.svg)">
-                                        </figure>
+            <form action="" method="POST">
+                <div class="columns is-multiline">
+                    <div class="column is-half is-offset-one-quarter">
+                        <img class="logo-vg" src="./assets/img/v-g.svg" alt="">
+                        <h4 class="title is-4 is-raleway is-600">Subí una imagen de tu proyecto</h4>
+                        <h4 class="subtitle is-5 is-300">La misma sera utilizada para ser identificado y tambien para ser compartirla en las redes sociales. <small>Dimensiones recomendadas: 800x565 px</small></h4>
+                    </div>
+                    <div class="column is-half is-offset-one-quarter">
+                        <form action="{{path('proSetImgPost',{ 'pro': project.id })}}" method="POST">
+                            <div id="subir-imagen" class="box">
+                                <input name="imagen" type="file" hidden>
+                                <div class="columns">
+                                    <div class="column is-half is-offset-one-quarter">
+                                        <a id="upload-file" href="#">
+                                            <div class="preview-box">
+                                                <figure id="imagen-box" class="image preview is-16by9" style="background-image: url(./assets/img/upload-pic.svg)">
+                                                </figure>
+                                            </div>
+                                        </a>
+                                        <img src="../assets/img/preview-proyecto.svg" class="is-hidden-mobile" alt="">
                                     </div>
-                                </a>
-                                <img src="../assets/img/preview-proyecto.svg" class="is-hidden-mobile" alt="">
+                                </div>
+                                <button type="submit" class="button is-primary"><span class="icon is-small"><i class="fa fa-send"></i></span>&nbsp;&nbsp;¡Publicar mi proyecto!</button>
                             </div>
-                        </div>
-                    <button href="" class="button is-primary"><span class="icon is-small"><i class="fa fa-send"></i></span>&nbsp;&nbsp;¡Publicar mi proyecto!</button>
+                        </form>
                     </div>
                 </div>
-            </div>
-                        </form>
+            </form>
 
         </div>
     </div>
