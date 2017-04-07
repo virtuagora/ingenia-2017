@@ -40,7 +40,9 @@ $container['facebook'] = function ($c) {
 $container['view'] = function ($c) {
     $settings = $c->get('settings')['twig'];
     $view = new \Slim\Views\Twig($settings['path'], $settings['options']);
-    $view->addExtension(new \App\Util\TwigExtension($c['helper'], $c['csrf'], $c['facebook']));
+    $view->addExtension(new \App\Util\TwigExtension(
+        $c['helper'], $c['csrf'], $c['facebook'], $c['session']
+    ));
     return $view;
 };
 $container['jotform'] = function ($c) {
@@ -48,7 +50,7 @@ $container['jotform'] = function ($c) {
     return new JotForm($settings['api_key']);
 };
 $container['session'] = function ($c) {
-    return new \AdBar\Session('virtuagora');
+    return new Adbar\Session('virtuagora');
 };
 $container['filesystem'] = function ($c) {
     $settings = $c->get('settings')['filesystem'];
@@ -63,7 +65,10 @@ $container['validation'] = function ($c) {
 };
 
 $container['HomeAction'] = function ($c) {
-    return new \App\Acion\HomeAction($c);
+    return new \App\Action\HomeAction($c);
+};
+$container['ProjectAction'] = function ($c) {
+    return new \App\Action\ProjectAction($c);
 };
 
 $container['errorHandler'] = function ($c) {

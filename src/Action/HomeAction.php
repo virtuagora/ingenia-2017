@@ -10,27 +10,29 @@ final class HomeAction extends AbstractAction
         if ($subBody['form_id'] != '70946170891665') {
             throw new \App\Util\AppException('Bad request.', 400);
         }
+        //$this->logger->info(json_encode($subBody));
         $formData = [
             'jotform' => $subBody['form_id'],
-            'group' => $subBody['project']['answers']['4']['answer'],
-            'name' => $subBody['project']['answers']['81']['answer'],
-            'description' => $subBody['project']['answers']['82']['answer'],
-            'foundation' => $subBody['project']['answers']['83']['answer'],
-            'execution' => isset($subBody['project']['answers']['86'])?
-                $subBody['project']['answers']['86']['answer']: null,
-            'organization' => isset($subBody['project']['answers']['89'])?
-                $subBody['project']['answers']['89']['answer']: null,
-            'schedule' => $subBody['project']['answers']['96']['answer'],
-            'budget' => $subBody['project']['answers']['98']['answer'],
-            'total_budget' => $subBody['project']['answers']['99']['answer'],
-            'place' => trim($subBody['project']['answers']['179']['answer']),
-            'category' => $subBody['project']['answers']['181']['answer'],
+            'group' => $subBody['answers']['4']['answer'],
+            'name' => $subBody['answers']['81']['answer'],
+            'description' => $subBody['answers']['82']['answer'],
+            'foundation' => $subBody['answers']['83']['answer'],
+            'execution' => isset($subBody['answers']['86'])?
+                $subBody['answers']['86']['answer']: null,
+            'organization' => isset($subBody['answers']['89'])?
+                $subBody['answers']['89']['answer']: null,
+            'schedule' => $subBody['answers']['96']['answer'],
+            'budget' => $subBody['answers']['98']['answer'],
+            'total_budget' => $subBody['answers']['99']['answer'],
+            'place' => trim($subBody['answers']['179']['answer']),
+            'category' => $subBody['answers']['181']['answer'],
         ];
-        $this->session->set('project', $subBody);
+        //$this->logger->info(json_encode($formData));
+        $this->session->set('project', $formData);
         if ($this->session->has('user')) {
-            return $this->view->render($response, 'comienzo-logueado.html.twig');
+            return $this->view->render($res, 'comienzo-logueado.html.twig');
         } else {
-            return $this->view->render($response, 'comienzo.html.twig');
+            return $this->view->render($res, 'comienzo.html.twig');
         }
     }
 
@@ -64,6 +66,7 @@ final class HomeAction extends AbstractAction
 
     public function registerProject($req, $res, $arg)
     {
+        //TODO chequear login
         if (!$this->session->has('project')) {
             throw new \App\Util\AppException('Petición inválida.', 400);
         }
@@ -72,11 +75,12 @@ final class HomeAction extends AbstractAction
             throw new \App\Util\AppException('El proyecto ya está registrado.', 400);
         }
 
+        //$this->logger->info(json_encode($this->session->get('project')));
         $categoryList = array_flip($this->helper->getCategories());
 
         $project = new \App\Model\Project();
         $project->name = $this->session->get('project.name');
-        $project->jotform = $this->session->get('project.form_id');
+        $project->jotform = $this->session->get('project.jotform');
         $project->group = $this->session->get('project.group');
         $project->description = $this->session->get('project.description');
         $project->foundation = $this->session->get('project.foundation');
@@ -113,6 +117,7 @@ final class HomeAction extends AbstractAction
 
         $project->name_trace = $this->helper->generateTrace($project->name);
         $project->group_trace = $this->helper->generateTrace($project->group);
+        $project->user_id = $this->session->get('user.id');
         $project->save();
         /* cambiar a los campos de ingenia
         $project = $this->db->query('App:Project')->create([
@@ -137,7 +142,7 @@ final class HomeAction extends AbstractAction
             throw new \App\Util\AppException('Forbiden.', 405);
         }
 
-        return $this->view->render($response, 'master.twig', [
+        return $this->view->render($res, 'master.twig', [
             'project' => $project,
         ]);
     }
