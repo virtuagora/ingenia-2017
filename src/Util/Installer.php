@@ -10,7 +10,8 @@ class Installer {
         $this->db = $db;
     }
 
-    public function up() {
+    public function up()
+    {
         $this->db->schema()->create('options', function($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -27,7 +28,7 @@ class Installer {
             $table->string('facebook')->unique();
             $table->string('password')->nullable();
             $table->string('name');
-            $table->string('role'->default('usr'));
+            $table->string('role')->default('usr');
             $table->integer('points')->default(0);
             $table->boolean('banned')->default(false);
             $table->string('trace')->nullable();
@@ -55,8 +56,8 @@ class Installer {
             $table->string('category');
             $table->text('execution')->nullable();
             $table->string('place');
-            $table->json('schedule');
-            $table->json('budget');
+            $table->text('schedule');
+            $table->text('budget');
             $table->string('total_budget');
             $table->string('organization')->nullable();
 
@@ -84,7 +85,7 @@ class Installer {
             $table->increments('id');
             $table->text('content');
             $table->integer('votes')->default(0);
-            $table->text('meta')->default('{}');
+            $table->text('meta');
             $table->integer('project_id')->unsigned()->nullable();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->integer('user_id')->unsigned();
@@ -104,20 +105,5 @@ class Installer {
             $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
             $table->timestamps();
         });
-
-        $this->db->schema()->create('pages', function($table) {
-            $table->engine = 'InnoDB';
-            $table->increments('id');
-            $table->string('name');
-            $table->string('link')->nullable();
-            $table->text('meta')->default('{}');
-            $table->string('slug');
-            $table->integer('order')->default(0);
-            $table->integer('parent_id')->unsigned()->nullable();
-            $table->foreign('parent_id')->references('id')->on('pages')->onDelete('set null');
-            $table->integer('node_id')->unsigned()->nullable();
-            $table->foreign('node_id')->references('id')->on('nodes')->onDelete('cascade');
-        });
-
     }
 }

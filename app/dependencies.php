@@ -12,7 +12,7 @@ $container['flash'] = function () {
 };
 $container['db'] = function ($c) {
     $settings = $c->get('settings')['eloquent'];
-    return new \App\Util\EloquentService($settings);
+    return new \App\Service\EloquentService($settings);
 };
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['monolog'];
@@ -21,17 +21,17 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new \Monolog\Handler\StreamHandler($settings['path'], \Monolog\Logger::DEBUG));
     return $logger;
 };
-$container['mailer'] = function ($c) {
+/*$container['mailer'] = function ($c) {
     $settings = $c->get('settings')['swiftmailer'];
-    $mailer = new \App\Util\SwiftMailerService(
+    $mailer = new \App\Service\SwiftMailerService(
         $c->get('settings')['mode'],
         $settings['transport'],
         $settings['options']
     );
     return $mailer;
-};
+};*/
 $container['helper'] = function ($c) {
-    return new \App\Service\Helper($c['router'], $c['request']);
+    return new \App\Service\HelperService($c['router'], $c['request']);
 };
 $container['view'] = function ($c) {
     $settings = $c->get('settings')['twig'];
@@ -90,7 +90,7 @@ $container['errorHandler'] = function ($c) {
                 'mensaje' => $mssg,
             ]);
         } else {
-            return $c->get('view')->render($res, 'master.twig', [
+            return $c->get('view')->render($res, 'error.html.twig', [
                 'mensaje' => $mssg,
             ]);
         }

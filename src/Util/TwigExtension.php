@@ -12,6 +12,11 @@ class TwigExtension extends \Twig_Extension
         $this->csrf = $csrf;
     }
 
+    public function getName()
+    {
+        return 'slim';
+    }
+
     public function getGlobals()
     {
         return [
@@ -29,29 +34,31 @@ class TwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'asset' => new \Twig_Function_Method($this, 'assetFunction'),
-            'path' => new \Twig_Function_Method($this, 'pathFunction'),
-            'base_url' => new \Twig_Function_Method($this, 'baseUrlFunction'),
+            new \Twig_SimpleFunction('path_for', array($this, 'pathFor')),
+            new \Twig_SimpleFunction('base_url', array($this, 'baseUrl')),
+            new \Twig_SimpleFunction('is_current_path', array($this, 'isCurrentPath')),
+            new \Twig_SimpleFunction('asset', array($this, 'asset')),
         ];
     }
-    
-    public function assetFunction($name)
-    {
-        return $this->helper->baseUrl().'/assets/'.$name;
-    }
-    
-    public function pathFunction($name, $params = [], $query = [])
+
+    public function pathFor($name, $params = [], $query = [], $appName = 'default')
     {
         return $this->helper->pathFor($name, $params, $query);
     }
 
-    public function baseUrlFunction()
+    public function baseUrl()
     {
-         return $this->helper->baseUrl();
+        return $this->helper->baseUrl();
     }
 
-    public function getName()
+    public function isCurrentPath($name)
     {
-        return 'app';
+        //todo no implementado
+        return true;
+    }
+
+    public function asset($name)
+    {
+        return $this->helper->baseUrl().'/assets/'.$name;
     }
 }

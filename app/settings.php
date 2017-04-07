@@ -8,8 +8,8 @@ return [
         'twig' => [
             'path' => __DIR__ . '/templates',
             'options' => [
-                'cache' => __DIR__ . '/../var/cache',
-                'debug' => true,
+                'cache' => false, //__DIR__ . '/../var/cache',
+                //'debug' => true,
             ]
         ],
         'swiftmailer' => [

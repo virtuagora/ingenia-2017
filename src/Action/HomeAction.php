@@ -99,9 +99,27 @@ final class HomeAction extends AbstractAction
         } else {
             $project->category = 'social';
         }
-
-        $project->budget = $this->session->get('project.budget');
-        $project->schedule = $this->session->get('project.schedule');
+        $budget = [];
+        $rawBudget = json_decode($this->session->get('project.budget'), true);
+        foreach($rawBudget as $item) {
+            $values = array_values($item);
+            $budget[] = [
+                'rubro' => $values[0],
+                'descripcion' => $values[1],
+                'monto' => $values[2],
+            ];
+        }
+        $project->budget = $budget;
+        $schedule = [];
+        $rawSchedule = json_decode($this->session->get('project.schedule'), true);
+        foreach($rawSchedule as $item) {
+            $values = array_values($item);
+            $schedule[] = [
+                'dia' => $values[0].'/'.$values[1],
+                'actividad' => $values[2],
+            ];
+        }
+        $project->schedule = $schedule;
 
         $project->name_trace = $this->helper->generateTrace($project->name);
         $project->group_trace = $this->helper->generateTrace($project->group);
