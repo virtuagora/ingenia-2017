@@ -1,0 +1,231 @@
+{% extends 'master.html.twig' %}
+
+{% block body %}
+<section id="home-header" class="hero is-primary is-bold is-small">
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+        <div class="container">
+            <div class="">
+                <img src="../assets/img/ingenia-logo2.svg" class="logo image" alt="">
+            </div>
+
+            <nav class="level">
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Proyectos que participan</p>
+                        <p class="title">3,456</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Usuarios que bancan!</p>
+                        <p class="title">123</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Votos contados</p>
+                        <p class="title">456K</p>
+                    </div>
+                </div>
+                <div class="level-item has-text-centered">
+                    <div>
+                        <p class="heading">Dias restantes</p>
+                        <p class="title">789</p>
+                    </div>
+                </div>
+            </nav>
+            <div class="columns">
+                <div class="column">
+                    <a href="#" class="button is-primary is-large is-hidden-mobile is-inverted is-fullwidth">Registrá tu proyecto</a>
+                    <a href="#" class="button is-primary is-hidden-tablet is-inverted is-fullwidth">Registrá tu proyecto</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--
+<div class="hero-foot">
+<nav class="tabs is-boxed is-fullwidth">
+<div class="container">
+<ul>
+<li><a><img src="./assets/img/logo-virtuagora.svg" alt=""></a></li>
+<li><a><img src="./assets/img/gabinetejoven.svg" alt=""></a></li>
+<li><a><img src="./assets/img/ingenia-logo2.svg" alt=""></a></li>
+</ul>
+</div>
+</nav>
+</div>
+-->
+</section>
+
+<section class="section">
+    <div class="container-fluid">
+        <nav class="level">
+            <!-- Left side -->
+            <div class="level-left">
+                <div class="level-item">
+                    <div class="field has-addons">
+                        <p class="control">
+                            <input class="input" type="text" placeholder="Buscar grupo o proyecto..">
+                        </p>
+                        <p class="control">
+                            <button class="button is-primary">
+                                Buscar
+                            </button>
+                        </p>
+                    </div>
+                </div>
+                <!--
+<div class="level-item">
+<p class="subtitle is-5">
+<strong>123</strong> proyectos
+</p>
+</div>
+-->
+            </div>
+
+            <!-- Right side -->
+            <div class="level-right">
+                <p class="level-item"><a><span class="icon is-normal"><i class="fa fa-sort-amount-asc"></i></span> Fecha</a></p>
+                <p class="level-item">
+                    <a>
+                        <!--                    <span class="icon is-normal"><i class="fa fa-sort-amount-asc fa-fw"></i></span>-->
+                        <span class="icon is-normal"><i class="fa fa-sort-amount-desc fa-fw"></i></span>
+                        Votos</a>
+                </p>
+
+                <div class="level-item">
+                    <div class="field">
+                        <p class="control">
+                            <span class="select">
+                                <select>
+                                    <option>Todas las localidades</option>
+                                </select>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="level-item">
+                    <div class="field">
+                        <p class="control">
+                            <span class="select">
+                                <select>
+                                    <option>Todas las temáticas</option>
+                                    <option>Integración Social</option>
+                                    <option>Medio Ambiente</option>
+                                    <option>Deporte y Recreación</option>
+                                    <option>Educación</option>
+                                    <option>Cultura</option>
+                                    <option>Empleo y capacitacion</option>
+                                    <option>Comunicación</option>
+                                    <option>Salud</option>
+                                </select>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</section>
+<section id="listado" class="section">
+    <div class="container is-fluid">
+        <div class="grid">
+            {% for i in 0..random(15) %}
+            {% set numberrandom = random(7)+1 %}
+            <div class="grid-item">
+                <div class="card">
+                    <div class="card-image">
+                        <span class="categoria tag is-cat{{numberrandom}}">Categoria</span>
+                        <div class="notification is-cat{{numberrandom}} has-text-centered">
+                            <img src="../assets/img/muscle.svg" alt="" class="banco-icon"> <h1 class="title is-5 is-800">{{random(1200)}}</h1>
+                        </div>
+                        <a href="#">
+                            <figure class="image is-4by3" style="background-image: url(https://unsplash.it/600/600?image={{random(15)}})">
+                            </figure>
+<!--                            background-image: url(https://unsplash.it/600/600?image=13);-->
+                        </a>
+                        <a href="www.google.com" class="avatar-link">
+                            <img class="avatar image is-32x32" src="https://pbs.twimg.com/profile_images/821237983219224576/GyC2dS0J.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="card-content is-cat{{numberrandom}}">
+                        <div class="has-text-centered">
+                            <a href="#"><h1 class="title is-3 is-raleway">Virtuagora, plataforma web de participacion ciudadana</h1><h1 class="title is-6"><b>{{random(1200)}}</b> bancan este proyecto</h1></a>
+
+                        </div>
+                        <!--
+<hr>
+<div class="content">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+<a>#css</a> <a>#responsive</a>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum harum rerum obcaecati, earum ratione quas? Nesciunt unde ducimus nemo nobis repellat id dolor qui vero laboriosam consectetur molestiae, pariatur, tenetur.</p>
+
+<br>
+<small>11:09 PM - 1 Jan 2016</small>
+</div>
+-->
+                    </div>
+                    <!--
+<footer class="card-footer is-cat{{numberrandom}}">
+<a class="card-footer-item">¡Enterate mas!</a>
+<a class="card-footer-item"><b>¡Bancalo!</b></a>
+</footer>
+-->
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section id="logos-nosotros" class="hero is-primary is-bold">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns">
+                <div class="column has-text-centered">
+                    <a href="http://virtuagora.org">
+                        <img src="./assets/img/logo-virtuagora.svg" class="image logo"alt="">
+                    </a>
+                </div>
+                <div class="column has-text-centered">
+                    <a href="#">
+                        <img src="./assets/img/gabinetejoven.svg" class="image logo" alt="">
+                    </a>
+                </div>
+                <div class="column has-text-centered">
+                    <a href="#">
+                        <img src="./assets/img/ingenia-logo2.svg" class="image logo" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                Trabajo realizado en conjunto con <a href="http://jgthms.com"><strong>Virtuagora</strong></a> e <a href="http://jgthms.com"><strong>Ingenia</strong></a> y el <a href="#"><strong>Gabinete Joven</strong></a><br>Virtuagora se distruye bajo licencia
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+            </p>
+            <p>
+                <a href="www.santafe.gob.ar">
+                    <img src="./assets/img/santafe-logo-color.svg" class="image is-128x128 logo-santafe" alt="">
+                </a>
+            </p>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+{% block javascript %}
+<script src="../assets/js/masonry.pkgd.min.js"></script>
+<script>
+    $('.grid').masonry({
+        // options
+        itemSelector: '.grid-item',
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,100 @@
+body{
+     font-family: 'Ubuntu', sans-serif;
+}
+h1,h2,h3,h4,h5,h6{
+    //font-family: 'Raleway', sans-serif;
+    //font-family: 'Baloo Bhaina', cursive;
+}
+.is-raleway{
+    font-family: 'Raleway', sans-serif;
+}
+.is-baloo{
+    font-family: 'Baloo Bhaina', cursive;
+}
+.is-200{font-weight: 200;}
+.is-300{font-weight: 300;}
+.is-400{font-weight: 400;}
+.is-500{font-weight: 500;}
+.is-600{font-weight: 600;}
+.is-700{font-weight: 700;}
+.is-800{font-weight: 800;}
+
+
+.hero.is-primary .box {
+    .button{
+        color:#FFF;
+    }
+    p{
+        color:$text;
+    }
+    .title{
+        color:$text;
+    }
+
+}
+.float-img{
+    position: absolute;
+    right: 25px;
+    top:40px;
+    z-index: 50;
+    @media (min-width: $tablet) {
+        height:50px;
+    }
+    img{
+        height:40px;
+        @media (min-width: $tablet) {
+            height:50px;
+        }
+    }
+    &.is-avatar{
+        right: 125px;
+        img{
+            border-radius: 5px;
+        }
+        @media (min-width: $tablet) {
+            height:50px;
+            right: 90px;
+
+        }
+    }
+    &.is-logout{
+        //top: 90px;
+        right: 75px;
+        img{
+            border-radius: 5px;
+        }
+        @media (min-width: $tablet) {
+            top: 100px;
+            right: 25px;
+        }
+    }
+    &.is-login{
+        //top: 100px;
+        right: 75px;
+        @media (min-width: $tablet) {
+            top: 100px;
+            right: 25px;
+        }
+        img{
+            border-radius: 5px;
+        }
+    }
+}
+.footer{
+    padding-bottom: 3rem;
+    .logo-santafe{
+        margin:0 auto;
+    }
+}
+
+.is-cat1{background-color: $cat1; color:#FFF;}
+.is-cat2{background-color: $cat2; color:#FFF;}
+.is-cat3{background-color: $cat3; color:#FFF;}
+.is-cat4{background-color: $cat4; color:#FFF;}
+.is-cat5{background-color: $cat5; color:#FFF;}
+.is-cat6{background-color: $cat6; color:#FFF;}
+.is-cat7{background-color: $cat7; color:#FFF;}
+.is-cat8{background-color: $cat8; color:#FFF;}
+h1,h2,h3,h4,h5,h6{
+    &.is-white{color: #FFF;}
+}

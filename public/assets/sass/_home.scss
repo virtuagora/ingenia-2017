@@ -1,0 +1,82 @@
+.grid-item {
+    width: 100%;
+    margin: 10px 0;
+    @media (min-width: $tablet) {
+        width: 48.8%;
+        margin: 10px 0.6%;
+    }
+    @media (min-width: $desktop) {
+        width: 23.8%;
+        margin: 10px 0.6%;
+    }
+    figure{
+        background-position: center center;
+        background-size:cover;
+    }
+    a.avatar-link{
+        position: absolute;
+        right: 15px;
+        bottom: 10px;
+    }
+    img.avatar{
+        border-radius: 5px;
+        border: 0px solid #FFF;
+        box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.50);
+    }
+    img.banco-icon{
+        height: 30px;
+        vertical-align:bottom;
+    }
+    .notification{
+        position: absolute;
+        z-index: 10;
+        right:10px;
+        top:10px;
+        padding:10px;
+    }
+    .categoria{
+        position: absolute;
+        z-index: 10;
+        left:10px;
+        top:10px;
+        padding:10px;
+    }
+    .card h1{
+        color:#FFF;
+    }
+    .card-footer-item{
+        color:#FFF;
+        border-right: none;
+    }
+    .card-footer{
+        border-top: none;
+    }
+}
+
+#home-header{
+    background-image: url("../img/roadmap-10opacity.svg");
+    background-size: cover;
+    background-position: bottom center;
+    img.logo{
+         margin: 50px auto 30px;
+        padding:10px;
+        max-height:150px;
+        @media (min-width: $tablet) {
+        margin: 0 auto 30px;
+    }
+    }
+//    .button{
+//        color: $primary
+//    }
+}
+
+#listado{
+    padding-top: 0;
+}
+
+#logos-nosotros{
+    img.logo{
+        max-height: 40px;
+        margin: 0 auto;
+    }
+}

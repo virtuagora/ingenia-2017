@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block titulo %}Ingenia 2017{% endblock %}</title>
+        {% block opengraph %}
+        <meta property="og:url" content="{{base_url}}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="¡Participá y bancá los proyectos INGENIA 2017!" />
+        <meta property="og:description" content="Descripcion Ingenia Virtuagora" />
+        <meta property="og:image" content="../assets/img/sharer.png" />
+        {% endblock %}
+        <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
+        <link href="../assets/css/ingenia.css" rel="stylesheet">
+    </head>
+    <body>
+        <a class="float-img" href="#">
+            <img src="./assets/img/santafelogo.svg" alt="">
+        </a>
+        {% if false %}
+        <a class="float-img is-avatar" href="www.google.com">
+            <img class="image" src="https://pbs.twimg.com/profile_images/821237983219224576/GyC2dS0J.jpg" alt="">
+        </a>
+        <a class="float-img is-logout" href="www.google.com">
+            <img class="image" src="../assets/img/logout.svg" alt="">
+        </a>
+        {% else %}
+        <a class="float-img is-login" href="www.google.com">
+            <img class="image" src="../assets/img/login.svg" alt="">
+        </a>
+        {% endif %}
+        {% block body %}
+        {% endblock %}
+        <!-- jQuery (necessary for some stuff!) -->
+        <script src="../assets/js/jquery-3.2.0.min.js"></script>
+        {% block javascript %}
+        {% endblock %}
+    </body>
+</html>

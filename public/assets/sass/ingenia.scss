@@ -1,0 +1,26 @@
+
+$primary: #283593; // Update blue
+//$body-size: 14px;
+
+
+$cat1: #556270;
+$cat2: #36bab1;
+$cat3: #7d499a;
+$cat4: #BD1550;
+$cat5: #851B06;
+$cat6: #47588E;
+$cat7: #F77845;
+$cat8: #7A9816;
+
+
+@import url('https://fonts.googleapis.com/css?family=Baloo+Bhaina|Oxygen:300,400,700|Raleway:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i');
+
+@import "font-awesome.min.css";
+
+@import "bulma";
+
+@import "common";
+@import "wizard";
+@import "home";
+@import "proyecto";

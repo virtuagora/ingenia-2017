@@ -1,0 +1,160 @@
+#proyecto{
+    background-image: url("../img/roadmap-10opacity.svg");
+    background-attachment: fixed;
+    //background-size: cover;
+    background-position: center center;
+    .nav-item img {
+        max-height: 2.2rem;
+    }
+    .avatar{
+        border-radius: 5px;
+    }
+}
+
+#proyecto-datos{
+    h1.titulo-proyecto{
+        margin-bottom: 40%;
+        @media (min-width: $tablet) {
+            margin-bottom: 20%;
+        }
+    }
+    //    .avatar{
+    //        display: inline;
+    //        vertical-align: bottom;
+    //        border-radius: 5px;
+    //        margin-right: 10px;
+    //    }
+    .boxes .child{
+        position: fixed;
+        width: 150px;
+    }
+    .imagen-proyecto{
+        background-color: #FFF;
+        background-size: cover;
+        background-position: center center;
+        margin: -37% auto 5px;
+        border: 10px solid #FFF;
+        border-radius: 20px;
+    }
+    .boton-social{
+        color:#FFF;
+    }
+    .box img{
+        border-radius: 5px;
+    }
+}
+
+a.boton-bancar {
+    &.is-cat1{background-color: lighten($cat1,18%);}
+    &.is-cat2{background-color: lighten($cat2,18%);}
+    &.is-cat3{background-color: lighten($cat3,18%);}
+    &.is-cat4{background-color: lighten($cat4,18%);}
+    &.is-cat5{background-color: lighten($cat5,18%);}
+    &.is-cat6{background-color: lighten($cat6,18%);}
+    &.is-cat7{background-color: lighten($cat7,18%);}
+    &.is-cat8{background-color: lighten($cat8,18%);}
+    @media (min-width: $tablet) {
+        display:none;
+    }
+    position: fixed;
+    bottom: 15px;
+    right: 20px;
+    z-index: 50;
+    border-radius: 600px;
+    padding: 10px 14px 10px 12px;
+    box-shadow: 2px 2px 6px 0 rgba(0,0,0,0.35),0 1px     5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);
+    svg{
+        height: 40px;
+        width: 40px;
+        transform: rotate(12deg);
+        -ms-transform: rotate(12deg); /* IE 9 */
+        -webkit-transform: rotate(12deg); /* Chrome, Safari, Opera */
+    }
+    svg .a{
+
+    }
+    &:hover {
+        animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+
+    @keyframes shake {
+        10%, 90% {
+            transform: translate3d(-1px, 0, 0);
+        }
+
+        20%, 80% {
+            transform: translate3d(2px, 0, 0);
+        }
+
+        30%, 50%, 70% {
+            transform: translate3d(-4px, 0, 0);
+        }
+
+        40%, 60% {
+            transform: translate3d(4px, 0, 0);
+        }
+    }
+}
+
+#proyecto{
+    &.is-cat1 a.boton-bancar-tablet{background-color: lighten($cat1,18%);}
+    &.is-cat2 a.boton-bancar-tablet{background-color: lighten($cat2,18%);}
+    &.is-cat3 a.boton-bancar-tablet{background-color: lighten($cat3,18%);}
+    &.is-cat4 a.boton-bancar-tablet{background-color: lighten($cat4,18%);}
+    &.is-cat5 a.boton-bancar-tablet{background-color: lighten($cat5,18%);}
+    &.is-cat6 a.boton-bancar-tablet{background-color: lighten($cat6,18%);}
+    &.is-cat7 a.boton-bancar-tablet{background-color: lighten($cat7,18%);}
+    &.is-cat8 a.boton-bancar-tablet{background-color: lighten($cat8,18%);}
+}
+
+
+
+a.boton-bancar-tablet {
+    border-radius: 600px;
+    padding: 15px 19px 15px 16px;
+    box-shadow: 2px 2px 6px 0 rgba(0,0,0,0.35),0 1px     5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    display: inline-block;
+    svg{
+        height: 85px;
+        width: 85px;
+        transform: rotate(12deg);
+        -ms-transform: rotate(12deg); /* IE 9 */
+        -webkit-transform: rotate(12deg); /* Chrome, Safari, Opera */
+    }
+    svg .a{
+
+    }
+    &:hover {
+        animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+
+    @keyframes shake {
+        10%, 90% {
+            transform: translate3d(-1px, 0, 0);
+        }
+
+        20%, 80% {
+            transform: translate3d(2px, 0, 0);
+        }
+
+        30%, 50%, 70% {
+            transform: translate3d(-4px, 0, 0);
+        }
+
+        40%, 60% {
+            transform: translate3d(4px, 0, 0);
+        }
+    }
+}
+.media.respuestas{
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+}

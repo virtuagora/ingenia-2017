@@ -1,0 +1,15 @@
+{
+  "name": "virtuagora-ingenia2017",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/virtuagora/virtuagora-ingenia2017#readme",
+  "dependencies": {
+    "bulma": "^0.4.0"
+  }
+}

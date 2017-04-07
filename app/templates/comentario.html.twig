@@ -1,0 +1,46 @@
+<!--============COMENTARIO==============-->
+<div id="comentario-{{comentarioid}}" class="box comentario">
+    <article class="media">
+        <div class="media-left">
+            <figure class="image is-64x64">
+                <img src="http://bulma.io/images/placeholders/128x128.png" alt="Image">
+            </figure>
+        </div>
+        <div class="media-content">
+            <div class="content is-small">
+                <p>
+                    <strong>John Smith</strong> <small>31m - 10 &hearts;</small>
+                    <br>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+                </p>
+            </div>
+            <nav class="level is-mobile">
+                <div class="level-left">
+                    <a href="javascript:void(0)" data-comentarioid="{{comentarioid}}" class="level-item responder">
+                        <small>10</small>&nbsp;<span class="icon is-small"><i class="fa fa-reply"></i></span>
+                    </a>
+                    <a href="javascript:void(0)" data-comentarioid="{{comentarioid}}" class="level-item votar-down">
+                        <span class="icon is-small"><i class="fa fa-thumbs-down"></i></span>
+                    </a>
+                    <a href="javascript:void(0)" data-comentarioid="{{comentarioid}}" class="level-item votar-up">
+                        <span class="icon is-small"><i class="fa fa-heart"></i></span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </article>
+       <article class="media respuestas">
+        <div class="media-left">
+            <figure class="image is-64x64">
+            </figure>
+        </div>
+        <div class="media-content">
+            <!--============RESPUESTAS==============-->
+            {% include 'responder.html.twig' %}
+            <!--============RESPUESTAS==============-->
+            {% for respuestaid in 0..0 %}
+            {% include 'respuesta.html.twig' %}
+            {% endfor %}
+        </div>
+    </article>
+</div>

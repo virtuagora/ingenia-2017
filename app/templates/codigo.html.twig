@@ -1,0 +1,55 @@
+{% extends 'master.html.twig' %}
+
+{% block body %}
+<section id="registrate" class="hero is-primary is-wizard is-fullheight">
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="columns is-multiline">
+                <div class="column is-half is-offset-one-quarter">
+                    <img class="logo-vg" src="./assets/img/v-g.svg" alt="">
+                    <h1 class="title is-2 is-raleway is-700">¡Sumá tu proyecto a participar!</h1>
+                    <h4 class="subtitle is-4 is-raleway">¡Participá con tu proyecto en la instancia de votación!</h4>
+                </div>
+                <div class="column is-4 is-offset-4">
+                    <div class="box">
+                       <h4 class="title is-6 is-raleway is-600">Ingresa el código asignado para tu proyecto</h4>
+                       <form action="" method="POST">
+                        <div class="field has-addons has-addons-centered">
+                            <p class="control has-icon">
+                                <input name="codigo" class="input is-large" type="text" placeholder="Codigo">
+                                <span class="icon is-medium">
+                                    <i class="fa fa-lock"></i>
+                                </span>
+                            </p>
+                            <p class="control">
+                                <button type="submit" class="button is-primary is-large">
+                                    <span class="icon is-medium">
+                                    <i class="fa fa-send"></i>
+                                </span>
+                                </button>
+                            </p>
+                        </div>
+                       </form>
+                    </div>
+                </div>
+                <div class="column is-half is-offset-one-quarter">
+                  <h4 class="subtitle is-5 is-raleway is-600">¿No registraste tu proyecto aún?</h4>
+                   <p><a href="#" class="button is-large is-outlined is-white">Completá el formulario</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-foot">
+        <nav class="tabs is-boxed is-fullwidth">
+            <div class="container">
+                <ul>
+                    <li><a><img src="./assets/img/logo-virtuagora.svg" alt=""></a></li>
+                    <li><a><img src="./assets/img/gabinetejoven.svg" alt=""></a></li>
+                    <li><a><img src="./assets/img/ingenia-logo2.svg" alt=""></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</section>
+{% endblock %}
