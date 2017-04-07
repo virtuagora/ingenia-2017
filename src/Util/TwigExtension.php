@@ -5,11 +5,13 @@ class TwigExtension extends \Twig_Extension
 {
     private $helper;
     private $csrf;
+    private $facebook;
     
-    public function __construct($helper, $csrf)
+    public function __construct($helper, $csrf, $facebook)
     {
         $this->helper = $helper;
         $this->csrf = $csrf;
+        $this->facebook = $facebook;
     }
 
     public function getName()
@@ -39,6 +41,7 @@ class TwigExtension extends \Twig_Extension
             new \Twig_SimpleFunction('is_current_path', array($this, 'isCurrentPath')),
             new \Twig_SimpleFunction('asset', array($this, 'asset')),
             new \Twig_SimpleFunction('category_name', array($this, 'categoryName')),
+            new \Twig_SimpleFunction('facebook_login_link', array($this, 'facebookLoginLink')),
         ];
     }
 
@@ -82,5 +85,13 @@ class TwigExtension extends \Twig_Extension
             return 'Empleo y Capacitación';
         }
         return 'undefined';
+    }
+
+    public function facebookLoginLink() {
+        $helper = $this->facebook->getRedirectLoginHelper();
+        $permissions = ['email'];
+        return $helper->getLoginUrl(
+            $this->helper->completePathFor('fbCallbackGet'), permissions
+        );
     }
 }

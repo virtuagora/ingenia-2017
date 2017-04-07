@@ -33,15 +33,15 @@ $container['logger'] = function ($c) {
 $container['helper'] = function ($c) {
     return new \App\Service\HelperService($c['router'], $c['request']);
 };
-$container['view'] = function ($c) {
-    $settings = $c->get('settings')['twig'];
-    $view = new \Slim\Views\Twig($settings['path'], $settings['options']);
-    $view->addExtension(new \App\Util\TwigExtension($c['helper'], $c['csrf']));
-    return $view;
-};
 $container['facebook'] = function ($c) {
     $settings = $c->get('settings')['facebook'];
     return new \Facebook\Facebook($settings);
+};
+$container['view'] = function ($c) {
+    $settings = $c->get('settings')['twig'];
+    $view = new \Slim\Views\Twig($settings['path'], $settings['options']);
+    $view->addExtension(new \App\Util\TwigExtension($c['helper'], $c['csrf'], $c['facebook']));
+    return $view;
 };
 $container['jotform'] = function ($c) {
     $settings = $c->get('settings')['jotform'];

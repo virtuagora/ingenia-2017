@@ -10,7 +10,6 @@ final class HomeAction extends AbstractAction
         if ($subBody['form_id'] != '70946170891665') {
             throw new \App\Util\AppException('Bad request.', 400);
         }
-
         $formData = [
             'jotform' => $subBody['form_id'],
             'group' => $subBody['project']['answers']['4']['answer'],
@@ -28,19 +27,10 @@ final class HomeAction extends AbstractAction
             'category' => $subBody['project']['answers']['181']['answer'],
         ];
         $this->session->set('project', $subBody);
-
         if ($this->session->has('user')) {
-            return $this->view->render($response, 'master.twig');
+            return $this->view->render($response, 'comienzo-logueado.html.twig');
         } else {
-            $helper = $this->facebook->getRedirectLoginHelper();
-            $permissions = ['email'];
-            $loginUrl = $helper->getLoginUrl(
-                $this->helper->completePathFor('fbCallbackGet'),
-                $permissions
-            );
-            return $this->view->render($response, 'master.twig', [
-                'fbLink' => $loginUrl,
-            ]);
+            return $this->view->render($response, 'comienzo.html.twig');
         }
     }
 
