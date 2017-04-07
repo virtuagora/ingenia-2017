@@ -26,7 +26,7 @@
                         <img class="image avatar" src="https://pbs.twimg.com/profile_images/821237983219224576/GyC2dS0J.jpg" alt="">
                     </a>
                     <a class="nav-item is-hidden-tablet">
-                        <img class="image" src="../assets/img/logout.svg" alt="">
+                        <img class="image" src="{{base_url()}}/assets/img/logout.svg" alt="">
 
                     </a>
                     <a class="nav-item is-hidden-tablet">
@@ -38,7 +38,7 @@
                         <img class="image avatar" src="https://pbs.twimg.com/profile_images/821237983219224576/GyC2dS0J.jpg" alt="">
                     </a>
                     <a class="nav-item">
-                        <img class="image" src="../assets/img/logout.svg" alt="">
+                        <img class="image" src="{{base_url()}}/assets/img/logout.svg" alt="">
 
                     </a>
                     <a class="nav-item is-active">
@@ -62,10 +62,10 @@
                         <div class="columns">
                             <div class="column is-half is-offset-one-quarter has-text-centered">
                                {% if project.has_image %}
-                                <figure class="imagen-proyecto image is-16by9" style="background-image: url(https://unsplash.it/600/600?image={{random(15)}})">
+                                <figure class="imagen-proyecto image is-16by9" style="background-image: url({{base_url()}}/assets/img/project/{{project.id}}.jpg)">
                                 </figure>
                                 {% else %}
-                                <figure class="imagen-proyecto image is-16by9" style="background-image: url(https://unsplash.it/600/600?image={{random(15)}})">
+                                <figure class="imagen-proyecto image is-16by9" style="background-image: url({{base_url()}}/assets/img/placeholder-{{project.category}}.png)">
                                 </figure>
                                 {% endif %}
                                 <h1 class="subtitle is-5 is-raleway has-tect-centered">Presentado por "{{project.group}}"</h1>
@@ -73,11 +73,11 @@
                         </div>
                         <h1 class="title is-3 is-raleway is-800">Resumen del proyecto</h1>
                         <p>
-                            Sed vel tempor justo, id tincidunt neque. Pellentesque sed erat est. Phasellus vitae dui enim. In blandit enim in leo pharetra efficitur. Nullam est eros, sollicitudin nec risus non, convallis lobortis lorem. Vivamus vitae nisi at odio sagittis sodales. Sed sit amet placerat felis, sit amet mattis odio. Nunc in convallis ipsum.
+                            {{project.description}}
                         </p>
                         <h1 class="title is-3 is-raleway is-800">Fundamentación</h1>
                         <p>
-                            Nam posuere elit nisi, a dignissim nisl efficitur eget. Nam viverra urna eget erat pulvinar, ut egestas lacus consectetur. Aenean a odio justo. Quisque id enim vel est convallis ornare eget sed augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum in purus sed lectus blandit euismod. Suspendisse dictum mauris tincidunt volutpat efficitur.
+                            {{project.foundation}}
                         </p>
                     </div>
 
@@ -182,13 +182,13 @@
                                 <div class="tile is-parent is-6">
                                     <article class="tile is-child notification is-warning has-text-centered">
                                         <p class="subtitle is-300">Presupuesto</p>
-                                        <p class="title is-2 is-800">$150000</p>
+                                        <p class="title is-2 is-800">${{project.total_budget}}</p>
                                     </article>
                                 </div>
                                 <div class="tile is-parent">
                                     <article class="tile is-child notification is-white has-text-centered">
                                         <p class="subtitle is-300">Lugar de implementación</p>
-                                        <p class="title is-800">Santa Fe</p>
+                                        <p class="title is-800">{{project.place}}</p>
                                     </article>
                                 </div>
                             </div>
@@ -196,21 +196,23 @@
                                 <div class="tile is-parent is-4">
                                     <article class="tile is-child notification is-white has-text-centered">
                                         <p class="subtitle is-300">¿El proyecto ya está en ejecución o funcionamiento?</p>
-                                        <p class="title is-800 ">SI</p>
+                                        <p class="title is-800 ">{{project.execution != null ? 'SI' : 'NO'}}</p>
                                     </article>
                                 </div>
+                                {% if project.execution != null %}
                                 <div class="tile is-parent">
                                     <article class="tile is-child notification is-white has-text-centered">
                                         <p class="subtitle is-300">¿De qué forma, como y donde se está ejecutando?</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure vel, atque enim asperiores labore deserunt vitae quibusdam. Ab, iure. Accusamus sapiente voluptate labore impedit. Delectus quos placeat voluptas, corporis porro.</p>
+                                        <p>{{project.execution}}</p>
                                     </article>
                                 </div>
+                                {% endif %}
                             </div>
                             <div class="tile">
                                 <div class="tile is-parent">
                                     <article class="tile is-child notification is-white has-text-centered">
                                         <p class="subtitle is-300">¿Las actividades se realizarán en coordinación con otras organizaciones y/o instituciones?</p>
-                                        <p class="title is-3"><b>SI</b> - Organización "las cotas maximas"</p>
+                                        <p class="title is-3"><b>{{project.organization != null ? 'SI' : 'NO'}}</b> - Organización "{{project.organization}}"</p>
                                     </article>
                                 </div>
                             </div>

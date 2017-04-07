@@ -14,7 +14,7 @@
         {% endblock %}
         <link rel="shortcut icon" href="{{ base_url }}/assets/favicon.ico" type="image/x-icon">
         <link rel="icon" href="{{ base_url }}/assets/favicon.ico" type="image/x-icon">
-        <link href="../assets/css/ingenia.css" rel="stylesheet">
+        <link href="{{base_url()}}/assets/css/ingenia.css" rel="stylesheet">
     </head>
     <body>
         <a href="#" class="boton-bancar is-cat{{categoria}}">
@@ -22,13 +22,13 @@
         </a>
         <!--
 <a class="float-img is-login" href="www.google.com">
-<img class="image" src="../assets/img/login.svg" alt="">
+<img class="image" src="{{base_url()}}/assets/img/login.svg" alt="">
 </a>
 -->
         {% block body %}
         {% endblock %}
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="../assets/js/jquery-3.2.0.min.js"></script>
+        <script src="{{base_url()}}/assets/js/jquery-3.2.0.min.js"></script>
         {% block javascript %}
         {% endblock %}
     </body>

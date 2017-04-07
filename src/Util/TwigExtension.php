@@ -39,6 +39,7 @@ class TwigExtension extends \Twig_Extension
             new \Twig_SimpleFunction('is_current_path', array($this, 'isCurrentPath')),
             new \Twig_SimpleFunction('asset', array($this, 'asset')),
             new \Twig_SimpleFunction('category_name', array($this, 'categoryName')),
+            new \Twig_SimpleFunction('project_img', array($this, 'projectImg')),
         ];
     }
 
@@ -61,6 +62,11 @@ class TwigExtension extends \Twig_Extension
     public function asset($name)
     {
         return $this->helper->baseUrl().'/assets/'.$name;
+    }
+
+    public function projectImg($id)
+    {
+        return $this->helper->baseUrl().'/assets/img/'.$name.'.jpg';
     }
 
     public function categoryName($category){
