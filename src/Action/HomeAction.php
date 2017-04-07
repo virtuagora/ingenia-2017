@@ -128,7 +128,7 @@ final class HomeAction extends AbstractAction
         ]);
         */
         return $res->withRedirect($this->helper->completePathFor(
-            'proPictureGet',
+            'proSetImgGet',
             ['pro' => $project->id]
         ));
     }
@@ -142,7 +142,7 @@ final class HomeAction extends AbstractAction
             throw new \App\Util\AppException('Forbiden.', 405);
         }
 
-        return $this->view->render($res, 'master.twig', [
+        return $this->view->render($res, 'upload.html.twig', [
             'project' => $project,
         ]);
     }
@@ -165,7 +165,7 @@ final class HomeAction extends AbstractAction
             throw new \App\Util\AppException('Hubo un error con la imagen recibida', 400);
         }
         $imgStrm = $imgFile->getStream()->detach();
-        $this->filesystem->writeStream('img/projects'.$project->id.'.jpg', $imgStrm);
+        $this->filesystem->writeStream('project/'.$project->id.'.jpg', $imgStrm);
         if (is_resource($imgStrm)) {
             fclose($imgStrm);
         }
@@ -176,7 +176,7 @@ final class HomeAction extends AbstractAction
         }
 
         return $res->withRedirect(
-            $this->helper->completePathFor('proPictureGet', ['pro' => $project->id])
+            $this->helper->completePathFor('proSetImgGet', ['pro' => $project->id])
         );
     }
 }

@@ -5,7 +5,6 @@
     <!-- Hero content: will be in the middle -->
     <div class="hero-body">
         <div class="container has-text-centered">
-            <form action="" method="POST">
                 <div class="columns is-multiline">
                     <div class="column is-half is-offset-one-quarter">
                         <img class="logo-vg" src="{{base_url()}}/assets/img/v-g.svg" alt="">
@@ -13,7 +12,7 @@
                         <h4 class="subtitle is-5 is-300">La misma sera utilizada para ser identificado y tambien para ser compartirla en las redes sociales. <small>Dimensiones recomendadas: 800x565 px</small></h4>
                     </div>
                     <div class="column is-half is-offset-one-quarter">
-                        <form action="{{path('proSetImgPost',{ 'pro': project.id })}}" method="POST">
+                        <form action="{{path_for('proSetImgPost',{ 'pro': project.id })}}" method="POST" enctype="multipart/form-data">
                             <div id="subir-imagen" class="box">
                                 <input name="imagen" type="file" hidden>
                                 <div class="columns">
@@ -32,8 +31,6 @@
                         </form>
                     </div>
                 </div>
-            </form>
-
         </div>
     </div>
     <div class="hero-foot">

@@ -60,7 +60,7 @@ return [
         'filesystem' => [
             'adapter' => 'League\Flysystem\Adapter\Local',
             'args' => [
-                __DIR__ . '/../public/files',
+                __DIR__ . '/../public/img',
             ],
         ],
     ],
