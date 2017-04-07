@@ -1,48 +1,58 @@
 {% set categoria = project.category %}
 {% extends 'master-nofloat.html.twig' %}
-{% block titulo %}{{project.name}} - Ingenia 2017{% endblock %}
+{% block titulo %}{{project.name}} - Ingenia, bancamos tus ideas {% endblock %}
 {% block opengraph %}
-<meta property="og:url" content="{{base_url}}" />
+<meta property="og:url" content="{{ path_for('proViewGet', { 'pro': project.id }) }}" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Conocé sobre {{project.name}} - Ingenia 2017" />
-<meta property="og:description" content="Descripcion proyecto" />
+<meta property="og:title" content="{{project.name}} - Ingenia, bancamos tus ideas" />
+<meta property="og:description" content="{{project.description}}" />
 {% project.has_image == true %}
-<meta property="og:image" content="{{ base_url}}/assets/img/projects/{{project.id}}.jpg" />
+<meta property="og:image" content="{{ base_url() }}/assets/img/project/{{project.id}}.jpg" />
 {% else %}
-<meta property="og:image" content="{{ base_url}}/assets/img/sharer-{{project.category}}.png" />
+<meta property="og:image" content="{{ base_url() }}/assets/img/sharer-{{project.category}}.png" />
 {% endif %}
 {% endblock %}
 {% block body %}
-<section id="proyecto" class="hero is-cat{{categoria}} is-small">
+<section id="proyecto" class="hero is-{{categoria}} is-small">
     <!-- Hero content: will be in the middle -->
     <div class="hero-head">
         <header class="nav">
             <div class="container">
                 <div class="nav-left">
                     <a class="nav-item">
-                        <img src="./assets/img/ingenia-logo2.svg" alt="Logo">
+                        <img src="{{base_url()}}/assets/img/ingenia-logo2.svg" alt="Logo">
                     </a>
-                    <a class="nav-item is-hidden-tablet">
-                        <img class="image avatar" src="https://pbs.twimg.com/profile_images/821237983219224576/GyC2dS0J.jpg" alt="">
+                    {% if user is not null %}
+                    <a href="javascript:void(0)" class="nav-item is-hidden-tablet">
+                        <img class="image avatar" src="https://graph.facebook.com/v2.8/{{user.facebook}}/picture?type=normal" alt="{{user.name}}">
                     </a>
-                    <a class="nav-item is-hidden-tablet">
+                    <a href="javascript:void(0)" class="nav-item is-hidden-tablet">
                         <img class="image" src="{{base_url()}}/assets/img/logout.svg" alt="">
-
                     </a>
-                    <a class="nav-item is-hidden-tablet">
-                        <img src="./assets/img/santafelogo.svg" alt="">
+                    {% else %}
+                    <a href="{{facebook_login_link()}}" class="nav-item is-hidden-tablet">
+                        <img class="image" src="{{base_url()}}/assets/img/login.svg" alt="">
+                    </a>
+                    {% endif %}
+                    <a href="https://www.santafe.gob.ar" class="nav-item is-hidden-tablet">
+                        <img src="{{base_url()}}/assets/img/santafelogo.svg" alt="">
                     </a>
                 </div>
                 <div class="nav-right is-hidden-mobile">
-                    <a class="nav-item">
-                        <img class="image avatar" src="https://pbs.twimg.com/profile_images/821237983219224576/GyC2dS0J.jpg" alt="">
+                   {% if user is not null %}
+                    <a href="javascript:void(0)" class="nav-item">
+                        <img class="image avatar" src="https://graph.facebook.com/v2.8/{{user.facebook}}/picture?type=normal" alt="{{user.name}}">
                     </a>
-                    <a class="nav-item">
+                    <a href="javascript:void(0)" class="nav-item">
                         <img class="image" src="{{base_url()}}/assets/img/logout.svg" alt="">
-
                     </a>
-                    <a class="nav-item is-active">
-                        <img src="./assets/img/santafelogo.svg" alt="">
+                    {% else %}
+                    <a href="{{facebook_login_link()}}" class="nav-item">
+                        <img class="image" src="{{base_url()}}/assets/img/login.svg" alt="">
+                    </a>
+                    {% endif %}
+                    <a href="https://www.santafe.gob.ar" class="nav-item is-active">
+                        <img src="{{base_url()}}/assets/img/santafelogo.svg" alt="">
                     </a>
                 </div>
             </div>

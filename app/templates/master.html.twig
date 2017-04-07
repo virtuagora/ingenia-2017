@@ -4,31 +4,31 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block titulo %}Ingenia 2017{% endblock %}</title>
+        <title>{% block titulo %}Ingenia, bancamos tus ideas{% endblock %}</title>
         {% block opengraph %}
         <meta property="og:url" content="{{base_url}}" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="¡Participá y bancá los proyectos INGENIA 2017!" />
-        <meta property="og:description" content="Descripcion Ingenia Virtuagora" />
-        <meta property="og:image" content="{{base_url()}}/assets/img/sharer.png" />
+        <meta property="og:description" content="Ingenia, es un programa provincial desarrollado por el Gabinete Joven y la Secretaría de Juventudes cuyo objetivo principal es promover la participación juvenil de grupos, colectivos y organizaciones de jóvenes, a través del financiamiento y acompañamiento para la puesta en marcha de sus ideas" />
+        <meta property="og:image" content="{{base_url()}}/assets/img/sharer-ingenia.png" />
         {% endblock %}
         <link rel="shortcut icon" href="{{base_url()}}/assets/favicon.ico" type="image/x-icon">
         <link rel="icon" href="{{base_url()}}/assets/favicon.ico" type="image/x-icon">
         <link href="{{base_url()}}/assets/css/ingenia.css" rel="stylesheet">
     </head>
     <body>
-        <a class="float-img" href="#">
-            <img src="./assets/img/santafelogo.svg" alt="">
+        <a class="float-img" href="https://www.santafe.gob.ar">
+            <img src="{{base_url()}}/assets/img/santafelogo.svg" alt="">
         </a>
-        {% if false %}
-        <a class="float-img is-avatar" href="www.google.com">
-            <img class="image" src="https://pbs.twimg.com/profile_images/821237983219224576/GyC2dS0J.jpg" alt="">
+        {% if user is not null %}
+        <a class="float-img is-avatar" href="javascript:void(0)">
+            <img class="image" src="https://graph.facebook.com/v2.8/{{user.facebook}}/picture?type=normal" alt="{{user.name}}">
         </a>
-        <a class="float-img is-logout" href="www.google.com">
+        <a class="float-img is-logout" href="#">
             <img class="image" src="{{base_url()}}/assets/img/logout.svg" alt="">
         </a>
         {% else %}
-        <a class="float-img is-login" href="www.google.com">
+        <a class="float-img is-login" href="{{facebook_login_link()}}">
             <img class="image" src="{{base_url()}}/assets/img/login.svg" alt="">
         </a>
         {% endif %}
