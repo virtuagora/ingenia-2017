@@ -6,12 +6,14 @@ class TwigExtension extends \Twig_Extension
     private $helper;
     private $csrf;
     private $facebook;
+    private $session;
     
-    public function __construct($helper, $csrf, $facebook)
+    public function __construct($helper, $csrf, $facebook, $session)
     {
         $this->helper = $helper;
         $this->csrf = $csrf;
         $this->facebook = $facebook;
+        $this->session = $session;
     }
 
     public function getName()
@@ -30,6 +32,7 @@ class TwigExtension extends \Twig_Extension
                 'name' => $this->csrf->getTokenName(),
                 'value' => $this->csrf->getTokenValue(),
             ],
+            'user' => $this->session->get('user', null),
         ];
     }
 
@@ -91,7 +94,7 @@ class TwigExtension extends \Twig_Extension
         $helper = $this->facebook->getRedirectLoginHelper();
         $permissions = ['email'];
         return $helper->getLoginUrl(
-            $this->helper->completePathFor('fbCallbackGet'), permissions
+            $this->helper->completePathFor('fbCallbackGet'), $permissions
         );
     }
 }

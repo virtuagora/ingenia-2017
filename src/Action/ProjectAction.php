@@ -5,7 +5,7 @@ final class ProjectAction extends AbstractAction
     public function viewProject($req, $res, $arg)
     {
         $project = $this->db->query('App:Project')->findOrFail($arg['pro']);
-        return $this->view->render($response, 'master.twig', [
+        return $this->view->render($res, 'proyecto.html.twig', [
             'project' => $project,
         ]);
     }
