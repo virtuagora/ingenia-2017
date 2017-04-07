@@ -1,15 +1,19 @@
-{% set numcat = 1 %}
+{% set categoria = project.category %}
 {% extends 'master-nofloat.html.twig' %}
-{% block titulo %}TituIngres 2017{% endblock %}
+{% block titulo %}{{project.name}} - Ingenia 2017{% endblock %}
 {% block opengraph %}
 <meta property="og:url" content="{{base_url}}" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Titulo proyecto" />
+<meta property="og:title" content="Conocé sobre {{project.name}} - Ingenia 2017" />
 <meta property="og:description" content="Descripcion proyecto" />
-<meta property="og:image" content="{{ base_url}}/assets/img/proyecto.png" />
+{% project.has_image == true %}
+<meta property="og:image" content="{{ base_url}}/assets/img/projects/{{project.id}}.jpg" />
+{% else %}
+<meta property="og:image" content="{{ base_url}}/assets/img/sharer-{{project.category}}.png" />
+{% endif %}
 {% endblock %}
 {% block body %}
-<section id="proyecto" class="hero is-cat{{numcat}} is-small">
+<section id="proyecto" class="hero is-cat{{categoria}} is-small">
     <!-- Hero content: will be in the middle -->
     <div class="hero-head">
         <header class="nav">
@@ -49,16 +53,22 @@
             <div class="columns">
                 <div class="column">
                     <div class="has-text-centered">
-                        <h1 class="title is-5 is-white is-300"><span class="tag is-white">Holis</span><span class="icon is-middle">&nbsp;&nbsp;&nbsp;<i class="fa fa-comments"></i></span>&nbsp;&nbsp;30 comentarios</h1>
-                        <h1 class="title titulo-proyecto is-1 is-500 is-raleway is-white">Virtuagora, plataforma web de participacion ciudadana</h1>
+                        <h1 class="title is-5 is-white is-300"><span class="tag is-white">{{category_name(project.category)}}</span>
+                        <span class="icon is-middle">&nbsp;&nbsp;&nbsp;<i class="fa fa-comments"></i></span>&nbsp;&nbsp;{{project.comments|lenght}} comentarios</h1>
+                        <h1 class="title titulo-proyecto is-1 is-500 is-raleway is-white">{{project.name}}</h1>
 
                     </div>
                     <div class="box content">
                         <div class="columns">
                             <div class="column is-half is-offset-one-quarter has-text-centered">
+                               {% if project.has_image %}
                                 <figure class="imagen-proyecto image is-16by9" style="background-image: url(https://unsplash.it/600/600?image={{random(15)}})">
                                 </figure>
-                                <h1 class="subtitle is-5 is-raleway has-tect-centered">Presentado por "Solitis"</h1>
+                                {% else %}
+                                <figure class="imagen-proyecto image is-16by9" style="background-image: url(https://unsplash.it/600/600?image={{random(15)}})">
+                                </figure>
+                                {% endif %}
+                                <h1 class="subtitle is-5 is-raleway has-tect-centered">Presentado por "{{project.group}}"</h1>
                             </div>
                         </div>
                         <h1 class="title is-3 is-raleway is-800">Resumen del proyecto</h1>

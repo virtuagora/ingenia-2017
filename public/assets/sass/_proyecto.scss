@@ -45,14 +45,14 @@
 }
 
 a.boton-bancar {
-    &.is-cat1{background-color: lighten($cat1,18%);}
-    &.is-cat2{background-color: lighten($cat2,18%);}
-    &.is-cat3{background-color: lighten($cat3,18%);}
-    &.is-cat4{background-color: lighten($cat4,18%);}
-    &.is-cat5{background-color: lighten($cat5,18%);}
-    &.is-cat6{background-color: lighten($cat6,18%);}
-    &.is-cat7{background-color: lighten($cat7,18%);}
-    &.is-cat8{background-color: lighten($cat8,18%);}
+    &.is-social{background-color: lighten($social,18%);}
+    &.is-educacion{background-color: lighten($educacion,18%);}
+    &.is-comunicacion{background-color: lighten($comunicacion,18%);}
+    &.is-ambiente{background-color: lighten($ambiente,18%);}
+    &.is-cultura{background-color: lighten($cultura,18%);}
+    &.is-salud{background-color: lighten($salud,18%);}
+    &.is-deporte{background-color: lighten($deporte,18%);}
+    &.is-empleo{background-color: lighten($empleo,18%);}
     @media (min-width: $tablet) {
         display:none;
     }
@@ -100,14 +100,14 @@ a.boton-bancar {
 }
 
 #proyecto{
-    &.is-cat1 a.boton-bancar-tablet{background-color: lighten($cat1,18%);}
-    &.is-cat2 a.boton-bancar-tablet{background-color: lighten($cat2,18%);}
-    &.is-cat3 a.boton-bancar-tablet{background-color: lighten($cat3,18%);}
-    &.is-cat4 a.boton-bancar-tablet{background-color: lighten($cat4,18%);}
-    &.is-cat5 a.boton-bancar-tablet{background-color: lighten($cat5,18%);}
-    &.is-cat6 a.boton-bancar-tablet{background-color: lighten($cat6,18%);}
-    &.is-cat7 a.boton-bancar-tablet{background-color: lighten($cat7,18%);}
-    &.is-cat8 a.boton-bancar-tablet{background-color: lighten($cat8,18%);}
+    &.is-social a.boton-bancar-tablet{background-color: lighten($social,18%);}
+    &.is-educacion a.boton-bancar-tablet{background-color: lighten($educacion,18%);}
+    &.is-comunicacion a.boton-bancar-tablet{background-color: lighten($comunicacion,18%);}
+    &.is-ambiente a.boton-bancar-tablet{background-color: lighten($ambiente,18%);}
+    &.is-cultura a.boton-bancar-tablet{background-color: lighten($cultura,18%);}
+    &.is-salud a.boton-bancar-tablet{background-color: lighten($salud,18%);}
+    &.is-deporte a.boton-bancar-tablet{background-color: lighten($deporte,18%);}
+    &.is-empleo a.boton-bancar-tablet{background-color: lighten($empleo,18%);}
 }
 
 

@@ -87,14 +87,14 @@ h1,h2,h3,h4,h5,h6{
     }
 }
 
-.is-cat1{background-color: $cat1; color:#FFF;}
-.is-cat2{background-color: $cat2; color:#FFF;}
-.is-cat3{background-color: $cat3; color:#FFF;}
-.is-cat4{background-color: $cat4; color:#FFF;}
-.is-cat5{background-color: $cat5; color:#FFF;}
-.is-cat6{background-color: $cat6; color:#FFF;}
-.is-cat7{background-color: $cat7; color:#FFF;}
-.is-cat8{background-color: $cat8; color:#FFF;}
+.is-social{background-color: $social; color:#FFF;}
+.is-educacion{background-color: $educacion; color:#FFF;}
+.is-comunicacion{background-color: $comunicacion; color:#FFF;}
+.is-ambiente{background-color: $ambiente; color:#FFF;}
+.is-cultura{background-color: $cultura; color:#FFF;}
+.is-salud{background-color: $salud; color:#FFF;}
+.is-deporte{background-color: $deporte; color:#FFF;}
+.is-empleo{background-color: $empleo; color:#FFF;}
 h1,h2,h3,h4,h5,h6{
     &.is-white{color: #FFF;}
 }
