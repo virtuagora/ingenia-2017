@@ -3,6 +3,7 @@
 $app->get('/test/{sub-id}', function ($req, $res, $arg) {
     $subId = $arg['sub-id'];
     $subBody = $this->jotform->getSubmission($subId);
+    $this->jotform->editSubmission($subId, ['348' => 'SI']);
     return $res->withJSON($subBody);
 });
 $app->get('/instalar', function ($req, $res, $arg) {
@@ -18,7 +19,6 @@ $app->get('/registrar-proyecto', 'HomeAction:registerProject')->setName('proRegi
 $app->get('/proyecto/{pro}/imagen', 'HomeAction:viewSetImageProject')->setName('proSetImgGet');
 $app->post('/proyecto/{pro}/imagen', 'HomeAction:setImageProject')->setName('proSetImgPost');
 $app->get('/proyecto/{pro}', 'ProjectAction:viewProject')->setName('proViewGet');
-
-$app->get('/greet/[{name}]', 'App\ExampleController:greet')->setName('greet');
-$app->get('/send-mail', 'App\ExampleController:sendMail');
-$app->get('/query-db', 'App\ExampleController:queryDB');
+$app->post('/proyecto/{pro}/comentario', 'ProjectAction:commentProject')->setName('proCommentPost');
+$app->post('/proyecto/{pro}/voto', 'ProjectAction:voteProject')->setName('proVotePost');
+$app->post('/comentario/{com}/respuesta', 'ProjectAction:replyComment')->setName('comReplyPost');

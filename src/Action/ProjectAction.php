@@ -4,14 +4,20 @@ final class ProjectAction extends AbstractAction
 {
     public function viewProject($req, $res, $arg)
     {
-        $project = $this->db->query('App:Project')->findOrFail($arg['pro']);
+        $userID = $this->session->get('user.id', null);
+        $project = $this->db->query('App:Project')->with('comments')->findOrFail($arg['pro']);
+        $voted = is_null($userID)? false: $project->voters->contains($userID);
         return $this->view->render($res, 'proyecto.html.twig', [
             'project' => $project,
+            'voted' => $voted,
         ]);
     }
 
     public function voteProject($req, $res, $arg)
     {
+        if (!$this->session->has('user')) {
+            throw new \App\Util\AppException('Necesitás identificarte para realizar esta acción.', 403);
+        }
         $userID = $this->session->get('user.id');
         $project = $this->db->query('App:Project')->findOrFail($arg['pro']);
         /*
@@ -19,71 +25,77 @@ final class ProjectAction extends AbstractAction
             $q->where('id', $userID);
         })->where('id', $arg['pro'])->firstOrFail();
         */
-        $project->voters()->toggle($userID);
+        $result = $project->voters()->toggle($userID);
         $project->likes = $project->voters()->count();
         $project->save();
-
+        $vote = empty($result['detached']);
         return $res->withJSON([
-            'mensaje' => '¡Proyecto bancado!',
+            'mensaje' => $vote? '¡Proyecto bancado!': 'Proyecto ya no bancado.',
+            'vote' => $vote,
         ]);
     }
 
     public function commentProject($req, $res, $arg)
     {
+        if (!$this->session->has('user')) {
+            throw new \App\Util\AppException('Necesitás identificarte para realizar esta acción.', 403);
+        }
         $userID = $this->session->get('user.id');
         $project = $this->db->query('App:Project')->findOrFail($arg['pro']);
-
         $params = $req->getParsedBody();
         if (!$this->validator['comment']->validate($params)) {
             throw new \App\Util\AppException('Parametros invalidos', 400);
         }
-
         $comment = new \App\Model\Comment();
         $comment->user_id = $userID;
         $comment->project_id = $project->id;
         $comment->content = $params['content'];
         $comment->save();
-
         return $res->withJSON([
             'mensaje' => 'Comentario realizado.',
+            'id' => $comment->id,
         ]);
     }
 
     public function replyComment($req, $res, $arg)
     {
+        if (!$this->session->has('user')) {
+            throw new \App\Util\AppException('Necesitás identificarte para realizar esta acción.', 403);
+        }
         $userID = $this->session->get('user.id');
         $parent = $this->db->query('App:Comment')->findOrFail($arg['com']);
-
+        if ($parent->parent != null) {
+            $parent = $parent->parent;
+        }
         $params = $req->getParsedBody();
         if (!$this->validator['comment']->validate($params)) {
             throw new \App\Util\AppException('Parametros invalidos', 400);
         }
-
         $comment = new \App\Model\Comment();
         $comment->user_id = $userID;
         $comment->parent_id = $parent->id;
         $comment->content = $params['content'];
         $comment->save();
-
         return $res->withJSON([
             'mensaje' => 'Comentario respondido.',
+            'id' => $comment->id,
         ]);
     }
 
     public function rateComment($req, $res, $arg)
     {
+        if (!$this->session->has('user')) {
+            throw new \App\Util\AppException('Necesitás identificarte para realizar esta acción.', 403);
+        }
         $userID = $this->session->get('user.id');
         $comment = $this->db->query('App:Comment')->findOrFail($arg['com']);
-
         $params = $req->getParsedBody();
         if (!$this->validator['rate']->validate($params)) {
             throw new \App\Util\AppException('Parametros invalidos.', 400);
         }
-
         $comment->raters()->updateExistingPivot($userID, ['value' => $params['value']]);
         $comment->votes = $comment->raters->sum('pivot.value');
         $comment->save();
-        
         /*
         if ($comment->raters->contains($userID)) {
             $comment->raters()->updateExistingPivot($userID, ['value' => $params['value']]);
@@ -91,7 +103,6 @@ final class ProjectAction extends AbstractAction
             $evento->usuarios()->detach($usuario->id);
         }
         */
-
         return $res->withJSON([
             'mensaje' => 'Comentario votado.',
         ]);
@@ -101,7 +112,10 @@ final class ProjectAction extends AbstractAction
     {
         $query = $this->db->query('App:Project');
         if (isset($params['categoria'])) {
-            $query = $query->where('categoria', $params['categoria']);
+            $query = $query->where('category', $params['categoria']);
+        }
+        if (isset($params['localidad'])) {
+            $query = $query->where('place', $params['localidad']);
         }
         if (isset($params['s'])) {
             $filter = $this->helper->generateTrace($params['q']);

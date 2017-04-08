@@ -60,7 +60,7 @@ class TwigExtension extends \Twig_Extension
 
     public function isCurrentPath($name)
     {
-        //todo no implementado
+        //TODO no implementado
         return true;
     }
 
@@ -69,25 +69,13 @@ class TwigExtension extends \Twig_Extension
         return $this->helper->baseUrl().'/assets/'.$name;
     }
 
-    public function categoryName($category){
-        if($category == 'social'){
-            return 'Integración Social';
-        }else if($category == 'educacion'){
-            return 'Educación';
-        }else if($category == 'comunicacion'){
-            return 'Comunicación';
-        }else if($category == 'ambiente'){
-            return 'Medio Ambiente';
-        }else if($category == 'cultura'){
-            return 'Cultura';
-        }else if($category == 'salud'){
-            return 'Salud';
-        }else if($category == 'deporte'){
-            return 'Deporte y recreación';
-        }else if($category == 'empleo'){
-            return 'Empleo y Capacitación';
+    public function categoryName($category)
+    {
+        if (isset($this->helper->getCategories()[$category])) {
+            return $this->helper->getCategories()[$category];
+        } else {
+            return 'undefined';
         }
-        return 'undefined';
     }
 
     public function facebookLoginLink() {

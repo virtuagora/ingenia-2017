@@ -66,7 +66,9 @@ final class HomeAction extends AbstractAction
 
     public function registerProject($req, $res, $arg)
     {
-        //TODO chequear login
+        if (!$this->session->has('user')) {
+            throw new \App\Util\AppException('Necesitás identificarte para realizar esta acción.', 403);
+        }
         if (!$this->session->has('project')) {
             throw new \App\Util\AppException('Petición inválida.', 400);
         }
@@ -74,10 +76,8 @@ final class HomeAction extends AbstractAction
         if ($project) {
             throw new \App\Util\AppException('El proyecto ya está registrado.', 400);
         }
-
         //$this->logger->info(json_encode($this->session->get('project')));
         $categoryList = array_flip($this->helper->getCategories());
-
         $project = new \App\Model\Project();
         $project->name = $this->session->get('project.name');
         $project->jotform = $this->session->get('project.jotform');
@@ -114,19 +114,11 @@ final class HomeAction extends AbstractAction
             ];
         }
         $project->schedule = $schedule;
-
         $project->name_trace = $this->helper->generateTrace($project->name);
         $project->group_trace = $this->helper->generateTrace($project->group);
         $project->user_id = $this->session->get('user.id');
         $project->save();
-        /* cambiar a los campos de ingenia
-        $project = $this->db->query('App:Project')->create([
-            'name' => $this->session->get('project.answers.4.answer'),
-            'jotform' => $this->session->get('project.id'),
-            'description' => $this->session->get('project.answers.5.answer'),
-            'user_id' => $this->session->get('user.id'),
-        ]);
-        */
+        $this->jotform->editSubmission($project->jotform, ['348' => 'SI']);
         return $res->withRedirect($this->helper->completePathFor(
             'proSetImgGet',
             ['pro' => $project->id]
@@ -135,13 +127,14 @@ final class HomeAction extends AbstractAction
 
     public function viewSetImageProject($req, $res, $arg)
     {
+        if (!$this->session->has('user')) {
+            throw new \App\Util\AppException('Necesitás identificarte para realizar esta acción.', 403);
+        }
         $project = $this->db->query('App:Project')->findOrFail($arg['pro']);
         $user = $project->user;
-        //TODO ver si el control de acceso se hace mas lindo
         if ($user->id != $this->session->get('user.id')) {
-            throw new \App\Util\AppException('Forbiden.', 405);
+            throw new \App\Util\AppException('Acceso denegado.', 403);
         }
-
         return $this->view->render($res, 'upload.html.twig', [
             'project' => $project,
         ]);
@@ -149,13 +142,14 @@ final class HomeAction extends AbstractAction
 
     public function setImageProject($req, $res, $arg)
     {
+        if (!$this->session->has('user')) {
+            throw new \App\Util\AppException('Necesitás identificarte para realizar esta acción.', 403);
+        }
         $project = $this->db->query('App:Project')->findOrFail($arg['pro']);
         $user = $project->user;
-        //TODO ver si el control de acceso se hace mas lindo
         if ($user->id != $this->session->get('user.id')) {
-            throw new \App\Util\AppException('Forbiden.', 405);
+            throw new \App\Util\AppException('Acceso denegado.', 405);
         }
-        
         $files = $req->getUploadedFiles();
         if (empty($files['imagen'])) {
             throw new \App\Util\AppException('No se envió ninguna imagen.', 400);
@@ -169,12 +163,10 @@ final class HomeAction extends AbstractAction
         if (is_resource($imgStrm)) {
             fclose($imgStrm);
         }
-
         if (!$project->has_image) {
             $project->has_image = true;
             $project->save();
         }
-
         return $res->withRedirect(
             $this->helper->completePathFor('proSetImgGet', ['pro' => $project->id])
         );
