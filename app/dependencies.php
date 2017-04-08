@@ -5,7 +5,8 @@ use Respect\Validation\Validator as v;
 $container = $app->getContainer();
 
 $container['csrf'] = function ($c) {
-    return new \Slim\Csrf\Guard('csrf', $dummy = null, null, 200, 16, true);
+    $dummy = $c->get('session');
+    return new \Slim\Csrf\Guard('csrf', $dummy, null, 200, 16, true);
 };
 $container['flash'] = function () {
     return new \Slim\Flash\Messages();
