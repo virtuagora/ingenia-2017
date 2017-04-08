@@ -1,1 +1,23 @@
-Errorcito
+{% extends 'master.html.twig' %}
+
+{% block body %}
+<section id="error" class="hero is-danger is-bold is-fullheight ">
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="columns">
+                <div class="column is-half is-offset-one-quarter">
+                       <span class="icon is-large"><i class="fa fa-times-circle"></i></span>
+                        <h1 class="title is-2 is-raleway is-700">Error</h1>
+                    <h4 class="subtitle is-4 is-raleway" style="margin-bottom:10px;">{{mensaje}}</h4>
+                   <a href="{{ facebook_login_link() }}" class="button is-dark is-outlined is-inverted is-400 is-medium is-raleway" style="margin-bottom:10px;"><span class="icon"><i class="fa fa-reply"></i></span>&nbsp;&nbsp;Volver</a>
+<h4 class="subtitle is-6 is-raleway">Contactesé con el administrador e intente más tarde.</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-foot">
+
+  </div>
+</section>
+{% endblock %}
