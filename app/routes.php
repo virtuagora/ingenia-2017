@@ -17,7 +17,7 @@ $app->get('/facebook-login', 'HomeAction:facebookLogin')->setName('fbCallbackGet
 $app->get('/registrar-proyecto', 'HomeAction:registerProject')->setName('proRegisterGet');
 $app->get('/proyecto/{pro}/imagen', 'HomeAction:viewSetImageProject')->setName('proSetImgGet');
 $app->post('/proyecto/{pro}/imagen', 'HomeAction:setImageProject')->setName('proSetImgPost');
-$app->get('/proyecto/{pro}', 'HomeAction:viewProject')->setName('proViewGet');
+$app->get('/proyecto/{pro}', 'ProjectAction:viewProject')->setName('proViewGet');
 
 $app->get('/greet/[{name}]', 'App\ExampleController:greet')->setName('greet');
 $app->get('/send-mail', 'App\ExampleController:sendMail');
