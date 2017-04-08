@@ -132,8 +132,9 @@
 </section>
 <section id="listado" class="section">
     <div class="container is-fluid">
-        <div class="grid">
-            {% for i in 0..random(15) %}
+       <a class="button is-loading is-large is-fullwidth">Loading</a>
+        <div class="grid proyectos">
+            {% for i in 0 %}
             {% set numberrandom = random(7)+1 %}
             <div class="grid-item">
                 <div class="card">
@@ -145,7 +146,6 @@
                         <a href="#">
                             <figure class="image is-4by3" style="background-image: url(https://unsplash.it/600/600?image={{random(15)}})">
                             </figure>
-<!--                            background-image: url(https://unsplash.it/600/600?image=13);-->
                         </a>
                         <a href="www.google.com" class="avatar-link">
                             <img class="avatar image is-32x32" src="https://pbs.twimg.com/profile_images/821237983219224576/GyC2dS0J.jpg" alt="">
@@ -153,28 +153,9 @@
                     </div>
                     <div class="card-content is-cat{{numberrandom}}">
                         <div class="has-text-centered">
-                            <a href="#"><h1 class="title is-3 is-raleway">Virtuagora, plataforma web de participacion ciudadana</h1><h1 class="title is-6"><b>{{random(1200)}}</b> bancan este proyecto</h1></a>
-
+                            <a href="#"><h1 class="title is-3 is-raleway">Virtuagora, plataforma web de participacion ciudadana</h1><h1 class="title is-6">Grupo</h1></a>
                         </div>
-                        <!--
-<hr>
-<div class="content">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-<a>#css</a> <a>#responsive</a>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum harum rerum obcaecati, earum ratione quas? Nesciunt unde ducimus nemo nobis repellat id dolor qui vero laboriosam consectetur molestiae, pariatur, tenetur.</p>
-
-<br>
-<small>11:09 PM - 1 Jan 2016</small>
-</div>
--->
                     </div>
-                    <!--
-<footer class="card-footer is-cat{{numberrandom}}">
-<a class="card-footer-item">¡Enterate mas!</a>
-<a class="card-footer-item"><b>¡Bancalo!</b></a>
-</footer>
--->
                 </div>
             </div>
             {% endfor %}
@@ -219,8 +200,13 @@ Phasellus nec iaculis mauris. <a>@bulmaio</a>.
         </div>
     </div>
 </footer>
+<input id="csrf_name" type="hidden" name="{{csrf.keys.name}}" value="{{csrf.name}}">
+<input id="csrf_value" type="hidden" name="{{csrf.keys.value}}" value="{{csrf.value}}">
 {% endblock %}
 {% block javascript %}
+<script id="brick-vacio" type = "text/template">
+{% include 'block-proyecto' %}
+</script>
 <script src="{{base_url()}}/assets/js/masonry.pkgd.min.js"></script>
 <script>
     $('.grid').masonry({

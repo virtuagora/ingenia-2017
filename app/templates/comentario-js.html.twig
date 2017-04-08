@@ -1,0 +1,28 @@
+<div id="comentario-##ID##" class="box comentario">
+    <article class="media">
+        <div class="media-left">
+            <figure class="image is-64x64">
+                <img src="https://graph.facebook.com/v2.8/##FACEBOOKID##/picture?type=normal" alt="##NOMBRE##">
+            </figure>
+        </div>
+        <div class="media-content">
+            <div class="content is-small">
+                <p>
+                    <strong>##NOMBRE##</strong> <small>##FECHA## - <span id="likes-##ID##">##LIKES##</span> &hearts;</small>
+                    <br>
+                    ##COMENTARIO##
+                </p>
+            </div>
+            <nav class="level is-mobile">
+                <div class="level-left">
+                    <a href="javascript:void(0)" data-comentarioid="##ID##" class="level-item votar-down">
+                        <span class="icon is-small"><i class="fa fa-thumbs-down"></i></span>
+                    </a>
+                    <a href="javascript:void(0)" data-comentarioid="##ID##" class="level-item votar-up">
+                        <span class="icon is-small"><i class="fa fa-heart"></i></span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </article>
+</div>

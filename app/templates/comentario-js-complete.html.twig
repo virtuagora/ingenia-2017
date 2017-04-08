@@ -1,0 +1,60 @@
+<div id="comentario-##ID##" class="box comentario">
+    <article class="media">
+        <div class="media-left">
+            <figure class="image is-64x64">
+                <img src="https://graph.facebook.com/v2.8/##FACEBOOKID##/picture?type=normal" alt="##NOMBRE##">
+            </figure>
+        </div>
+        <div class="media-content">
+            <div class="content is-small">
+                <p>
+                    <strong>##NOMBRE##</strong> <small>##FECHA## - <span id="likes-##ID##">##LIKES##</span> &hearts;</small>
+                    <br>
+                    ##COMENTARIO##
+                </p>
+            </div>
+            <nav class="level is-mobile">
+                <div class="level-left">
+                    <a href="javascript:void(0)" data-comentarioid="##ID##" class="level-item responder">
+                        <small>{{comment.replies|length}}</small>&nbsp;<span class="icon is-small"><i class="fa fa-reply"></i></span>
+                    </a>
+                    <a href="javascript:void(0)" data-comentarioid="##ID##" class="level-item votar-down votar-down-##ID##">
+                        <span class="icon is-small"><i class="fa fa-thumbs-down"></i></span>
+                    </a>
+                    <a href="javascript:void(0)" data-comentarioid="##ID##" class="level-item votar-up votar-up-##ID##">
+                        <span class="icon is-small"><i class="fa fa-heart"></i></span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </article>
+    <article id="respuestas-##ID##" class="media respuestas">
+        <div class="media-content">
+            <!--============RESPUESTAS==============-->
+            <article id="responder-##ID##" class="media respuesta responder" style="display:none">
+                <div class="media-left">
+                    <figure class="image is-24x24">
+                        <img src="https://graph.facebook.com/v2.8/##FACEBOOKID##/picture?type=normal" alt="{{user.name}}">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content is-small">
+                        <form action="" method="POST" data-type="respuesta" data-commentid="##ID##">
+                            <div class="field">
+                                <p class="control">
+                                    <input name="content" class="input is-small" type="text" placeholder="Tu respuesta">
+                                </p>
+                                <button type="submit" href="#" class="button is-primary is-small is-hidden-tablet">Enviar</button>
+                            </div>
+                            <input type="hidden" name="{{csrf.keys.name}}" value="{{csrf.name}}">
+                            <input type="hidden" name="{{csrf.keys.value}}" value="{{csrf.value}}">
+                        </form>
+                    </div>
+                </div>
+                <div class="media-right is-hidden-mobile">
+                    <a href="" class="button is-primary is-small">Enviar</a>
+                </div>
+            </article>
+        </div>
+    </article>
+</div>

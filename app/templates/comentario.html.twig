@@ -1,36 +1,36 @@
 <!--============COMENTARIO==============-->
-<div id="comentario-{{comentarioid}}" class="box comentario">
+<div id="comentario-{{comment.id}}" class="box comentario">
     <article class="media">
         <div class="media-left">
             <figure class="image is-64x64">
-                <img src="http://bulma.io/images/placeholders/128x128.png" alt="Image">
+                <img src="https://graph.facebook.com/v2.8/{{comment.user.facebook}}/picture?type=normal" alt="{{user.name}}">
             </figure>
         </div>
         <div class="media-content">
             <div class="content is-small">
                 <p>
-                    <strong>John Smith</strong> <small>31m - 10 &hearts;</small>
+                    <strong>{{comment.user.name}}</strong> <small>{{comment.created_at}} - <span id="likes-{{comment.id}}">{{comment.votes}}</span> &hearts;</small>
                     <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+                    {{comment.content}}
                 </p>
             </div>
             <nav class="level is-mobile">
                 <div class="level-left">
-                    <a href="javascript:void(0)" data-comentarioid="{{comentarioid}}" class="level-item responder">
-                        <small>10</small>&nbsp;<span class="icon is-small"><i class="fa fa-reply"></i></span>
+                    <a href="javascript:void(0)" data-comentarioid="{{comment.id}}" class="level-item responder">
+                        <small>{{comment.replies|length}}</small>&nbsp;<span class="icon is-small"><i class="fa fa-reply"></i></span>
                     </a>
-                    <a href="javascript:void(0)" data-comentarioid="{{comentarioid}}" class="level-item votar-down">
+                    <a href="javascript:void(0)" data-comentarioid="{{comment.id}}" class="level-item votar-down votar-down-{{comment.id}}">
                         <span class="icon is-small"><i class="fa fa-thumbs-down"></i></span>
                     </a>
-                    <a href="javascript:void(0)" data-comentarioid="{{comentarioid}}" class="level-item votar-up">
+                    <a href="javascript:void(0)" data-comentarioid="{{comment.id}}" class="level-item votar-up votar-up-{{comment.id}}">
                         <span class="icon is-small"><i class="fa fa-heart"></i></span>
                     </a>
                 </div>
             </nav>
         </div>
     </article>
-       <article class="media respuestas">
-        <div class="media-left">
+       <article id="respuestas-{{comment.id}}" class="media respuestas">
+        <div id="margin-respuestas-{{comment.id}}" class="media-left" style="{{comment.replies|length > 0 ? '' : 'display:none'}}">
             <figure class="image is-64x64">
             </figure>
         </div>
@@ -38,7 +38,7 @@
             <!--============RESPUESTAS==============-->
             {% include 'responder.html.twig' %}
             <!--============RESPUESTAS==============-->
-            {% for respuestaid in 0..0 %}
+            {% for reply in comment.replies %}
             {% include 'respuesta.html.twig' %}
             {% endfor %}
         </div>

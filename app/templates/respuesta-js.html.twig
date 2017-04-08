@@ -1,23 +1,23 @@
-<article id="respuesta-{{reply.id}}" class="media respuesta">
+<article id="respuesta-##ID##" class="media respuesta">
     <div class="media-left">
         <figure class="image is-32x32">
-            <img src="https://graph.facebook.com/v2.8/{{reply.user.facebook}}/picture?type=normal" alt="{{user.name}}">
+            <img src="https://graph.facebook.com/v2.8/##FACEBOOKID##/picture?type=normal" alt="##NOMBRE##">
         </figure>
     </div>
     <div class="media-content">
         <div class="content is-small">
             <p>
-                <strong>{{reply.user.name}}</strong> <small>{{reply.created_at}} - <span id="likes-{{reply.id}}">{{reply.votes}}</span> &hearts;</small>
+                <strong>##NOMBRE##</strong> <small>##FECHA## - <span id="likes-##ID##">##LIKES##</span> &hearts;</small>
                 <br>
-                {{reply.content}}
+                ##COMENTARIO##
             </p>
         </div>
         <nav class="level is-mobile is-hidden-tablet">
             <div class="level-left">
-                <a href="javascript:void(0)" data-comentarioid="{{reply.id}}" class="level-item votar-down votar-down-{{reply.id}}">
+                <a href="javascript:void(0)" data-comentarioid="##ID##" class="level-item votar-down votar-down-##ID##">
                     <span class="icon is-small"><i class="fa fa-thumbs-down"></i></span>
                 </a>
-                <a href="javascript:void(0)" data-comentarioid="{{reply.id}}" class="level-item votar-up votar-up-{{reply.id}}">
+                <a href="javascript:void(0)" data-comentarioid="##ID##" class="level-item votar-up votar-up-##ID##">
                     <span class="icon is-small"><i class="fa fa-heart"></i></span>
                 </a>
             </div>
@@ -26,10 +26,10 @@
     <div class="media-right is-hidden-mobile">
         <nav class="level is-mobile">
             <div class="level-left">
-                <a href="javascript:void(0)" data-comentarioid="{{reply.id}}" class="level-item votar-down votar-down-{{reply.id}}">
+                <a href="javascript:void(0)" data-comentarioid="##ID##" class="level-item votar-down votar-down-##ID##">
                     <span class="icon is-small"><i class="fa fa-thumbs-down"></i></span>
                 </a>
-                <a href="javascript:void(0)" data-comentarioid="{{reply.id}}" class="level-item votar-up votar-up-{{reply.id}}">
+                <a href="javascript:void(0)" data-comentarioid="##ID##" class="level-item votar-up votar-up-##ID##">
                     <span class="icon is-small"><i class="fa fa-heart"></i></span>
                 </a>
             </div>

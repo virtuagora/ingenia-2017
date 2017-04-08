@@ -45,6 +45,52 @@
         {% endblock %}
         <!-- jQuery (necessary for some stuff!) -->
         <script src="{{base_url()}}/assets/js/jquery-3.2.0.min.js"></script>
+        <script>
+            $('.modal-background, .modal-close').click(function() {
+                // $('html').removeClass('is-clipped');
+                $(this).parent().removeClass('is-active');
+                $('.modal .notification').removeClass('is-success');
+                $('.modal .notification').removeClass('is-danger');
+                $('.modal .notification').removeClass('is-info');
+            });
+            $('.modal-card-head .delete, .modal-card-foot .button').click(function() {
+                // $('html').removeClass('is-clipped');
+                $('#modal-ter').removeClass('is-active is-success is-danger is-info');
+                $('.#modal-ter .notification').removeClass('is-success');
+                $('.#modal-ter .notification').removeClass('is-danger');
+                $('.#modal-ter .notification').removeClass('is-info');
+            });
+            $(document).on('keyup',function(e) {
+                if (e.keyCode == 27) {
+                    //$('html').removeClass('is-clipped');
+                    $('.modal').removeClass('is-active');
+                    $('.modal .notification').removeClass('is-success');
+                    $('.modal .notification').removeClass('is-danger');
+                    $('.modal .notification').removeClass('is-info');
+                }
+            });
+            function showModalSuccess(mensaje) {
+                $("#fa-modal").removeClass().addClass('fa fa-check-circle')
+                $("#subtitle-modal").html(mensaje);
+                //$('html').addClass('is-clipped');
+                $('.modal').addClass('is-success is-active');
+                $('.modal .notification').addClass('is-success is-active');
+            }
+            function showModalDanger(mensaje) {
+                $("#fa-modal").removeClass().addClass('fa fa-times-circle')
+                $("#subtitle-modal").html(mensaje);
+                //$('html').addClass('is-clipped');
+                $('.modal').addClass('is-danger is-active');
+                $('.modal .notification').addClass('is-danger');
+            }
+            function showModalInfo(mensaje) {
+                $("#fa-modal").removeClass().addClass('fa fa-info-circle')
+                $("#subtitle-modal").html(mensaje);
+                //$('html').addClass('is-clipped');
+                $('.modal').addClass('is-active');
+                $('.modal .notification').addClass('is-info');
+            }
+        </script>
         {% block javascript %}
         {% endblock %}
     </body>

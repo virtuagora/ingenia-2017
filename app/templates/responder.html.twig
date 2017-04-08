@@ -1,21 +1,24 @@
-<article id="responder-{{comentarioid}}" class="media respuesta responder" style="display:none">
+<article id="responder-{{comment.id}}" class="media respuesta responder" style="display:none">
     <div class="media-left">
         <figure class="image is-24x24">
-            <img src="https://pbs.twimg.com/profile_images/821237983219224576/GyC2dS0J.jpg" alt="Image">
+            <img src="https://graph.facebook.com/v2.8/{{user.facebook}}/picture?type=normal" alt="{{user.name}}">
         </figure>
     </div>
     <div class="media-content">
         <div class="content is-small">
-            <div class="field">
-                <p class="control">
-                    <input class="input is-small" type="text" placeholder="Tu respuesta">
-                </p>
-            <a href="#" class="button is-primary is-small is-hidden-tablet">Enviar</a>
-
-            </div>
+            <form action="" method="POST" data-type="reply" data-commentid="{{comment.id}}">
+                <div class="field">
+                    <p class="control">
+                        <input name="content" class="input is-small" type="text" placeholder="Tu respuesta">
+                    </p>
+                    <button type="submit" href="#" class="button is-primary is-small is-hidden-tablet">Enviar</button>
+                </div>
+                <input type="hidden" name="{{csrf.keys.name}}" value="{{csrf.name}}">
+                <input type="hidden" name="{{csrf.keys.value}}" value="{{csrf.value}}">
+            </form>
         </div>
     </div>
-        <div class="media-right is-hidden-mobile">
-            <a href="" class="button is-primary is-small">Enviar</a>
-        </div>
+    <div class="media-right is-hidden-mobile">
+        <a href="" class="button is-primary is-small">Enviar</a>
+    </div>
 </article>

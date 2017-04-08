@@ -39,7 +39,7 @@
                     </a>
                 </div>
                 <div class="nav-right is-hidden-mobile">
-                   {% if user is not null %}
+                    {% if user is not null %}
                     <a href="javascript:void(0)" class="nav-item">
                         <img class="image avatar" src="https://graph.facebook.com/v2.8/{{user.facebook}}/picture?type=normal" alt="{{user.name}}">
                     </a>
@@ -64,14 +64,14 @@
                 <div class="column">
                     <div class="has-text-centered">
                         <h1 class="title is-5 is-white is-300"><span class="tag is-white">{{category_name(project.category)}}</span>
-                        <span class="icon is-middle">&nbsp;&nbsp;&nbsp;<i class="fa fa-comments"></i></span>&nbsp;&nbsp;{{project.comments|lenght}} comentarios</h1>
+                            <span class="icon is-middle">&nbsp;&nbsp;&nbsp;<i class="fa fa-comments"></i></span>&nbsp;&nbsp;{{project.comments|lenght}} comentarios</h1>
                         <h1 class="title titulo-proyecto is-1 is-500 is-raleway is-white">{{project.name}}</h1>
 
                     </div>
                     <div class="box content">
                         <div class="columns">
                             <div class="column is-half is-offset-one-quarter has-text-centered">
-                               {% if project.has_image %}
+                                {% if project.has_image %}
                                 <figure class="imagen-proyecto image is-16by9" style="background-image: url({{base_url()}}/assets/img/project/{{project.id}}.jpg)">
                                 </figure>
                                 {% else %}
@@ -230,7 +230,7 @@
                         </div>
                     </div>
                     {% if user is not null %}
-                    <div class="box">
+                    <div id="crear-nuevo-comentario" class="box" >
                         <article class="media">
                             <div class="media-left">
                                 <figure class="image is-64x64">
@@ -238,21 +238,25 @@
                                 </figure>
                             </div>
                             <div class="media-content">
-                                <div class="content is-small">
-                                    <strong>{{user.name}}</strong>
-                                    <div class="field">
-                                        <p class="control">
-                                            <textarea class="textarea is-small" placeholder="Textarea"></textarea>
-                                        </p>
+                                <form action="" method="POST" data-type="new-comment" data-commentid="0">
+                                    <div class="content is-small">
+                                        <strong>{{user.name}}</strong>
+                                        <div class="field">
+                                            <p class="control">
+                                                <textarea name="content" class="textarea is-small" placeholder="Textarea"></textarea>
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                                <nav class="level is-mobile">
-                                    <div class="level-left">
-                                        <a class="level-item button is-primary is-small">
-                                            <span class="icon is-small"><i class="fa fa-send"></i></span>&nbsp;&nbsp;Enviar
-                                        </a>
-                                    </div>
-                                </nav>
+                                    <nav class="level is-mobile">
+                                        <div class="level-left">
+                                            <button type="submit" class="level-item button is-primary is-small">
+                                                <span class="icon is-small"><i class="fa fa-send"></i></span>&nbsp;&nbsp;Enviar
+                                            </button>
+                                        </div>
+                                    </nav>
+                                    <input type="hidden" name="{{csrf.keys.name}}" value="{{csrf.name}}">
+                                    <input type="hidden" name="{{csrf.keys.value}}" value="{{csrf.value}}">
+                                </form>
                             </div>
                         </article>
                     </div>
@@ -263,12 +267,14 @@
                     </div>
                     {% endif %}
                     <div id="comentarios">
-                        {% for comentarioid in 0..10 %}
+                        {% for comment in project.comments %}
                         {% include 'comentario.html.twig' %}
                         {% endfor %}
                     </div>
-                    <br>
-                    <a href="javascript:void(0)" id="mas-comentarios" class="button is-large is-fullwidth is-dark is-outlined is-inverted">Cargar mas comentarios</a>
+                    <!--
+<br>
+<a href="javascript:void(0)" id="mas-comentarios" class="button is-large is-fullwidth is-dark is-outlined is-inverted">Cargar mas comentarios</a>
+-->
                     <br>
                     <a href="javascript:void(0)" id="fin-comentarios" class="button is-large is-disabled is-fullwidth is-white">Fin de los comentarios</a>
                 </div>
@@ -305,12 +311,57 @@
         </div>
     </div>
 </section>
-
+<section id="logos-nosotros" class="hero is-primary is-bold">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns">
+                <div class="column has-text-centered">
+                    <a href="http://virtuagora.org">
+                        <img src="./assets/img/logo-virtuagora.svg" class="image logo"alt="">
+                    </a>
+                </div>
+                <div class="column has-text-centered">
+                    <a href="#">
+                        <img src="./assets/img/gabinetejoven.svg" class="image logo" alt="">
+                    </a>
+                </div>
+                <div class="column has-text-centered">
+                    <a href="#">
+                        <img src="./assets/img/ingenia-logo2.svg" class="image logo" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <p>
+                Trabajo realizado en conjunto con <a href="http://jgthms.com"><strong>Virtuagora</strong></a> e <a href="http://jgthms.com"><strong>Ingenia</strong></a> y el <a href="#"><strong>Gabinete Joven</strong></a><br>Virtuagora se distruye bajo licencia
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+            </p>
+            <p>
+                <a href="www.santafe.gob.ar">
+                    <img src="./assets/img/santafe-logo-color.svg" class="image is-128x128 logo-santafe" alt="">
+                </a>
+            </p>
+        </div>
+    </div>
+</footer>
+<input id="csrf_name" type="hidden" name="{{csrf.keys.name}}" value="{{csrf.name}}">
+<input id="csrf_value" type="hidden" name="{{csrf.keys.value}}" value="{{csrf.value}}">
+<input id="userFacebook" type="hidden" value="{{user.facebook}}">
+<input id="userName" type="hidden" value="{{user.name}}">
 {% endblock %}
 {% block javascript %}
+<script id="comentario-js" type = "text/template">
+{% include 'comentario-js.html.twig' %}
+</script>
+<script id="respuesta-js" type = "text/template">
+{% include 'respuesta-js.html.twig' %}
+</script>
 <script>
-
-
     $('#toggle-calendario').click(function() {
         $('#calendario').toggle('1000');
         $("i", this).toggleClass("fa-angle-up fa-angle-down");
@@ -326,7 +377,84 @@
         console.log(id);
         $("#responder-"+id).toggle('1000');
     });
-
-
+    $('.votar-up').click(function() {
+        var comentarioid = $(this).data('comentarioid');
+        var csrfName = $('#csrf_name').val();
+        var csrfValue = $('#csrf_value').val();
+        var csrfData = {"csrf_name" : csrfName,"csrf_value" : csrfValue,"com" : comentarioid,"value" : 1};
+        $.ajax({
+            url : "AJAX_POST_URL",
+            type: "POST",
+            data : csrfData,
+            success: function(data, textStatus, jqXHR){
+                //data - response from server
+                showModalSuccess(data.mensaje);
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                showModalDanger('No se ha podido votar el comentario');
+            }
+        });
+    });
+    $('.votar-down').click(function() {
+        var comentarioid = $(this).data('comentarioid');
+        var csrfName = $('#csrf_name').val();
+        var csrfValue = $('#csrf_value').val();
+        var csrfData = {"csrf_name" : csrfName,"csrf_value" : csrfValue,"com" : comentarioid,"value" : -1};
+        $.ajax({
+            url : "AJAX_POST_URL",
+            type: "POST",
+            data : csrfData,
+            success: function(data, textStatus, jqXHR){
+                //data - response from server
+                showModalSuccess(data.mensaje);
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                showModalDanger('No se ha podido votar el comentario');
+            }
+        });
+    });
+    $( "form" ).submit(function( event ) {
+        event.preventDefault();
+        var $form = $(this);
+        var formAction = $form.attr('action');
+        var formType = $form.data('type');
+        var formCommentId = $form.data('commentid');
+        var formAction = $form.attr('action');
+        var csrfData = $form.serialize();
+        $.ajax({
+            url : formAction,
+            type: "POST",
+            data : csrfData,
+            success: function(data, textStatus, jqXHR){
+                //data - response from server
+                if(formType == "new-comment"){
+                    var $nuevoComentario = $('#comentario-js').html();
+                    $nuevoComentario = $nuevoComentario.replace("##ID##", data.id )
+                        .replace("##FACEBOOKID##", $('input#userFacebook').val())
+                        .replace("##NOMBRE##", $('input#userName').val())
+                        .replace("##FECHA##", 'Hace un rato')
+                        .replace("##LIKES##", '0')
+                        .replace("##COMENTARIO##", $("textarea[name='content']",this).val());
+                    $('#comentarios').prepend($nuevoComentario);
+                    $('#crear-nuevo-comentario').slideToggle(1000);
+                } else if(formType == "reply"){
+                    var $nuevoComentario = $('#respuesta-js').html();
+                    $nuevoComentario = $nuevoComentario.replace("##ID##", data.id )
+                        .replace("##FACEBOOKID##", $('input#userFacebook').val())
+                        .replace("##NOMBRE##", $('input#userName').val())
+                        .replace("##FECHA##", 'Hace un rato')
+                        .replace("##LIKES##", '0')
+                        .replace("##COMENTARIO##", $("input[name='content']",this).val());
+                    $('#margin-respuestas-' + formCommentId).show();
+                    $('#responder-' + formCommentId).after($nuevoComentario);
+                    $('#responder-' + formCommentId).toggle(1000);
+                }
+                showModalSuccess(data.mensaje);
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                showModalDanger('No se ha podido realizar el comentario');
+            }
+        });
+    });
 </script>
 {% endblock %}
