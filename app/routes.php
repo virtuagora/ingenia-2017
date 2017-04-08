@@ -16,6 +16,7 @@ $app->get('/nuevo-proyecto/{sub-id}', 'HomeAction:newProject')->setName('proNewG
 $app->get('/facebook-login', 'HomeAction:facebookLogin')->setName('fbCallbackGet');
 //TODO controlar login
 $app->get('/registrar-proyecto', 'HomeAction:registerProject')->setName('proRegisterGet');
+$app->get('/proyecto', 'ProjectAction:listProjects')->setName('proListGet');
 $app->get('/proyecto/{pro}/imagen', 'HomeAction:viewSetImageProject')->setName('proSetImgGet');
 $app->post('/proyecto/{pro}/imagen', 'HomeAction:setImageProject')->setName('proSetImgPost');
 $app->get('/proyecto/{pro}', 'ProjectAction:viewProject')->setName('proViewGet');

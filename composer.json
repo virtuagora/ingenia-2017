@@ -17,7 +17,8 @@
         "jotform/jotform-api-php": "dev-master",
         "adbario/slim-secure-session-middleware": "^1.2.2",
         "league/flysystem": "^1.0",
-        "respect/validation": "^1.1.12"
+        "respect/validation": "^1.1.12",
+        "intervention/image": "^2.3"
     },
     "autoload": {
         "psr-4": {
