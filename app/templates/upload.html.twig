@@ -19,8 +19,13 @@
                                     <div class="column is-half is-offset-one-quarter">
                                         <a id="upload-file" href="#">
                                             <div class="preview-box">
-                                                <figure id="imagen-box" class="image preview is-16by9" style="background-image: url({{base_url()}}/assets/img/upload-pic.svg)">
+                                               {% if project.has_image %}
+                                                <figure id="imagen-box" class="image preview is-16by9" style="background-image: url({{base_url()}}/assets/img/project/{{project.id}}.jpg)">
                                                 </figure>
+                                                {% else %}
+                                                       <figure id="imagen-box" class="image preview is-16by9" style="background-image: url({{base_url()}}/assets/img/upload-pic.svg)">
+                                                </figure>
+                                                        {% endif %}
                                             </div>
                                         </a>
                                         <img src="{{base_url()}}/assets/img/preview-proyecto.svg" class="is-hidden-mobile" alt="">
