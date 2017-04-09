@@ -12,7 +12,7 @@ final class HomeAction extends AbstractAction
         }
         //$this->logger->info(json_encode($subBody));
         $formData = [
-            'jotform' => $subBody['form_id'],
+            'jotform' => $subId,
             'group' => $subBody['answers']['4']['answer'],
             'name' => $subBody['answers']['81']['answer'],
             'description' => $subBody['answers']['82']['answer'],
