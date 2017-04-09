@@ -2,6 +2,11 @@
 
 final class HomeAction extends AbstractAction
 {
+    public function viewHome($req, $res, $arg)
+    {
+        return $this->view->render($res, 'home.html.twig');
+    }
+
     public function newProject($req, $res, $arg)
     {
         $subId = $arg['sub-id'];

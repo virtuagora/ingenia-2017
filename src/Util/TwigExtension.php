@@ -39,6 +39,8 @@ class TwigExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
             new \Twig_SimpleFunction('asset', array($this, 'asset')),
             new \Twig_SimpleFunction('category_name', array($this, 'categoryName')),
             new \Twig_SimpleFunction('facebook_login_link', array($this, 'facebookLoginLink')),
+            new \Twig_SimpleFunction('categories', array($this, 'categories')),
+            new \Twig_SimpleFunction('places', array($this, 'places')),
         ];
     }
 
@@ -78,5 +80,15 @@ class TwigExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
         return $helper->getLoginUrl(
             $this->helper->completePathFor('fbCallbackGet'), $permissions
         );
+    }
+
+    public function categories()
+    {
+        return $this->helper->getCategories();
+    }
+
+    public function places()
+    {
+        return $this->helper->getPlaces();
     }
 }

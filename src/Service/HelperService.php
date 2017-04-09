@@ -50,7 +50,7 @@ class HelperService
         ];
     }
 
-    public function getLocalidades()
+    public function getPlaces()
     {
         return [
             'AARON CASTELLANOS', 'ACEBAL', 'AGUARÁ GRANDE', 'ALBARELLOS', 'ALCORTA', 'ALDAO', 'ALEJANDRA',

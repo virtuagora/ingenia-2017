@@ -12,6 +12,7 @@ $app->get('/instalar', function ($req, $res, $arg) {
     return $res->withJSON(['mensaje' => 'instalación exitosa.']);
 });
 
+$app->get('/', 'HomeAction:viewHome')->setName('homeGet');
 $app->get('/nuevo-proyecto/{sub-id}', 'HomeAction:newProject')->setName('proNewGet');
 $app->get('/facebook-login', 'HomeAction:facebookLogin')->setName('fbCallbackGet');
 //TODO controlar login
