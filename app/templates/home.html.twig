@@ -68,39 +68,32 @@
                 <div class="level-item">
                     <div class="field has-addons">
                         <p class="control">
-                            <input class="input" type="text" placeholder="Buscar grupo o proyecto..">
+                            <input name="stringquery" class="input" type="text" placeholder="Buscar grupo o proyecto..">
                         </p>
                         <p class="control">
-                            <button class="button is-primary">
+                            <button id="buscarString" class="button is-primary">
                                 Buscar
                             </button>
                         </p>
                     </div>
                 </div>
-                <!--
-<div class="level-item">
-<p class="subtitle is-5">
-<strong>123</strong> proyectos
-</p>
-</div>
--->
             </div>
 
             <!-- Right side -->
             <div class="level-right">
-                <p class="level-item"><a><span class="icon is-normal"><i class="fa fa-sort-amount-asc"></i></span> Fecha</a></p>
                 <p class="level-item">
-                    <a>
-                        <!--                    <span class="icon is-normal"><i class="fa fa-sort-amount-asc fa-fw"></i></span>-->
-                        <span class="icon is-normal"><i class="fa fa-sort-amount-desc fa-fw"></i></span>
-                        Votos</a>
+                    <a href="javascript:void()" data-orden="1" id="orden-fecha"><span class="icon is-normal"><i class="fa fa-sort-amount-asc"></i></span> Fecha</a></p>
+                <p class="level-item">
+                    <a href="javascript:void()" data-orden="-1" id="orden-likes">
+                        <span class="icon"><i class="fa fa-sort-amount-desc"></i></span>
+                        Votos
+                    </a>
                 </p>
-
                 <div class="level-item">
                     <div class="field">
                         <p class="control">
                             <span class="select">
-                                <select>
+                                <select id="selectCategoria">
                                     <option>Todas las localidades</option>
                                 </select>
                             </span>
@@ -111,16 +104,16 @@
                     <div class="field">
                         <p class="control">
                             <span class="select">
-                                <select>
-                                    <option>Todas las temáticas</option>
-                                    <option>Integración Social</option>
-                                    <option>Medio Ambiente</option>
-                                    <option>Deporte y Recreación</option>
-                                    <option>Educación</option>
-                                    <option>Cultura</option>
-                                    <option>Empleo y capacitacion</option>
-                                    <option>Comunicación</option>
-                                    <option>Salud</option>
+                                <select id="selectCategoria">
+                                    <option value="">Todas las temáticas</option>
+                                    <option value="social">Integración Social</option>
+                                    <option value="ambiente">Medio Ambiente</option>
+                                    <option value="deporte">Deporte y Recreación</option>
+                                    <option value="educacion">Educación</option>
+                                    <option value="cultura">Cultura</option>
+                                    <option value="empleo">Empleo y capacitacion</option>
+                                    <option value="comunicacion">Comunicación</option>
+                                    <option value="salud">Salud</option>
                                 </select>
                             </span>
                         </p>
@@ -132,33 +125,64 @@
 </section>
 <section id="listado" class="section">
     <div class="container is-fluid">
-       <a class="button is-loading is-large is-fullwidth">Loading</a>
+        <a id="ejecutando" class="button is-loading is-large is-fullwidth" style="display:none;">Loading</a>
+        <div id="error" class="notification is-danger has-text-centered" style="display:none">
+            <span  class="icon is-large"><i class=" fa fa-times-circle"></i></span>
+            <h4 class="subtitle is-5 is-raleway">Error al obtener los proyectos</h4>
+        </div>
+        <div id="vacio" class="notification is-info has-text-centered" style="display:none">
+            <span  class="icon is-large"><i class=" fa fa-info-circle"></i></span>
+            <h4 class="subtitle is-5 is-raleway">¡No se encontró ningun proyecto!</h4>
+            <h4 class="subtitle is-6 is-raleway"><i>¿Y sí participas con uno? ;)</i></h4>
+        </div>
+        <div id="fin-contenidos" class="notification is-light has-text-centered" style="display:none">
+            <span  class="icon is-large"><i class=" fa fa-flag"></i></span>
+            <h4 class="subtitle is-5 is-raleway">Fin de los proyectos</h4>
+        </div>
         <div class="grid proyectos">
             {% for i in 0 %}
             {% set numberrandom = random(7)+1 %}
-            <div class="grid-item">
-                <div class="card">
-                    <div class="card-image">
-                        <span class="categoria tag is-cat{{numberrandom}}">Categoria</span>
-                        <div class="notification is-cat{{numberrandom}} has-text-centered">
-                            <img src="{{base_url()}}/assets/img/muscle.svg" alt="" class="banco-icon"> <h1 class="title is-5 is-800">{{random(1200)}}</h1>
-                        </div>
-                        <a href="#">
-                            <figure class="image is-4by3" style="background-image: url(https://unsplash.it/600/600?image={{random(15)}})">
-                            </figure>
-                        </a>
-                        <a href="www.google.com" class="avatar-link">
-                            <img class="avatar image is-32x32" src="https://pbs.twimg.com/profile_images/821237983219224576/GyC2dS0J.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="card-content is-cat{{numberrandom}}">
-                        <div class="has-text-centered">
-                            <a href="#"><h1 class="title is-3 is-raleway">Virtuagora, plataforma web de participacion ciudadana</h1><h1 class="title is-6">Grupo</h1></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--
+<div class="grid-item">
+<div class="card">
+<div class="card-image">
+<span class="categoria tag is-cat{{numberrandom}}">Categoria</span>
+<div class="notification is-cat{{numberrandom}} has-text-centered">
+<img src="{{base_url()}}/assets/img/muscle.svg" alt="" class="banco-icon"> <h1 class="title is-5 is-800">{{random(1200)}}</h1>
+</div>
+<a href="#">
+<figure class="image is-4by3" style="background-image: url(https://unsplash.it/600/600?image={{random(15)}})">
+</figure>
+</a>
+<a href="www.google.com" class="avatar-link">
+<img class="avatar image is-32x32" src="https://pbs.twimg.com/profile_images/821237983219224576/GyC2dS0J.jpg" alt="">
+</a>
+</div>
+<div class="card-content is-cat{{numberrandom}}">
+<div class="has-text-centered">
+<a href="#"><h1 class="title is-3 is-raleway">Virtuagora, plataforma web de participacion ciudadana</h1><h1 class="title is-6">Grupo</h1></a>
+</div>
+</div>
+</div>
+</div>
+-->
             {% endfor %}
+        </div>
+        <br>
+        <div class="columns paginacion">
+            <div class="column is-2 is-offset-1">
+                <a id="nav-first" href="javascript:listaCall('first')" class="button is-primary is-medium is-outlined is-fullwidth"><span class="icon"><i class="fa fa-fast-backward"></i></span>&nbsp;&nbsp;Primero</a>
+            </div>
+            <div class="column is-3">
+                <a id="nav-prev" href="javascript:listaCall('prev')" class="button is-primary is-medium is-fullwidth"><span class="icon"><i class="fa fa-step-backward"></i></span> &nbsp;&nbsp;Anterior</a>
+
+            </div>
+            <div class="column is-3">
+                <a id="nav-next" href="javascript:listaCall('next')" class="button is-primary is-medium is-fullwidth">Siguiente&nbsp;&nbsp;<span class="icon"><i class="fa fa-step-forward"></i></span></a>
+            </div>
+            <div class="column is-2">
+                <a id="nav-last" href="javascript:listaCall('last')" class="button is-primary is-medium is-outlined is-fullwidth">Ultimo&nbsp;&nbsp;<span class="icon"><i class="fa fa-fast-forward"></i></span></a>
+            </div>
         </div>
     </div>
 </section>
@@ -204,14 +228,218 @@
 <input id="csrf_value" type="hidden" name="{{csrf.keys.value}}" value="{{csrf.value}}">
 {% endblock %}
 {% block javascript %}
-<script id="brick-vacio" type = "text/template">
-{% include 'block-proyecto' %}
+<script id="block-vacio" type = "text/template">
+{% include 'block-proyecto.html.twig' %}
 </script>
 <script src="{{base_url()}}/assets/js/masonry.pkgd.min.js"></script>
 <script>
+    var baseUrl = {{base_url()}};
+    var link = null;
+
+    $(document).ready(function(){
+        $('.grid').masonry({
+            // options
+            itemSelector: '.grid-item',
+        });
+        makeQuery();
+    });
+
+    $('#buscarString').on('click', function() {
+        makeQuery();
+    })
+
+    $('#selectLocalidad').on('change', function() {
+        makeQuery();
+    })
+
+    $('#selectCategoria').on('change', function() {
+        makeQuery();
+    })
+
     $('.grid').masonry({
         // options
         itemSelector: '.grid-item',
     });
+
+    $('#orden-likes').click(function() {
+        var orden = $('#orden-likes').data('orden');
+        if( orden == 1 ){
+            $('#orden-likes').data('orden',-1);
+            $('#orden-likes span i').toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
+            makeQuery();
+        } else {
+            $('#orden-likes').data('orden',1);
+            $('#orden-likes span i').toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
+            makeQuery();
+        }
+    });
+
+    $('#orden-fecha').click(function() {
+        var orden = $('#orden-fecha').data('orden');
+        if( orden == 1 ){
+            $('#orden-fecha').data('orden',-1);
+            $('#orden-fecha span i').toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
+            makeQuery();
+        } else {
+            $('#orden-fecha').data('orden',1);
+            $('#orden-fecha span i').toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
+            makeQuery();
+        }
+    });
+
+    function parseLinkHeader(header) {
+        var links = {};
+        if (header) {
+            var parts = header.split(', ');
+            for (var i=0; i<parts.length; i++) {
+                var section = parts[i].split('; ');
+                if (section.length == 2) {
+                    var url = section[0].replace(/<(.*)>/, '$1').trim();
+                    var name = section[1].replace(/rel="(.*)"/, '$1').trim();
+                    links[name] = url;
+                }
+            }
+        }
+        return links;
+    }
+
+    function refreshPaginator(links) {
+        $('#nav-first').hide().off("click");
+        $('#nav-prev').hide().off("click");
+        $('#nav-next').hide().off("click");
+        $('#nav-last').hide().off("click");
+        for (var nav in links) {
+            $('#nav-'+nav).show().on("click", {url: links[nav]}, startGetRequest);
+        }
+    }
+
+    function listaCall(key){
+        $("#lista-contenidos").empty();
+        enviarSolicitud( link[key] );
+    }
+
+    function makeQuery(){
+        var query = new Array();
+        var where_value = new Array();
+        // Por tematica
+        var categoria = $('#selectCategoria').val();
+        if( categoria != ''){
+            where_value.push('category-eq-' + categoria);
+        }
+        // Por localidad
+        var localidad = $('#selectLocalidad').val();
+        if( localidad != ''){
+            where_value.push('place-eq-' + localidad);
+        }
+        // Ordenar por fecha
+        var orden_fecha = $('#orden-likes').data('orden');
+        if(orden_fecha == 1){
+            query.push({name:'sort', value:'created_at'});
+        } else {
+            query.push({name:'sort', value:'-created_at'});
+        }
+        // Ordenar por likes
+        var orden_likes = $('#orden-likes').data('orden');
+        if(orden_likes == 1){
+            query.push({name:'sort', value:'likes'});
+        } else if(orden_puntos == -1){
+            query.push({name:'sort', value:'-likes'});
+        }
+        // Por string
+        where_value.push('s=' + $('input[name="stringquery"]').val())
+        query.push({name:'take', value:'10'});
+        if(where_value.length > 0){
+            query.push({name:'where', value: where_value.join()})
+        }
+        $(".proyectos").empty();
+        $('.proyectos').masonry( 'reloadItems' );
+        $('.proyectos').masonry( 'layout' );
+        enviarSolicitud(baseUrl + '/proyecto?' + jQuery.param(query) );
+    }
+
+    function revisarLinks(key) {
+		if( link[key] != undefined ){
+			$('#nav-'+key).attr('disabled');
+		} else {
+			$('#nav-'+key).attr('disabled');
+		}
+	}
+
+    function crearBrick(contenido){
+        var $brick = $('#block-vacio').html();
+        $brick = $brick.replace("##VOTOS##", contenido.likes)
+            .replace("##BASEURL##", baseUrl)
+            .replace("##CATEGORIA##", contenido.category)
+            .replace("##PROYECTOLINK##", baseUrl + '/proyecto/' + contenido.id)
+            .replace("##USUARIOIMG##", 'https://graph.facebook.com/v2.8/' + contenido.user.facebook + '/picture?type=normal')
+            .replace("##PROYECTONOMBRE##", contenido.name)
+            .replace("##GRUPO##", contenido.group)
+        switch(contenido.category) {
+            case 'social':
+                $brick = $brick.replace("##CATEGORIANOMBRE##",'Integración Social');
+                break;
+            case 'educacion':
+                $brick = $brick.replace("##CATEGORIANOMBRE##",'Educación');
+                break;
+            case 'comunicacion':
+                $brick = $brick.replace("##CATEGORIANOMBRE##",'Comunicación');
+                break;
+            case 'ambiente':
+                $brick = $brick.replace("##CATEGORIANOMBRE##",'Medio Ambiente');
+                break;
+            case 'cultura':
+                $brick = $brick.replace("##CATEGORIANOMBRE##",'Cultura');
+                break;
+            case 'salud':
+                $brick = $brick.replace("##CATEGORIANOMBRE##",'Salud');
+                break;
+            case 'deporte':
+                $brick = $brick.replace("##CATEGORIANOMBRE##",'Deporte y recreación');
+                break;
+            case 'empleo':
+                $brick = $brick.replace("##CATEGORIANOMBRE##",'Empleo y Capacitación');
+                break;
+            default:
+                break;
+             }
+        if(contenido.has_image){
+            $brick = $brick.replace("##IMAGENURL##",baseUrl+'/assets/img/project/'+contenido.id+'.jpg');
+        } else {
+            $brick = $brick.replace("##IMAGENURL##",baseUrl+'/assets/img/placeholder-'+contenido.category+'.png');
+        }
+        $(".proyectos").append($brick);
+    }
+
+    function enviarSolicitud(query){
+        $('#ejecutando').show();
+        //$('#cargar-mas').hide();
+        //$('#control-paginas').hide();
+        $('#vacio').hide();
+        $('#fin-contenidos').hide();
+        $('#error').hide();
+        var request = $.ajax({
+            url: query,
+            pageSize: 10,
+            cache: false,
+            dataType: "json"
+        }).done(function(resultados, textStatus, request) {
+            link = parseLinkHeader(request.getResponseHeader('link'));
+            $('#ejecutando').hide();
+            if(resultados.length > 0){
+                for (i = 0; i < resultados.length; i++) {
+                    crearBrick(resultados[i]);
+                }
+                $('.proyectos').masonry( 'reloadItems' );
+                $('.proyectos').masonry( 'layout' );
+                revisarLinks();
+            } else {
+                $('#ejecutando').hide();
+                $('#vacio').show();
+            }
+        }).fail(function(jqXHR, textStatus) {
+            $('#ejecutando').hide();
+            $('#error').show();
+        });
+    }
 </script>
 {% endblock %}

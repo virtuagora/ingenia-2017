@@ -30,7 +30,7 @@ return [
             'host' => 'localhost',
             'database' => 'ingenia',
             'username' => 'root',
-            'password' => '',
+            'password' => 'newbo-ok',
             'charset' => 'utf8',
             'collation' => 'utf8_general_ci',
             'prefix' => '',

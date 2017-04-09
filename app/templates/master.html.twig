@@ -41,6 +41,16 @@
             <img class="image" src="{{base_url()}}/assets/img/login.svg" alt="">
         </a>
         {% endif %}
+        <div id="modal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="notification has-text-centered">
+                    <span  class="icon is-large"><i id="fa-modal" class=""></i></span>
+                    <h4 id="subtitle-modal" class="subtitle is-5 is-raleway"></h4>
+                </div>
+            </div>
+            <button class="modal-close"></button>
+        </div>
         {% block body %}
         {% endblock %}
         <!-- jQuery (necessary for some stuff!) -->
