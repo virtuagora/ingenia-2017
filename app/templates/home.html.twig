@@ -8,7 +8,7 @@
             <div class="">
                 <img src="{{base_url()}}/assets/img/ingenia-logo2.svg" class="logo image" alt="">
             </div>
-
+            {#
             <nav class="level">
                 <div class="level-item has-text-centered">
                     <div>
@@ -35,6 +35,7 @@
                     </div>
                 </div>
             </nav>
+            #}
             <div class="columns">
                 <div class="column">
                     <a href="#" class="button is-primary is-large is-hidden-mobile is-inverted is-fullwidth">Registrá tu proyecto</a>
@@ -82,11 +83,11 @@
             <!-- Right side -->
             <div class="level-right">
                 <p class="level-item">
-                    <a href="javascript:void()" data-orden="1" id="orden-fecha"><span class="icon is-normal"><i class="fa fa-sort-amount-asc"></i></span> Fecha</a></p>
+                    <a href="javascript:void(0)" data-orden="0" id="orden-fecha" class="button is-primary is-outlined"><span class="icon is-small"><i class="fa fa-sort-amount-asc"></i></span> &nbsp;&nbsp;Fecha</a></p>
                 <p class="level-item">
-                    <a href="javascript:void()" data-orden="-1" id="orden-likes">
-                        <span class="icon"><i class="fa fa-sort-amount-desc"></i></span>
-                        Votos
+                    <a href="javascript:void(0)" data-orden="0" id="orden-likes" class="button is-primary is-outlined">
+                        <span class="icon is-small"><i class="fa fa-sort-amount-desc"></i></span>
+                        &nbsp;&nbsp;Votos
                     </a>
                 </p>
                 <div class="level-item">
@@ -95,6 +96,9 @@
                             <span class="select">
                                 <select id="selectLocalidad">
                                     <option value="all" selected="selected">Todas las localidades</option>
+                                    {% for localidad in places() %}
+                                    <option value="{{localidad}}" >{{localidad|capitalize}}</option>
+                                    {% endfor %}
                                 </select>
                             </span>
                         </p>
@@ -135,47 +139,16 @@
             <h4 class="subtitle is-5 is-raleway">¡No se encontró ningun proyecto!</h4>
             <h4 class="subtitle is-6 is-raleway"><i>¿Y sí participas con uno? ;)</i></h4>
         </div>
-        <div id="fin-contenidos" class="notification is-light has-text-centered" style="display:none">
-            <span  class="icon is-large"><i class=" fa fa-flag"></i></span>
-            <h4 class="subtitle is-5 is-raleway">Fin de los proyectos</h4>
-        </div>
         <div class="grid proyectos">
-            {% for i in 0 %}
-            {% set numberrandom = random(7)+1 %}
-            <!--
-<div class="grid-item">
-<div class="card">
-<div class="card-image">
-<span class="categoria tag is-cat{{numberrandom}}">Categoria</span>
-<div class="notification is-cat{{numberrandom}} has-text-centered">
-<img src="{{base_url()}}/assets/img/muscle.svg" alt="" class="banco-icon"> <h1 class="title is-5 is-800">{{random(1200)}}</h1>
-</div>
-<a href="#">
-<figure class="image is-4by3" style="background-image: url(https://unsplash.it/600/600?image={{random(15)}})">
-</figure>
-</a>
-<a href="www.google.com" class="avatar-link">
-<img class="avatar image is-32x32" src="https://pbs.twimg.com/profile_images/821237983219224576/GyC2dS0J.jpg" alt="">
-</a>
-</div>
-<div class="card-content is-cat{{numberrandom}}">
-<div class="has-text-centered">
-<a href="#"><h1 class="title is-3 is-raleway">Virtuagora, plataforma web de participacion ciudadana</h1><h1 class="title is-6">Grupo</h1></a>
-</div>
-</div>
-</div>
-</div>
--->
-            {% endfor %}
         </div>
         <br>
-        <div id="fin-contenidos" class="notification is-light has-text-centered" style="display:none">
-            <span  class="icon is-large"><i class=" fa fa-flag"></i></span>
+        <div id="fin-contenidos" class="notification is-localhost has-text-centered" style="display:none">
+            <span  class="icon is-large"><i class=" fa fa-flag-checkered"></i></span>
             <h4 class="subtitle is-5 is-raleway">Fin de los proyectos</h4>
         </div>
         <div class="columns paginacion">
             <div class="column is-6 is-offset-3">
-                <a id="cargar-mas" href="javascript:buscarMasContenido()" class="button is-primary is-medium is-outlined is-fullwidth"><span class="icon"><i class="fa fa-fast-backward"></i></span>&nbsp;&nbsp;Primero</a>
+                <a id="cargar-mas" href="javascript:buscarMasContenido()" class="button is-primary is-medium is-outlined is-fullwidth" style="display:none;">Cargar mas proyectos</a>
             </div>
         </div>
     </div>
@@ -257,12 +230,30 @@
     $('#orden-likes').click(function() {
         var orden = $('#orden-likes').data('orden');
         if( orden == 1 ){
+            console.log(orden)
+            $('#orden-likes').removeClass('is-outlined');
             $('#orden-likes').data('orden',-1);
+            $('#orden-fecha').data('orden',0);
+            $('#orden-fecha').addClass('is-outlined');
+            $('#orden-fecha span i').removeClass().addClass('fa fa-sort-amount-asc');
+            $('#orden-likes span i').toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
+            makeQuery();
+        } else if( orden == -1 ) {
+            console.log(orden)
+            $('#orden-likes').removeClass('is-outlined');
+            $('#orden-likes').data('orden',1);
+            $('#orden-fecha').data('orden',0);
+            $('#orden-fecha').addClass('is-outlined');
+            $('#orden-fecha span i').removeClass().addClass('fa fa-sort-amount-asc');
             $('#orden-likes span i').toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
             makeQuery();
         } else {
-            $('#orden-likes').data('orden',1);
-            $('#orden-likes span i').toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
+            console.log(orden)
+            $('#orden-fecha').data('orden',0);
+            $('#orden-fecha').addClass('is-outlined');
+            $('#orden-fecha span i').removeClass().addClass('fa fa-sort-amount-asc');
+            $('#orden-likes').removeClass('is-outlined');
+            $('#orden-likes').data('orden',-1);
             makeQuery();
         }
     });
@@ -270,12 +261,30 @@
     $('#orden-fecha').click(function() {
         var orden = $('#orden-fecha').data('orden');
         if( orden == 1 ){
+            console.log(orden)
+            $('#orden-fecha').removeClass('is-outlined');
             $('#orden-fecha').data('orden',-1);
+            $('#orden-likes').data('orden',0);
+            $('#orden-likes').addClass('is-outlined');
+            $('#orden-likes span i').removeClass().addClass('fa fa-sort-amount-desc');
+            $('#orden-fecha span i').toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
+            makeQuery();
+        } else if( orden == -1 ) {
+            console.log(orden)
+            $('#orden-fecha').removeClass('is-outlined');
+            $('#orden-fecha').data('orden',1);
+            $('#orden-likes').data('orden',0);
+            $('#orden-likes').addClass('is-outlined');
+            $('#orden-likes span i').removeClass().addClass('fa fa-sort-amount-desc');
             $('#orden-fecha span i').toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
             makeQuery();
         } else {
+            console.log(orden)
+            $('#orden-likes').data('orden',0);
+            $('#orden-likes').addClass('is-outlined');
+            $('#orden-likes span i').removeClass().addClass('fa fa-sort-amount-desc');
+            $('#orden-fecha').removeClass('is-outlined');
             $('#orden-fecha').data('orden',1);
-            $('#orden-fecha span i').toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
             makeQuery();
         }
     });
@@ -323,21 +332,21 @@
         //var where_value = new Array();
         // Por tematica
         query.push({name:'endless', value:'true'});
-
+        // Por localidad
         var categoria = $('#selectCategoria').val();
         if(categoria != 'all'){
-            query.push('category-eq-' + categoria);
+            query.push({name:'categoria', value:categoria});
         }
         // Por localidad
         var localidad = $('#selectLocalidad').val();
         if( localidad != 'all'){
-            query.push('place-eq-' + localidad);
+            query.push({name:'localidad', value:localidad});
         }
         // Ordenar por fecha
-        var orden_fecha = $('#orden-likes').data('orden');
+        var orden_fecha = $('#orden-fecha').data('orden');
         if(orden_fecha == 1){
             query.push({name:'sort', value:'created_at'});
-        } else {
+        } else if(orden_fecha == -1) {
             query.push({name:'sort', value:'-created_at'});
         }
         // Ordenar por likes
@@ -348,8 +357,11 @@
             query.push({name:'sort', value:'-likes'});
         }
         // Por string
-        query.push('s=' + $('input[name="stringquery"]').val());
-        query.push({name:'take', value:'10'});
+        var string = $('input[name="stringquery"]').val();
+        if( string != ''){
+            query.push({name:'s', value:string});
+        }
+        //query.push({name:'take', value:'10'});
         //        if(where_value.length > 0){
         //            query.push({name:'where', value: where_value.join()});
         //        }
@@ -357,14 +369,6 @@
         $('.proyectos').masonry( 'reloadItems' );
         $('.proyectos').masonry( 'layout' );
         enviarSolicitud(baseUrl + '/proyecto?' + jQuery.param(query) );
-    }
-
-    function revisarLinks(key) {
-        if( link[key] != undefined ){
-            $('#nav-'+key).attr('disabled');
-        } else {
-            $('#nav-'+key).attr('disabled');
-        }
     }
 
     function crearBrick(contenido){
@@ -433,7 +437,7 @@
                 }
                 $('.proyectos').masonry( 'reloadItems' );
                 $('.proyectos').masonry( 'layout' );
-                revisarLinks();
+                revisarMasBloques();
             } else {
                 $('#ejecutando').hide();
                 $('#vacio').show();
