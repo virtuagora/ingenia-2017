@@ -169,19 +169,13 @@
             {% endfor %}
         </div>
         <br>
+         <div id="fin-contenidos" class="notification is-light has-text-centered" style="display:none">
+            <span  class="icon is-large"><i class=" fa fa-flag"></i></span>
+            <h4 class="subtitle is-5 is-raleway">Fin de los proyectos</h4>
+        </div>
         <div class="columns paginacion">
-            <div class="column is-2 is-offset-1">
-                <a id="nav-first" href="javascript:listaCall('first')" class="button is-primary is-medium is-outlined is-fullwidth"><span class="icon"><i class="fa fa-fast-backward"></i></span>&nbsp;&nbsp;Primero</a>
-            </div>
-            <div class="column is-3">
-                <a id="nav-prev" href="javascript:listaCall('prev')" class="button is-primary is-medium is-fullwidth"><span class="icon"><i class="fa fa-step-backward"></i></span> &nbsp;&nbsp;Anterior</a>
-
-            </div>
-            <div class="column is-3">
-                <a id="nav-next" href="javascript:listaCall('next')" class="button is-primary is-medium is-fullwidth">Siguiente&nbsp;&nbsp;<span class="icon"><i class="fa fa-step-forward"></i></span></a>
-            </div>
-            <div class="column is-2">
-                <a id="nav-last" href="javascript:listaCall('last')" class="button is-primary is-medium is-outlined is-fullwidth">Ultimo&nbsp;&nbsp;<span class="icon"><i class="fa fa-fast-forward"></i></span></a>
+            <div class="column is-6 is-offset-3">
+                <a id="cargar-mas" href="javascript:buscarMasContenido()" class="button is-primary is-medium is-outlined is-fullwidth"><span class="icon"><i class="fa fa-fast-backward"></i></span>&nbsp;&nbsp;Primero</a>
             </div>
         </div>
     </div>
@@ -232,7 +226,7 @@
 </script>
 <script src="{{base_url()}}/assets/js/masonry.pkgd.min.js"></script>
 <script>
-    var baseUrl = {{base_url()}};
+    var baseUrl = '{{base_url()}}';
     var link = null;
 
     $(document).ready(function(){
@@ -312,11 +306,18 @@
         }
     }
 
-    function listaCall(key){
-        $("#lista-contenidos").empty();
-        enviarSolicitud( link[key] );
-    }
+    function revisarMasBloques() {
+		if( link['next'] != undefined ){
+			$('#cargar-mas').show();
+		} else {
+			$('#fin-contenidos').show();
+		}
+	}
 
+   function buscarMasContenido() {
+		$('#cargar-mas').hide();
+		enviarSolicitud( link['next'] );
+	}
     function makeQuery(){
         var query = new Array();
         var where_value = new Array();
@@ -341,7 +342,7 @@
         var orden_likes = $('#orden-likes').data('orden');
         if(orden_likes == 1){
             query.push({name:'sort', value:'likes'});
-        } else if(orden_puntos == -1){
+        } else if(orden_likes == -1){
             query.push({name:'sort', value:'-likes'});
         }
         // Por string
