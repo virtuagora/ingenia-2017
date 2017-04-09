@@ -93,8 +93,8 @@
                     <div class="field">
                         <p class="control">
                             <span class="select">
-                                <select id="selectCategoria">
-                                    <option>Todas las localidades</option>
+                                <select id="selectLocalidad">
+                                    <option value="all" selected="selected">Todas las localidades</option>
                                 </select>
                             </span>
                         </p>
@@ -105,7 +105,7 @@
                         <p class="control">
                             <span class="select">
                                 <select id="selectCategoria">
-                                    <option value="">Todas las temáticas</option>
+                                    <option value="all" selected="selected">Todas las temáticas</option>
                                     <option value="social">Integración Social</option>
                                     <option value="ambiente">Medio Ambiente</option>
                                     <option value="deporte">Deporte y Recreación</option>
@@ -169,7 +169,7 @@
             {% endfor %}
         </div>
         <br>
-         <div id="fin-contenidos" class="notification is-light has-text-centered" style="display:none">
+        <div id="fin-contenidos" class="notification is-light has-text-centered" style="display:none">
             <span  class="icon is-large"><i class=" fa fa-flag"></i></span>
             <h4 class="subtitle is-5 is-raleway">Fin de los proyectos</h4>
         </div>
@@ -307,29 +307,31 @@
     }
 
     function revisarMasBloques() {
-		if( link['next'] != undefined ){
-			$('#cargar-mas').show();
-		} else {
-			$('#fin-contenidos').show();
-		}
-	}
+        if( link['next'] != undefined ){
+            $('#cargar-mas').show();
+        } else {
+            $('#fin-contenidos').show();
+        }
+    }
 
-   function buscarMasContenido() {
-		$('#cargar-mas').hide();
-		enviarSolicitud( link['next'] );
-	}
+    function buscarMasContenido() {
+        $('#cargar-mas').hide();
+        enviarSolicitud( link['next'] );
+    }
     function makeQuery(){
         var query = new Array();
-        var where_value = new Array();
+        //var where_value = new Array();
         // Por tematica
+        query.push({name:'endless', value:'true'});
+
         var categoria = $('#selectCategoria').val();
-        if( categoria != ''){
-            where_value.push('category-eq-' + categoria);
+        if(categoria != 'all'){
+            query.push('category-eq-' + categoria);
         }
         // Por localidad
         var localidad = $('#selectLocalidad').val();
-        if( localidad != ''){
-            where_value.push('place-eq-' + localidad);
+        if( localidad != 'all'){
+            query.push('place-eq-' + localidad);
         }
         // Ordenar por fecha
         var orden_fecha = $('#orden-likes').data('orden');
@@ -346,11 +348,11 @@
             query.push({name:'sort', value:'-likes'});
         }
         // Por string
-        where_value.push('s=' + $('input[name="stringquery"]').val())
+        query.push('s=' + $('input[name="stringquery"]').val());
         query.push({name:'take', value:'10'});
-        if(where_value.length > 0){
-            query.push({name:'where', value: where_value.join()})
-        }
+        //        if(where_value.length > 0){
+        //            query.push({name:'where', value: where_value.join()});
+        //        }
         $(".proyectos").empty();
         $('.proyectos').masonry( 'reloadItems' );
         $('.proyectos').masonry( 'layout' );
@@ -358,12 +360,12 @@
     }
 
     function revisarLinks(key) {
-		if( link[key] != undefined ){
-			$('#nav-'+key).attr('disabled');
-		} else {
-			$('#nav-'+key).attr('disabled');
-		}
-	}
+        if( link[key] != undefined ){
+            $('#nav-'+key).attr('disabled');
+        } else {
+            $('#nav-'+key).attr('disabled');
+        }
+    }
 
     function crearBrick(contenido){
         var $brick = $('#block-vacio').html();
@@ -401,9 +403,9 @@
                 break;
             default:
                 break;
-             }
+                                 }
         if(contenido.has_image){
-            $brick = $brick.replace("##IMAGENURL##",baseUrl+'/assets/img/project/'+contenido.id+'.jpg');
+            $brick = $brick.replace("##IMAGENURL##",baseUrl+'/img/project/'+contenido.id+'.jpg');
         } else {
             $brick = $brick.replace("##IMAGENURL##",baseUrl+'/assets/img/placeholder-'+contenido.category+'.png');
         }
