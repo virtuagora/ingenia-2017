@@ -48,7 +48,7 @@ $container['filesystem'] = function ($c) {
 $container['image'] = function ($c) {
     return new Intervention\Image\ImageManager(['driver' => 'imagick']);
 };
-$container['validation'] = function ($c) {
+$container['validator'] = function ($c) {
     $commentVdt = v::key('content', v::alnum()->length(2, 5000));
     $rateVdt = v::key('value', v::in([-1, 1]));
     $pageVdt = v
