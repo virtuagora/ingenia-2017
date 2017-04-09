@@ -254,7 +254,7 @@
                                             </button>
                                         </div>
                                     </nav>
-                                    <input type="hidden" name="{{csrf.keys.name}}" value="{{csrf.name}}">
+                                    <input type="hidden" name="{{csrf.key}}" value="{{csrf.value}}">
                                     <input type="hidden" name="{{csrf.keys.value}}" value="{{csrf.value}}">
                                 </form>
                             </div>
@@ -349,8 +349,7 @@
         </div>
     </div>
 </footer>
-<input id="csrf_name" type="hidden" name="{{csrf.keys.name}}" value="{{csrf.name}}">
-<input id="csrf_value" type="hidden" name="{{csrf.keys.value}}" value="{{csrf.value}}">
+<input id="csrf_name" type="hidden" name="{{csrf.key}}" value="{{csrf.value}}">
 <input id="userFacebook" type="hidden" value="{{user.facebook}}">
 <input id="userName" type="hidden" value="{{user.name}}">
 {% endblock %}

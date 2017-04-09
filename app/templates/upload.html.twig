@@ -15,8 +15,7 @@
                         <form action="{{path_for('proSetImgPost',{ 'pro': project.id })}}" method="POST" enctype="multipart/form-data">
                             <div id="subir-imagen" class="box">
                                 <input name="imagen" type="file" hidden>
-                                <input id="csrf_name" type="hidden" name="{{csrf.keys.name}}" value="{{csrf.name}}">
-<input id="csrf_value" type="hidden" name="{{csrf.keys.value}}" value="{{csrf.value}}">
+                                <input id="csrf_name" type="hidden" name="{{csrf.key}}" value="{{csrf.value}}">
                                 <div class="columns">
                                     <div class="column is-half is-offset-one-quarter">
                                         <a id="upload-file" href="#">
