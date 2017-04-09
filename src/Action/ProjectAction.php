@@ -108,8 +108,9 @@ final class ProjectAction extends AbstractAction
         ]);
     }
 
-    private function listProjects($params = array())
+    public function listProjects($req, $res, $arg)
     {
+        $params = $req->getQueryParams();
         if (!$this->validator['page']->validate($params)) {
             throw new \App\Util\AppException('Parametros invalidos.', 400);
         }
@@ -138,7 +139,7 @@ final class ProjectAction extends AbstractAction
             }
         }
         $url = $this->helper->currentUrl();
-        $paginator = new App\Util\Paginator($query, $url, $params);
+        $paginator = new \App\Util\Paginator($query, $url, $params);
         return $res
             ->withHeader('Link', $paginator->getLinkHeader())
             ->withJSON($paginator->rows->toArray());
