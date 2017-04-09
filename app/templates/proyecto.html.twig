@@ -6,8 +6,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="{{project.name}} - Ingenia, bancamos tus ideas" />
 <meta property="og:description" content="{{project.description}}" />
-{% project.has_image == true %}
-<meta property="og:image" content="{{ base_url() }}/assets/img/project/{{project.id}}.jpg" />
+{% if project.has_image == true %}
+<meta property="og:image" content="{{ base_url() }}/img/project/{{project.id}}.jpg" />
 {% else %}
 <meta property="og:image" content="{{ base_url() }}/assets/img/sharer-{{project.category}}.png" />
 {% endif %}
@@ -64,7 +64,7 @@
                 <div class="column">
                     <div class="has-text-centered">
                         <h1 class="title is-5 is-white is-300"><span class="tag is-white">{{category_name(project.category)}}</span>
-                            <span class="icon is-middle">&nbsp;&nbsp;&nbsp;<i class="fa fa-comments"></i></span>&nbsp;&nbsp;{{project.comments|lenght}} comentarios</h1>
+                            <span class="icon is-middle">&nbsp;&nbsp;&nbsp;<i class="fa fa-comments"></i></span>&nbsp;&nbsp;{{project.comments|length}} comentarios</h1>
                         <h1 class="title titulo-proyecto is-1 is-500 is-raleway is-white">{{project.name}}</h1>
 
                     </div>
@@ -72,7 +72,7 @@
                         <div class="columns">
                             <div class="column is-half is-offset-one-quarter has-text-centered">
                                 {% if project.has_image %}
-                                <figure class="imagen-proyecto image is-16by9" style="background-image: url({{base_url()}}/assets/img/project/{{project.id}}.jpg)">
+                                <figure class="imagen-proyecto image is-16by9" style="background-image: url({{base_url()}}/img/project/{{project.id}}.jpg)">
                                 </figure>
                                 {% else %}
                                 <figure class="imagen-proyecto image is-16by9" style="background-image: url({{base_url()}}/assets/img/placeholder-{{project.category}}.png)">
@@ -83,11 +83,11 @@
                         </div>
                         <h1 class="title is-3 is-raleway is-800">Resumen del proyecto</h1>
                         <p>
-                            {{project.description}}
+                            {{project.description|nl2br}}
                         </p>
                         <h1 class="title is-3 is-raleway is-800">Fundamentación</h1>
                         <p>
-                            {{project.foundation}}
+                            {{project.foundation|nl2br}}
                         </p>
                     </div>
 
@@ -117,23 +117,12 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                    {% for evento in project.schedule %}
                                                         <tr>
-                                                            <th>10/03</th>
-                                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus quibusdam doloremque at repellendus aliquid perferendis consequatur quidem accusantium nostrum ad facere, quia.?</td>
+                                                            <td>{{ evento.dia }}</td>
+                                                            <td>{{ evento.actividad }}</td>
                                                         </tr>
-                                                        <tr>
-                                                            <th>10/03</th>
-                                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus quibusdam doloremque at repellendus aliquid perferendis consequatur quidem accusantium nostrum ad facere, quia.?</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>10/03</th>
-                                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus quibusdam doloremque at repellendus aliquid perferendis consequatur quidem accusantium nostrum ad facere, quia.?</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>10/03</th>
-                                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus quibusdam doloremque at repellendus aliquid perferendis consequatur quidem accusantium nostrum ad facere, quia.?</td>
-                                                        </tr>
-
+                                                    {% endfor %}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -166,21 +155,13 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                    {% for item in project.budget %}
                                                         <tr>
-                                                            <th>Lorem ipsum dolor sit amet</th>
-                                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus quibusdam doloremque at repellendus aliquid perferendis consequatur quidem accusantium nostrum ad facere, quia.?</td>
-                                                            <td>$2500</td>
+                                                            <td>{{ item.rubro }}</td>
+                                                            <td>{{ item.descripcion }}</td>
+                                                            <td>{{ item.monto }}</td>
                                                         </tr>
-                                                        <tr>
-                                                            <th>Lorem ipsum dolor sit amet</th>
-                                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus quibusdam doloremque at repellendus aliquid perferendis consequatur quidem accusantium nostrum ad facere, quia.?</td>
-                                                            <td>$2500</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Lorem ipsum dolor sit amet</th>
-                                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus quibusdam doloremque at repellendus aliquid perferendis consequatur quidem accusantium nostrum ad facere, quia.?</td>
-                                                            <td>$2500</td>
-                                                        </tr>
+                                                    {% endfor %}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -222,7 +203,13 @@
                                 <div class="tile is-parent">
                                     <article class="tile is-child notification is-white has-text-centered">
                                         <p class="subtitle is-300">¿Las actividades se realizarán en coordinación con otras organizaciones y/o instituciones?</p>
-                                        <p class="title is-3"><b>{{project.organization != null ? 'SI' : 'NO'}}</b> - Organización "{{project.organization}}"</p>
+                                        <p class="title is-3">
+                                            {% if project.organization != null %}
+                                                <b>SI</b> - Organización "{{project.organization}}"
+                                            {% else %}
+                                                <b>NO</b>
+                                            {% endif %}
+                                        </p>
                                     </article>
                                 </div>
                             </div>
@@ -288,7 +275,7 @@
                                 </a>
                             </div>
                             <div class="">
-                                <h1 class="title is-600 is-white">1500</h1>
+                                <h1 class="title is-600 is-white">{{ project.likes }}</h1>
                                 <h1 class="subtitle is-raleway is-white">bancan esta idea</h1>
                                 <span class="tag is-white">Vos tambien!&nbsp;<span class="icon is-small"><i class="fa fa-smile-o fa-fw"></i></span></span>
                                 <hr>

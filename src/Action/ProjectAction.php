@@ -122,7 +122,7 @@ final class ProjectAction extends AbstractAction
             $query = $query->where('place', $params['localidad']);
         }
         if (isset($params['s'])) {
-            $filter = $this->helper->generateTrace($params['q']);
+            $filter = $this->helper->generateTrace($params['s']);
             $query = $query
                 ->where('name_trace', 'LIKE', "%$filter%")
                 ->orWhere('group_trace', 'LIKE', "%$filter%");
