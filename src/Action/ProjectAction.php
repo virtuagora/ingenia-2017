@@ -110,6 +110,9 @@ final class ProjectAction extends AbstractAction
 
     private function listProjects($params = array())
     {
+        if (!$this->validator['page']->validate($params)) {
+            throw new \App\Util\AppException('Parametros invalidos.', 400);
+        }
         $query = $this->db->query('App:Project');
         if (isset($params['categoria'])) {
             $query = $query->where('category', $params['categoria']);

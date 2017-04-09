@@ -5,7 +5,8 @@ use Respect\Validation\Validator as v;
 $container = $app->getContainer();
 
 $container['csrf'] = function ($c) {
-    return new \Slim\Csrf\Guard('csrf', $dummy = null, null, 200, 16, true);
+    $dummy = $c->get('session');
+    return new \Slim\Csrf\Guard('csrf', $dummy, null, 200, 16, true);
 };
 $container['flash'] = function () {
     return new \Slim\Flash\Messages();
@@ -56,6 +57,9 @@ $container['filesystem'] = function ($c) {
     $settings = $c->get('settings')['filesystem'];
     $adapter = new \ReflectionClass($settings['adapter']);
     return new League\Flysystem\Filesystem($adapter->newInstanceArgs($settings['args']));
+};
+$container['image'] = function ($c) {
+    return new Intervention\Image\ImageManager(['driver' => 'imagick']);
 };
 $container['validation'] = function ($c) {
     $commentVdt = v::key('content', v::alnum()->length(2, 5000));

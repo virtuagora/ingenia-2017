@@ -9,19 +9,8 @@ class Paginator
     public $rows;
     public $links;
 
-    public function validate($data)
-    {
-        $vdt = v::key('page')->optional(intVal()->positive())
-            ->key('take')->optional(intVal()->between(1, 100))
-            ->key('endless')->optional(v::boolVal());
-        if (!$vdt->validate($data)) {
-            throw new AppException('Parámetros de paginación incorrectos.');
-        }
-    }
-    
     public function __construct($query, $url = '', $params = array())
     {
-        $vdt = $this->validate($params);
         $page = $params['page']?: 1;
         $take = $params['take']?: 10;
         $endless = $params['endless']?: false;

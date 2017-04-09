@@ -158,8 +158,11 @@ final class HomeAction extends AbstractAction
         if ($imgFile->getError() !== UPLOAD_ERR_OK) {
             throw new \App\Util\AppException('Hubo un error con la imagen recibida', 400);
         }
-        $imgStrm = $imgFile->getStream()->detach();
-        $this->filesystem->writeStream('project/'.$project->id.'.jpg', $imgStrm);
+        $imgStrm = $this->image->make($imgFile->getStream()->detach())
+            ->fit(800, 565, function ($constraint) {
+                $constraint->upsize();
+            })->encode('jpg', 75);
+        $this->filesystem->put('project/'.$project->id.'.jpg', $imgStrm);
         if (is_resource($imgStrm)) {
             fclose($imgStrm);
         }
