@@ -1,17 +1,15 @@
 <?php
 namespace App\Util;
 
-class TwigExtension extends \Twig_Extension
+class TwigExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
     private $helper;
-    private $csrf;
     private $facebook;
     private $session;
     
-    public function __construct($helper, $csrf, $facebook, $session)
+    public function __construct($helper, $facebook, $session)
     {
         $this->helper = $helper;
-        $this->csrf = $csrf;
         $this->facebook = $facebook;
         $this->session = $session;
     }
@@ -25,14 +23,10 @@ class TwigExtension extends \Twig_Extension
     {
         return [
             'csrf' => [
-                'keys' => [
-                    'name' => $this->csrf->getTokenNameKey(),
-                    'value' => $this->csrf->getTokenValueKey(),
-                ],
-                'name' => $this->csrf->getTokenName(),
-                'value' => $this->csrf->getTokenValue(),
+                'key' => 'csrf_token',
+                'value' => $this->session->getFrom('csrf', 'token'),
             ],
-            'user' => $this->session->get('user', null),
+            'user' => $this->session->get('user'),
         ];
     }
 
