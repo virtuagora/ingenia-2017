@@ -370,44 +370,44 @@
     function crearBrick(contenido){
         var $brick = $('#block-vacio').html();
         $brick = $brick.replace("##VOTOS##", contenido.likes)
-            .replace("##BASEURL##", baseUrl)
-            .replace("##CATEGORIA##", contenido.category)
-            .replace("##PROYECTOLINK##", baseUrl + '/proyecto/' + contenido.id)
-            .replace("##USUARIOIMG##", 'https://graph.facebook.com/v2.8/' + contenido.user.facebook + '/picture?type=normal')
-            .replace("##PROYECTONOMBRE##", contenido.name)
-            .replace("##GRUPO##", contenido.group)
+            .replace(new RegExp('##BASEURL##', 'g'), baseUrl)
+            .replace(new RegExp('##CATEGORY##', 'g'), ''    + contenido.category )
+            .replace(new RegExp('##PROYECTOLINK##', 'g'), baseUrl + '/proyecto/' + contenido.id)
+            .replace(new RegExp('##USUARIOIMG##', 'g'), 'https://graph.facebook.com/v2.8/' + contenido.user.facebook + '/picture?type=normal')
+            .replace(new RegExp('##PROYECTONOMBRE##', 'g'), contenido.name)
+            .replace(new RegExp('##GRUPO##', 'g'), contenido.group)
         switch(contenido.category) {
             case 'social':
-                $brick = $brick.replace("##CATEGORIANOMBRE##",'Integración Social');
+                $brick = $brick.replace(new RegExp('##CATEGORIANOMBRE##', 'g'),'Integración Social');
                 break;
             case 'educacion':
-                $brick = $brick.replace("##CATEGORIANOMBRE##",'Educación');
+                $brick = $brick.replace(new RegExp('##CATEGORIANOMBRE##', 'g'),'Educación');
                 break;
             case 'comunicacion':
-                $brick = $brick.replace("##CATEGORIANOMBRE##",'Comunicación');
+                $brick = $brick.replace(new RegExp('##CATEGORIANOMBRE##', 'g'),'Comunicación');
                 break;
             case 'ambiente':
-                $brick = $brick.replace("##CATEGORIANOMBRE##",'Medio Ambiente');
+                $brick = $brick.replace(new RegExp('##CATEGORIANOMBRE##', 'g'),'Medio Ambiente');
                 break;
             case 'cultura':
-                $brick = $brick.replace("##CATEGORIANOMBRE##",'Cultura');
+                $brick = $brick.replace(new RegExp('##CATEGORIANOMBRE##', 'g'),'Cultura');
                 break;
             case 'salud':
-                $brick = $brick.replace("##CATEGORIANOMBRE##",'Salud');
+                $brick = $brick.replace(new RegExp('##CATEGORIANOMBRE##', 'g'),'Salud');
                 break;
             case 'deporte':
-                $brick = $brick.replace("##CATEGORIANOMBRE##",'Deporte y recreación');
+                $brick = $brick.replace(new RegExp('##CATEGORIANOMBRE##', 'g'),'Deporte y recreación');
                 break;
             case 'empleo':
-                $brick = $brick.replace("##CATEGORIANOMBRE##",'Empleo y Capacitación');
+                $brick = $brick.replace(new RegExp('##CATEGORIANOMBRE##', 'g'),'Empleo y Capacitación');
                 break;
             default:
                 break;
                                  }
         if(contenido.has_image){
-            $brick = $brick.replace("##IMAGENURL##",baseUrl+'/img/project/'+contenido.id+'.jpg');
+            $brick = $brick.replace(new RegExp('##IMAGENURL##', 'g'),baseUrl+'/img/project/'+contenido.id+'.jpg');
         } else {
-            $brick = $brick.replace("##IMAGENURL##",baseUrl+'/assets/img/placeholder-'+contenido.category+'.png');
+            $brick = $brick.replace(new RegExp('##IMAGENURL##', 'g'),baseUrl+'/assets/img/placeholder-'+contenido.category+'.png');
         }
         $(".proyectos").append($brick);
     }
