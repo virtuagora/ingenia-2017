@@ -13,30 +13,29 @@
                 </div>
                 <div class="column is-4 is-offset-4">
                     <div class="box">
-                       <h4 class="title is-6 is-raleway is-600">Ingresa el código asignado para tu proyecto</h4>
-                       <form action="" method="POST">
-                        <div class="field has-addons has-addons-centered">
-                            <p class="control has-icon">
-                                <input name="codigo" class="input is-large" type="text" placeholder="Codigo">
-                                <input id="csrf_name" type="hidden" name="{{csrf.key}}" value="{{csrf.value}}">
-                                <span class="icon is-medium">
-                                    <i class="fa fa-lock"></i>
-                                </span>
-                            </p>
-                            <p class="control">
-                                <button type="submit" class="button is-primary is-large">
-                                    <span class="icon is-medium">
-                                    <i class="fa fa-send"></i>
-                                </span>
-                                </button>
-                            </p>
-                        </div>
-                       </form>
+                        <h4 class="title is-6 is-raleway is-600">Ingresa el código asignado a tu proyecto</h4>
+                        <form method="GET">
+                            <div class="field has-addons has-addons-centered">
+                                <p class="control has-icon">
+                                    <input name="codigo" class="input is-large" type="text" placeholder="Codigo">
+                                    <span class="icon is-large">
+                                        <i class="fa fa-lock"></i>
+                                    </span>
+                                </p>
+                                <p class="control">
+                                    <button type="submit" class="button is-primary is-large">
+                                        <span class="icon is-medium">
+                                            <i class="fa fa-send"></i>
+                                        </span>
+                                    </button>
+                                </p>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="column is-half is-offset-one-quarter">
-                  <h4 class="subtitle is-5 is-raleway is-600">¿No registraste tu proyecto aún?</h4>
-                   <p><a href="#" class="button is-large is-outlined is-white">Completá el formulario</a></p>
+                    <h4 class="subtitle is-5 is-raleway is-600">¿No registraste tu proyecto aún?</h4>
+                    <p><a href="#" class="button is-large is-outlined is-white">Completá el formulario</a></p>
                 </div>
             </div>
         </div>
@@ -53,4 +52,13 @@
         </nav>
     </div>
 </section>
+{% endblock %}
+{% block javascript %}
+<script>
+    var urlGo = '{{path_for('proNewGet',{'sub-id':'replace'})}}'
+$('form').submit(function(e){
+    e.preventDefault();
+    window.location.href = urlGo.replace('replace',$('[name="codigo"]').val());
+})
+</script>
 {% endblock %}
