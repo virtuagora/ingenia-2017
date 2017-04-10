@@ -367,11 +367,13 @@
         var csrf = {};
         csrf[csrfKey] = '{{csrf.value}}';
         csrf['value'] = 1;
-        var csrfData = csrf;
+        var csrfData =  JSON.stringify(csrf);
         var finalUrl = urlVote.replace('COMMENTIDHERE',comentarioid);
         $.ajax({
             url : finalUrl,
             type: "POST",
+            contentType: "application/json",
+            dataType: "json",
             data : csrfData,
             success: function(data, textStatus, jqXHR){
                 //data - response from server
@@ -395,11 +397,13 @@
         var csrf = {};
         csrf[csrfKey] = '{{csrf.value}}';
         csrf['value'] = -1;
-        var csrfData = csrf;
+        var csrfData =  JSON.stringify(csrf);
         var finalUrl = urlVote.replace('COMMENTIDHERE',comentarioid);
         $.ajax({
             url : finalUrl,
             type: "POST",
+            dataType: "json",
+            contentType: "application/json",
             data : csrfData,
             success: function(data, textStatus, jqXHR){
                 //data - response from server
@@ -421,10 +425,12 @@
         var csrfKey = '{{csrf.key}}';
         var csrf = {};
         csrf[csrfKey] = '{{csrf.value}}';
-        var csrfData = csrf;
+        var csrfData = JSON.stringify(csrf);
         $.ajax({
             url : urlBancar,
             type: "POST",
+            dataType: "json",
+            contentType: "application/json",
             data : csrfData,
             success: function(data, textStatus, jqXHR){
                 //data - response from server
@@ -452,17 +458,25 @@
         var formType = $form.data('type');
         var formCommentId = $form.data('commentid');
         var formAction = $form.attr('action');
-        var csrfData = $form.serialize();
+        var csrfKey = '{{csrf.key}}';
+        var csrf = {};
+        csrf[csrfKey] = '{{csrf.value}}';
+        var csrfData = JSON.stringify($form.serializeArray());
         if(formType == "new-comment"){
             var finalUrl = urlComment;
             $('#crear-nuevo-comentario').closest('button[type=submit]').addClass('is-loading');
+            csrf['content'] = $("textarea[name=content]").val();
 
         } else if(formType == "reply"){
             var finalUrl = urlReply.replace('COMMENTIDHERE',formCommentId);
+            csrf['content'] = $("input[data-respondiendoid=" + formCommentId + "]").val();
         }
+        var csrfData = JSON.stringify(csrf);
         $.ajax({
             url : finalUrl,
             type: "POST",
+            contentType: "application/json",
+            dataType: "json",
             data : csrfData,
             success: function(data, textStatus, jqXHR){
                 //data - response from server
