@@ -1,16 +1,16 @@
 <?php
 
-$app->get('/test/{sub-id}', function ($req, $res, $arg) {
-    $subId = $arg['sub-id'];
-    $subBody = $this->jotform->getSubmission($subId);
-    $this->jotform->editSubmission($subId, ['348' => 'SI']);
-    return $res->withJSON($subBody);
-});
-$app->get('/instalar', function ($req, $res, $arg) {
-    $installer = new \App\Util\Installer($this->db);
-    $installer->up();
-    return $res->withJSON(['mensaje' => 'instalación exitosa.']);
-});
+//$app->get('/test/{sub-id}', function ($req, $res, $arg) {
+//    $subId = $arg['sub-id'];
+//    $subBody = $this->jotform->getSubmission($subId);
+//    $this->jotform->editSubmission($subId, ['348' => 'SI']);
+//    return $res->withJSON($subBody);
+//});
+//$app->get('/instalar', function ($req, $res, $arg) {
+//    $installer = new \App\Util\Installer($this->db);
+//    $installer->up();
+//    return $res->withJSON(['mensaje' => 'instalación exitosa.']);
+//});
 
 $app->get('/', 'HomeAction:viewHome')->setName('homeGet');
 $app->get('/cargar-proyecto', 'HomeAction:loadProject')->setName('proLoadGet');

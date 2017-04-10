@@ -14,7 +14,7 @@
                 <div class="column is-4 is-offset-4">
                     <div class="box">
                         <h4 class="title is-6 is-raleway is-600">Ingresa el código asignado a tu proyecto</h4>
-                        <form method="GET">
+                        <form id="codigo" method="GET">
                             <div class="field has-addons has-addons-centered">
                                 <p class="control has-icon">
                                     <input name="codigo" class="input is-large" type="text" placeholder="Código">
@@ -56,7 +56,7 @@
 {% block javascript %}
 <script>
     var urlGo = '{{path_for('proNewGet',{'sub-id':'replace'})}}'
-$('form').submit(function(e){
+$('form#codigo').submit(function(e){
     e.preventDefault();
     window.location.href = urlGo.replace('replace',$('[name="codigo"]').val());
 })
