@@ -21,6 +21,9 @@ final class HomeAction extends AbstractAction
     public function newProject($req, $res, $arg)
     {
         $subId = $arg['sub-id'];
+        if (!$this->validator['submission']->validate($subId)) {
+            throw new \App\Util\AppException('El código del proyecto no es válido.', 400);
+        }
         $subBody = $this->jotform->getSubmission($subId);
         //TODO cambiar al form de ingenia
         if ($subBody['form_id'] != '70946170891665') {
@@ -187,7 +190,7 @@ final class HomeAction extends AbstractAction
             $project->save();
         }
         return $res->withRedirect(
-            $this->helper->completePathFor('proSetImgGet', ['pro' => $project->id])
+            $this->helper->completePathFor('proViewGet', ['pro' => $project->id])
         );
     }
 }
