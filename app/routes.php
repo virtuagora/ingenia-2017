@@ -16,7 +16,7 @@ $app->get('/', 'HomeAction:viewHome')->setName('homeGet');
 $app->get('/cargar-proyecto', 'HomeAction:loadProject')->setName('proLoadGet');
 $app->get('/nuevo-proyecto/{sub-id}', 'HomeAction:newProject')->setName('proNewGet');
 $app->get('/facebook-login', 'HomeAction:facebookLogin')->setName('fbCallbackGet');
-$app->get('/logout', 'HomeAction:facebookLogin')->setName('fbLogout');
+$app->post('/logout', 'HomeAction:logout')->setName('logoutPost');
 
 //TODO controlar login
 $app->get('/registrar-proyecto', 'HomeAction:registerProject')->setName('proRegisterGet');
@@ -27,3 +27,4 @@ $app->get('/proyecto/{pro}', 'ProjectAction:viewProject')->setName('proViewGet')
 $app->post('/proyecto/{pro}/comentario', 'ProjectAction:commentProject')->setName('proCommentPost');
 $app->post('/proyecto/{pro}/voto', 'ProjectAction:voteProject')->setName('proVotePost');
 $app->post('/comentario/{com}/respuesta', 'ProjectAction:replyComment')->setName('comReplyPost');
+$app->post('/comentario/{com}/voto', 'ProjectAction:voteComment')->setName('comVotePost');

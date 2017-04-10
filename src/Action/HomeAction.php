@@ -7,6 +7,12 @@ final class HomeAction extends AbstractAction
         return $this->view->render($res, 'home.html.twig');
     }
 
+    public function logout($req, $res, $arg)
+    {
+        $this->session->delete('user');
+        return $res->withRedirect($this->helper->baseUrl());
+    }
+
     public function loadProject($req, $res, $arg)
     {
         return $this->view->render($res, 'codigo.html.twig');
