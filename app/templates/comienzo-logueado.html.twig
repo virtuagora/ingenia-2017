@@ -7,8 +7,8 @@
         <div class="container has-text-centered">
             <div class="columns">
                 <div class="column is-half is-offset-one-quarter">
-                    <img class="logo-vg" src="{{base_url()}}/assets/img/v-g.svg" alt="">
-                        <h1 class="title is-2 is-raleway is-700">¡Sumá tu proyecto a participar!</h1>
+                    <a href="{{path_for('homeGet')}}"><img class="logo-vg" src="{{base_url()}}/assets/img/v-g.svg" alt=""></a>
+                    <h1 class="title is-2 is-raleway is-700">¡Sumá tu proyecto a participar!</h1>
                     <h4 class="subtitle is-4 is-raleway">¡Participá con tu proyecto en la instancia de votación!</h4>
                     <div class="box">
                         <h2 class="is-3 is-raleway is-hidden-tablet"><a href="{{path_for('proRegisterGet')}}" class="button is-info is-400 is-raleway"><span class="icon"><i class="fa fa-send"></i></span>&nbsp;&nbsp;Continuar el registro</a></h2>
@@ -20,15 +20,15 @@
         </div>
     </div>
     <div class="hero-foot">
-    <nav class="tabs is-boxed is-fullwidth">
-      <div class="container">
-        <ul>
-          <li><a><img src="{{base_url()}}/assets/img/logo-virtuagora.svg" alt=""></a></li>
-          <li><a><img src="{{base_url()}}/assets/img/gabinetejoven.svg" alt=""></a></li>
-          <li><a><img src="{{base_url()}}/assets/img/ingenia-logo2.svg" alt=""></a></li>
-        </ul>
-      </div>
-    </nav>
-  </div>
+        <nav class="tabs is-boxed is-fullwidth">
+            <div class="container">
+                <ul>
+                    <li><a><img src="{{base_url()}}/assets/img/logo-virtuagora.svg" alt=""></a></li>
+                    <li><a><img src="{{base_url()}}/assets/img/gabinetejoven.svg" alt=""></a></li>
+                    <li><a><img src="{{base_url()}}/assets/img/ingenia-logo2.svg" alt=""></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 </section>
 {% endblock %}

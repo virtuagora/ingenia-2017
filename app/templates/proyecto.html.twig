@@ -1,4 +1,6 @@
 {% set categoria = project.category %}
+{% set share_link = path_for('proViewGet', { 'pro': project.id }) %}
+{% set twitter_txt = 'Yo banco el proyecto "' ~ project.name ~ '" de Ingenia 2017 ¡Bancalo!' %}
 {% extends 'master-nofloat.html.twig' %}
 {% block titulo %}{{project.name}} - Ingenia, bancamos tus ideas {% endblock %}
 {% block opengraph %}
@@ -19,14 +21,14 @@
         <header class="nav">
             <div class="container">
                 <div class="nav-left">
-                    <a class="nav-item">
+                    <a href="{{path_for('homeGet')}}" class="nav-item">
                         <img src="{{base_url()}}/assets/img/ingenia-logo2.svg" alt="Logo">
                     </a>
                     {% if user is not null %}
                     <a href="javascript:void(0)" class="nav-item is-hidden-tablet">
                         <img class="image avatar" src="https://graph.facebook.com/v2.8/{{user.facebook}}/picture?type=normal" alt="{{user.name}}">
                     </a>
-                    <a href="javascript:void(0)" class="nav-item is-hidden-tablet">
+                    <a href="{{path_for('fbLogout')}}" class="nav-item is-hidden-tablet">
                         <img class="image" src="{{base_url()}}/assets/img/logout.svg" alt="">
                     </a>
                     {% else %}
@@ -63,8 +65,8 @@
             <div class="columns">
                 <div class="column">
                     <div class="has-text-centered">
-                        <h1 class="title is-5 is-white is-300"><span class="tag is-white">{{category_name(project.category)}}</span>
-                            <span class="icon is-middle">&nbsp;&nbsp;&nbsp;<i class="fa fa-comments"></i></span>&nbsp;&nbsp;{{project.comments|length}} comentarios</h1>
+                        <h1 class="title is-5 is-white is-300"><span class="tag is-white">{{category_name(project.category)}}</span>&nbsp;&nbsp;&nbsp;
+                            <span class="icon is-middle"><i class="fa fa-comments"></i></span>&nbsp;&nbsp;&nbsp;{{project.comments|length}} comentarios</h1>
                         <h1 class="title titulo-proyecto is-1 is-500 is-raleway is-white">{{project.name}}</h1>
 
                     </div>
@@ -78,7 +80,8 @@
                                 <figure class="imagen-proyecto image is-16by9" style="background-image: url({{base_url()}}/assets/img/placeholder-{{project.category}}.png)">
                                 </figure>
                                 {% endif %}
-                                <h1 class="subtitle is-5 is-raleway has-tect-centered">Presentado por "{{project.group}}"</h1>
+                                <h1 class="subtitle is-5 is-raleway has-text-centered">Presentado por "{{project.group}}"</h1>
+                                <h1 class="title is-6 is-raleway has-text-centered" style="margin-top: -1rem;">Referente <img src="https://graph.facebook.com/v2.8/{{project.user.facebook}}/picture?type=normal" class="image is-24x24"  class="image is-24x24" alt="" style="display: inline-block;vertical-align: middle;"> {{project.user.name}}</h1>
                             </div>
                         </div>
                         <h1 class="title is-3 is-raleway is-800">Resumen del proyecto</h1>
@@ -117,12 +120,12 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {% for evento in project.schedule %}
+                                                        {% for evento in project.schedule %}
                                                         <tr>
                                                             <td>{{ evento.dia }}</td>
                                                             <td>{{ evento.actividad }}</td>
                                                         </tr>
-                                                    {% endfor %}
+                                                        {% endfor %}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -155,13 +158,13 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {% for item in project.budget %}
+                                                        {% for item in project.budget %}
                                                         <tr>
                                                             <td>{{ item.rubro }}</td>
                                                             <td>{{ item.descripcion }}</td>
                                                             <td>{{ item.monto }}</td>
                                                         </tr>
-                                                    {% endfor %}
+                                                        {% endfor %}
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -205,9 +208,9 @@
                                         <p class="subtitle is-300">¿Las actividades se realizarán en coordinación con otras organizaciones y/o instituciones?</p>
                                         <p class="title is-3">
                                             {% if project.organization != null %}
-                                                <b>SI</b> - Organización "{{project.organization}}"
+                                            <b>SI</b> - Organización "{{project.organization}}"
                                             {% else %}
-                                                <b>NO</b>
+                                            <b>NO</b>
                                             {% endif %}
                                         </p>
                                     </article>
@@ -250,7 +253,7 @@
                     {% else %}
                     <div class="notification has-text-centered is-warning">
                         <p class="subtitle is-4 is-300">¡Participá comentando y aportando nuevas ideas!<p>
-                        <a href="{{facebook_login_link()}}" class="button is-dark is-fullwidth is-outlined is-large is-800">Inicia sesión</a>
+                        <a href="{{facebook_login_link()}}" class="button is-dark is-fullwidth is-outlined is-large is-800">Iniciá sesión en&nbsp;&nbsp;<span class="icon"><i class="fa fa-facebook-square"></i></span>&nbsp;&nbsp;Facebook</a>
                     </div>
                     {% endif %}
                     <div id="comentarios">
@@ -282,12 +285,12 @@
                                 <h1 class="subtitle  is-white is-5 is-600">¡Corré la voz!</h1>
                             </div>
                             <div>
-                                <a href="" class="boton-social">
+                                <a href="https://www.facebook.com/sharer.php?u={{base_url()}}{{ share_link }}" target="_blank" class="boton-social">
                                     <span class="icon is-large"><i class="fa fa-facebook-square"></i></span>
                                 </a>
                             </div>
                             <div>
-                                <a href="" class="boton-social">
+                                <a href="https://twitter.com/share?text={{ twitter_txt }}&url={{base_url()}}{{ share_link }}" target="_blank" class="boton-social">
                                     <span class="icon is-large"><i class="fa fa-twitter-square"></i></span>
                                 </a>
                             </div>
@@ -321,24 +324,8 @@
         </div>
     </div>
 </section>
-<footer class="footer">
-    <div class="container">
-        <div class="content has-text-centered">
-            <p>
-                Trabajo realizado en conjunto con <a href="http://jgthms.com"><strong>Virtuagora</strong></a> e <a href="http://jgthms.com"><strong>Ingenia</strong></a> y el <a href="#"><strong>Gabinete Joven</strong></a><br>Virtuagora se distruye bajo licencia
-                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
-            </p>
-            <p>
-                <a href="www.santafe.gob.ar">
-                    <img src="{{base_url()}}/assets/img/santafe-logo-color.svg" class="image is-128x128 logo-santafe" alt="">
-                </a>
-            </p>
-        </div>
-    </div>
-</footer>
-<input id="csrf_name" type="hidden" name="{{csrf.key}}" value="{{csrf.value}}">
-<input id="userFacebook" type="hidden" value="{{user.facebook}}">
-<input id="userName" type="hidden" value="{{user.name}}">
+<input name="userFacebook" type="hidden" value="{{user.facebook}}">
+<input name="userName" type="hidden" value="{{user.name}}">
 {% endblock %}
 {% block javascript %}
 <script id="comentario-js" type = "text/template">
@@ -348,6 +335,10 @@
 {% include 'respuesta-js.html.twig' %}
 </script>
 <script>
+    var urlReply = '{{path_for('comReplyPost', {'com' : 'COMMENTIDHERE'})}}';
+    var urlComment = '{{path_for('proCommentPost', {'pro' : project.id})}}';
+    var urlVote = '{{path_for('proVotePost', {'pro' : project.id})}}';
+    var urlBancar = '{{path_for('proVotePost', {'pro' : project.id})}}';
     $('#toggle-calendario').click(function() {
         $('#calendario').toggle('1000');
         $("i", this).toggleClass("fa-angle-up fa-angle-down");
@@ -363,13 +354,14 @@
         console.log(id);
         $("#responder-"+id).toggle('1000');
     });
-    $('.votar-up').click(function() {
+
+     $('body').on('click','.votar-up',function(){
         var comentarioid = $(this).data('comentarioid');
-        var csrfName = $('#csrf_name').val();
-        var csrfValue = $('#csrf_value').val();
-        var csrfData = {"csrf_name" : csrfName,"csrf_value" : csrfValue,"com" : comentarioid,"value" : 1};
+        var csrfName = '{{csrf.key}}';
+        var csrfValue = '{{csrfValue}}';
+        var csrfData = {csrfName : csrfValue, "com" : comentarioid, "value" : 1};
         $.ajax({
-            url : "AJAX_POST_URL",
+            url : urlVote,
             type: "POST",
             data : csrfData,
             success: function(data, textStatus, jqXHR){
@@ -381,13 +373,13 @@
             }
         });
     });
-    $('.votar-down').click(function() {
+    $('body').on('click','.votar-down',function(){
         var comentarioid = $(this).data('comentarioid');
-        var csrfName = $('#csrf_name').val();
-        var csrfValue = $('#csrf_value').val();
-        var csrfData = {"csrf_name" : csrfName,"csrf_value" : csrfValue,"com" : comentarioid,"value" : -1};
+        var csrfName = '{{csrf.key}}';
+        var csrfValue = '{{csrfValue}}';
+        var csrfData = {csrfName : csrfValue, "com" : comentarioid, "value" : 1};
         $.ajax({
-            url : "AJAX_POST_URL",
+            url : urlVote,
             type: "POST",
             data : csrfData,
             success: function(data, textStatus, jqXHR){
@@ -407,33 +399,40 @@
         var formCommentId = $form.data('commentid');
         var formAction = $form.attr('action');
         var csrfData = $form.serialize();
+        if(formType == "new-comment"){
+            var finalUrl = urlComment;
+            $('#crear-nuevo-comentario').closest('button[type=submit]').addClass('is-loading');
+
+        } else  if(formType == "reply"){
+            var finalUrl = urlReply.replace('COMMENTIDHERE',formCommentId);
+        }
         $.ajax({
-            url : formAction,
+            url : finalUrl,
             type: "POST",
             data : csrfData,
             success: function(data, textStatus, jqXHR){
                 //data - response from server
                 if(formType == "new-comment"){
                     var $nuevoComentario = $('#comentario-js').html();
-                    $nuevoComentario = $nuevoComentario.replace("##ID##", data.id )
-                        .replace("##FACEBOOKID##", $('input#userFacebook').val())
-                        .replace("##NOMBRE##", $('input#userName').val())
-                        .replace("##FECHA##", 'Hace un rato')
-                        .replace("##LIKES##", '0')
-                        .replace("##COMENTARIO##", $("textarea[name='content']",this).val());
+                    $nuevoComentario = $nuevoComentario.replace(new RegExp('##ID##', 'g'), data.id )
+                        .replace(new RegExp('##FACEBOOKID##', 'g'), $('input[name=userFacebook]').val())
+                        .replace(new RegExp('##NOMBRE##', 'g'), $('input[name=userName]').val())
+                        .replace(new RegExp('##FECHA##', 'g'), 'Hace un rato')
+                        .replace(new RegExp('##LIKES##', 'g'), '0')
+                        .replace(new RegExp('##COMENTARIO##', 'g'), $("textarea[name=content]").val());
                     $('#comentarios').prepend($nuevoComentario);
-                    $('#crear-nuevo-comentario').slideToggle(1000);
+                    $('#crear-nuevo-comentario').slideToggle(200);
                 } else if(formType == "reply"){
                     var $nuevoComentario = $('#respuesta-js').html();
-                    $nuevoComentario = $nuevoComentario.replace("##ID##", data.id )
-                        .replace("##FACEBOOKID##", $('input#userFacebook').val())
-                        .replace("##NOMBRE##", $('input#userName').val())
-                        .replace("##FECHA##", 'Hace un rato')
-                        .replace("##LIKES##", '0')
-                        .replace("##COMENTARIO##", $("input[name='content']",this).val());
+                    $nuevoComentario =  $nuevoComentario.replace(new RegExp('##ID##', 'g'), data.id )
+                        .replace(new RegExp('##FACEBOOKID##', 'g'), $('input#userFacebook').val())
+                        .replace(new RegExp('##NOMBRE##', 'g'), $('input#userName').val())
+                        .replace(new RegExp('##FECHA##', 'g'), 'Hace un rato')
+                        .replace(new RegExp('##LIKES##', 'g'), '0')
+                        .replace(new RegExp('##COMENTARIO##', 'g'), $("input[name='content']",this).val());
                     $('#margin-respuestas-' + formCommentId).show();
                     $('#responder-' + formCommentId).after($nuevoComentario);
-                    $('#responder-' + formCommentId).toggle(1000);
+                    $('#responder-' + formCommentId).toggle(200);
                 }
                 showModalSuccess(data.mensaje);
             },
