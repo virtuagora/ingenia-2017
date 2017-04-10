@@ -81,7 +81,7 @@
                                 </figure>
                                 {% endif %}
                                 <h1 class="subtitle is-5 is-raleway has-text-centered">Presentado por "{{project.group}}"</h1>
-                                <h1 class="title is-6 is-raleway has-text-centered" style="margin-top: -1rem;">Referente <img src="https://graph.facebook.com/v2.8/{{project.user.facebook}}/picture?type=normal" class="image is-24x24"  class="image is-24x24" alt="" style="display: inline-block;vertical-align: middle;"> {{project.user.name}}</h1>
+                                <h1 class="title is-6 is-raleway has-text-centered" style="margin-top: -1rem;"><img src="https://graph.facebook.com/v2.8/{{project.user.facebook}}/picture?type=normal" class="image is-24x24"  class="image is-24x24" alt="" style="display: inline-block;vertical-align: middle;"> {{project.user.name}}</h1>
                             </div>
                         </div>
                         <h1 class="title is-3 is-raleway is-800">Resumen del proyecto</h1>
@@ -438,7 +438,7 @@
             var finalUrl = urlComment;
             $('#crear-nuevo-comentario').closest('button[type=submit]').addClass('is-loading');
 
-        } else  if(formType == "reply"){
+        } else if(formType == "reply"){
             var finalUrl = urlReply.replace('COMMENTIDHERE',formCommentId);
         }
         $.ajax({
@@ -460,13 +460,14 @@
                 } else if(formType == "reply"){
                     var $nuevoComentario = $('#respuesta-js').html();
                     $nuevoComentario =  $nuevoComentario.replace(new RegExp('##ID##', 'g'), data.id )
-                        .replace(new RegExp('##FACEBOOKID##', 'g'), $('input#userFacebook').val())
-                        .replace(new RegExp('##NOMBRE##', 'g'), $('input#userName').val())
+                        .replace(new RegExp('##FACEBOOKID##', 'g'), $('input[name=userFacebook]').val())
+                        .replace(new RegExp('##NOMBRE##', 'g'), $('input[name=userName]').val())
                         .replace(new RegExp('##FECHA##', 'g'), 'Hace un rato')
                         .replace(new RegExp('##LIKES##', 'g'), '0')
-                        .replace(new RegExp('##COMENTARIO##', 'g'), $("input[name='content']",this).val());
+                        .replace(new RegExp('##COMENTARIO##', 'g'), $("input[data-respondiendoid=" + formCommentId + "]").val());
                     $('#margin-respuestas-' + formCommentId).show();
-                    $('#responder-' + formCommentId).after($nuevoComentario);
+//                    $('#responder-' + formCommentId).after($nuevoComentario);
+                    $('#respuestas-' + formCommentId + '>.media-content').append($nuevoComentario);
                     $('#responder-' + formCommentId).toggle(200);
                 }
                 showModalSuccess(data.mensaje);

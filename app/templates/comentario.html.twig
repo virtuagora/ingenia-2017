@@ -9,7 +9,7 @@
         <div class="media-content">
             <div class="content is-small">
                 <p>
-                    <strong>{{comment.user.name}}</strong> <small>{{comment.created_at}} - <span id="likes-{{comment.id}}">{{comment.votes}}</span> &hearts;</small>
+                    <strong>{{ comment.user.id == project.user.id ? '[&#9733;] ' : ''}}{{comment.user.name}}</strong> <small>{{comment.created_at|date("Y-m-d")}} - &hearts; <span id="likes-{{comment.id}}">{{comment.votes}}</span></small>
                     <br>
                     {{comment.content}}
                 </p>

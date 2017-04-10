@@ -1,23 +1,29 @@
-<article id="responder-{{comment.id}}" class="media respuesta responder" style="display:none">
-    <div class="media-left">
-        <figure class="image is-24x24">
-            <img src="https://graph.facebook.com/v2.8/{{user.facebook}}/picture?type=normal" alt="{{user.name}}">
-        </figure>
-    </div>
-    <div class="media-content">
-        <div class="content is-small">
-            <form action="" class="comentario" method="POST" data-type="reply" data-commentid="{{comment.id}}">
+{% if user is not null %}
+   <form action="" class="comentario" method="POST" data-type="reply" data-commentid="{{comment.id}}">
+    <article id="responder-{{comment.id}}" class="media respuesta responder" style="display:none">
+        <div class="media-left">
+            <figure class="image is-24x24">
+                <img src="https://graph.facebook.com/v2.8/{{user.facebook}}/picture?type=normal" alt="{{user.name}}">
+            </figure>
+        </div>
+        <div class="media-content">
+            <div class="content is-small">
                 <div class="field">
                     <p class="control">
-                        <input name="content" class="input is-small" type="text" placeholder="Tu respuesta">
+                        <input name="content" data-respondiendoid="{{comment.id}}" class="input is-small" type="text" placeholder="Tu respuesta">
                     </p>
-                    <button type="submit" href="#" class="button is-primary is-small is-hidden-tablet">Enviar</button>
+                    <button type="submit" class="button is-primary is-small is-hidden-tablet">Enviar</button>
                 </div>
                 <input type="hidden" name="{{csrf.key}}" value="{{csrf.value}}">
-            </form>
+            </div>
         </div>
-    </div>
-    <div class="media-right is-hidden-mobile">
-        <a href="" class="button is-primary is-small">Enviar</a>
-    </div>
-</article>
+        <div class="media-right is-hidden-mobile">
+            <button type="submit" class="button is-primary is-small">Enviar</button>
+        </div>
+    </article>
+</form>
+{% else %}
+<div id="responder-{{comment.id}}" class="notification is-warning has-text-centered respuesta responder" style="display:none; padding: 10px;">
+    Para poder responder <a href="{{facebook_login_link()}}" class="button is-outlined is-dark is-small">INICIE SESIÓN EN&nbsp;&nbsp;&nbsp;<span class="icon is-small"><i class="fa fa-facebook-square"></i></span>&nbsp;&nbsp;&nbsp;FACEBOOK</a>
+</div>
+{% endif %}
