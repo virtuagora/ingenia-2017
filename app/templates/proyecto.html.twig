@@ -228,7 +228,7 @@
                                 </figure>
                             </div>
                             <div class="media-content">
-                                <form action="" method="POST" data-type="new-comment" data-commentid="0">
+                                <form action="" class="comentario" method="POST" data-type="new-comment" data-commentid="0">
                                     <div class="content is-small">
                                         <strong>{{user.name}}</strong>
                                         <div class="field">
@@ -271,16 +271,15 @@
                 <div class="column is-narrow">
                     <div class="boxes" style="width: 150px;">
                         <div class="child has-text-centered" style="width: 150px;">
-
                             <div class="">
                                 <a href="javascript:void(0)" class="boton-bancar-proyecto boton-bancar-tablet">
                                     {% include 'muscle.html.twig' %}
                                 </a>
                             </div>
                             <div class="">
-                                <h1 class="title is-600 is-white">{{ project.likes }}</h1>
+                                <h1 class="title is-600 is-white contador-bancan">{{ project.likes }}</h1>
                                 <h1 class="subtitle is-raleway is-white">bancan esta idea</h1>
-                                <span class="tag is-white">Vos tambien!&nbsp;<span class="icon is-small"><i class="fa fa-smile-o fa-fw"></i></span></span>
+                                <span class="tag is-white user-lo-banca {{voted ? : 'is-hidden'}}" >Vos tambien!&nbsp;<span class="icon is-small"><i class="fa fa-smile-o fa-fw"></i></span></span>
                                 <hr>
                                 <h1 class="subtitle is-white is-5 is-600">¡Corré la voz!</h1>
                             </div>
@@ -339,6 +338,9 @@
     var urlComment = '{{path_for('proCommentPost', {'pro' : project.id})}}';
     var urlVote = '{{path_for('proVotePost', {'pro' : project.id})}}';
     var urlBancar = '{{path_for('proVotePost', {'pro' : project.id})}}';
+    var cantBancan = {{project.likes}};
+    var userLogueado = {{user is not null ? 'true' : 'false'}};
+
     $('#toggle-calendario').click(function() {
         $('#calendario').toggle('1000');
         $("i", this).toggleClass("fa-angle-up fa-angle-down");
@@ -392,6 +394,10 @@
         });
     });
     $('body').on('click','.boton-bancar-proyecto',function(){
+        if(!userLogueado){
+            showModalInfo('Por favor, inicie sesion para votar');
+            return false;
+        }
         var comentarioid = $(this).data('comentarioid');
         var csrfKey = '{{csrf.key}}';
         var csrf = {};
@@ -403,14 +409,24 @@
             data : csrfData,
             success: function(data, textStatus, jqXHR){
                 //data - response from server
-                showModalSuccess(data.mensaje);
+                if(data.vote){
+                    showModalSuccess(data.mensaje);
+                    cantBancan = cantBancan + 1;
+                    $('.user-lo-banca').removeClass('is-hidden');
+                    $('.contador-bancan').html(cantBancan)
+                } else {
+                    showModalInfo(data.mensaje);
+                    cantBancan = cantBancan - 1;
+                    $('.user-lo-banca').addClass('is-hidden');
+                    $('.contador-bancan').html(cantBancan)
+                }
             },
             error: function (jqXHR, textStatus, errorThrown){
                 showModalDanger('Error al bancar el proyecto');
             }
         });
     });
-    $( "form" ).submit(function( event ) {
+    $( "form.comentario" ).submit(function( event ) {
         event.preventDefault();
         var $form = $(this);
         var formAction = $form.attr('action');
