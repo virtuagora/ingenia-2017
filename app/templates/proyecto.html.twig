@@ -233,7 +233,7 @@
                                         <strong>{{user.name}}</strong>
                                         <div class="field">
                                             <p class="control">
-                                                <textarea name="content" class="textarea is-small" placeholder="Textarea"></textarea>
+                                                <textarea name="content" class="textarea is-small" placeholder="Tu comentario"></textarea>
                                             </p>
                                         </div>
                                     </div>
@@ -377,6 +377,7 @@
                 //data - response from server
                 $('.votar-up-' + comentarioid).addClass('is-hidden');
                 $('.votar-down-' + comentarioid).addClass('is-hidden');
+                $('.likes-' + comentarioid).html(data.likes);
                 showModalSuccess(data.mensaje);
             },
             error: function (jqXHR, textStatus, errorThrown){
@@ -404,6 +405,7 @@
                 //data - response from server
                 $('.votar-up-' + comentarioid).addClass('is-hidden');
                 $('.votar-down-' + comentarioid).addClass('is-hidden');
+                $('.likes-' + comentarioid).html(data.likes);
                 showModalSuccess(data.mensaje);
             },
             error: function (jqXHR, textStatus, errorThrown){
