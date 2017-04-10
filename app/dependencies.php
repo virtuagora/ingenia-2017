@@ -51,6 +51,7 @@ $container['image'] = function ($c) {
 $container['validator'] = function ($c) {
     $commentVdt = v::key('content', v::length(2, 5000));
     $rateVdt = v::key('value', v::in([-1, 1]));
+    $submissionVdt = v::digit()->length(5, 20);
     $pageVdt = v
             ::key('page', v::intVal()->positive(), false)
             ->key('take', v::intVal()->between(1, 100), false)
@@ -59,6 +60,7 @@ $container['validator'] = function ($c) {
         'comment' => $commentVdt,
         'rate' => $rateVdt,
         'page' => $pageVdt,
+        'submission' => $submissionVdt,
     ];
 };
 
