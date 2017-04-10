@@ -2,7 +2,7 @@
 {% set share_link = path_for('proViewGet', { 'pro': project.id }) %}
 {% set twitter_txt = 'Yo banco el proyecto "' ~ project.name ~ '" de Ingenia 2017 ¡Bancalo!' %}
 {% extends 'master-nofloat.html.twig' %}
-{% block titulo %}{{project.name}} - Ingenia, bancamos tus ideas {% endblock %}
+{% block titulo %}{{project.name}} - Ingenia 8 - Bancamos tus ideas {% endblock %}
 {% block opengraph %}
 <meta property="og:url" content="{{ path_for('proViewGet', { 'pro': project.id }) }}" />
 <meta property="og:type" content="website" />
@@ -310,12 +310,12 @@
                     </a>
                 </div>
                 <div class="column has-text-centered">
-                    <a href="http://www.santafe.gob.ar/index.php/web/content/view/full/114387/">
+                    <a href="https://web.facebook.com/GabineteJoven">
                         <img src="{{base_url()}}/assets/img/gabinetejoven.svg" class="image logo" alt="">
                     </a>
                 </div>
                 <div class="column has-text-centered">
-                    <a href="https://web.facebook.com/GabineteJoven">
+                    <a href="http://www.santafe.gob.ar/index.php/web/content/view/full/114387/">
                         <img src="{{base_url()}}/assets/img/ingenia-logo2.svg" class="image logo" alt="">
                     </a>
                 </div>
