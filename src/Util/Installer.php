@@ -73,7 +73,6 @@ class Installer {
         $this->db->schema()->create('project_user', function($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->boolean('is_public');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('project_id')->unsigned();

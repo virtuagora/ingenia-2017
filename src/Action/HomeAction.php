@@ -24,7 +24,7 @@ final class HomeAction extends AbstractAction
         $subBody = $this->jotform->getSubmission($subId);
         //TODO cambiar al form de ingenia
         if ($subBody['form_id'] != '70946170891665') {
-            throw new \App\Util\AppException('Bad request.', 400);
+            throw new \App\Util\AppException('El código del proyecto no es válido, ¡Volvé a intentarlo!', 400);
         }
         //$this->logger->info(json_encode($subBody));
         $formData = [
