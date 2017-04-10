@@ -33,7 +33,7 @@
         <a class="float-img is-avatar" href="javascript:void(0)">
             <img class="image" src="https://graph.facebook.com/v2.8/{{user.facebook}}/picture?type=normal" alt="{{user.name}}">
         </a>
-        <a class="float-img is-logout" href="{{path_for('fbLogout')}}">
+        <a class="float-img is-logout" href="javascript:salir()">
             <img class="image" src="{{base_url()}}/assets/img/logout.svg" alt="">
         </a>
         {% else %}
@@ -51,6 +51,11 @@
             </div>
             <button class="modal-close"></button>
         </div>
+        {% if user is not null %}
+        <form id="salir" action="{{path_for('logoutPost')}}" method="POST">
+            <input id="csrf_name" type="hidden" name="{{csrf.key}}" value="{{csrf.value}}">
+        </form>
+        {% endif %}
         {% block body %}
         {% endblock %}
         <!-- jQuery (necessary for some stuff!) -->
@@ -99,6 +104,9 @@
                 //$('html').addClass('is-clipped');
                 $('.modal').addClass('is-active');
                 $('.modal .notification').addClass('is-info');
+            }
+            function salir(){
+                $('form#salir').submit();
             }
         </script>
         {% block javascript %}

@@ -28,7 +28,7 @@
                     <a href="javascript:void(0)" class="nav-item is-hidden-tablet">
                         <img class="image avatar" src="https://graph.facebook.com/v2.8/{{user.facebook}}/picture?type=normal" alt="{{user.name}}">
                     </a>
-                    <a href="{{path_for('fbLogout')}}" class="nav-item is-hidden-tablet">
+                    <a href="javascript:salir()" class="nav-item is-hidden-tablet">
                         <img class="image" src="{{base_url()}}/assets/img/logout.svg" alt="">
                     </a>
                     {% else %}
@@ -45,7 +45,7 @@
                     <a href="javascript:void(0)" class="nav-item">
                         <img class="image avatar" src="https://graph.facebook.com/v2.8/{{user.facebook}}/picture?type=normal" alt="{{user.name}}">
                     </a>
-                    <a href="javascript:void(0)" class="nav-item">
+                    <a href="javascript:salir()" class="nav-item">
                         <img class="image" src="{{base_url()}}/assets/img/logout.svg" alt="">
                     </a>
                     {% else %}
@@ -273,7 +273,7 @@
                         <div class="child has-text-centered" style="width: 150px;">
 
                             <div class="">
-                                <a href="#" class="boton-bancar-tablet">
+                                <a href="javascript:void(0)" class="boton-bancar-proyecto boton-bancar-tablet">
                                     {% include 'muscle.html.twig' %}
                                 </a>
                             </div>
@@ -282,7 +282,7 @@
                                 <h1 class="subtitle is-raleway is-white">bancan esta idea</h1>
                                 <span class="tag is-white">Vos tambien!&nbsp;<span class="icon is-small"><i class="fa fa-smile-o fa-fw"></i></span></span>
                                 <hr>
-                                <h1 class="subtitle  is-white is-5 is-600">¡Corré la voz!</h1>
+                                <h1 class="subtitle is-white is-5 is-600">¡Corré la voz!</h1>
                             </div>
                             <div>
                                 <a href="https://www.facebook.com/sharer.php?u={{base_url()}}{{ share_link }}" target="_blank" class="boton-social">
@@ -355,10 +355,10 @@
         $("#responder-"+id).toggle('1000');
     });
 
-     $('body').on('click','.votar-up',function(){
+    $('body').on('click','.votar-up',function(){
         var comentarioid = $(this).data('comentarioid');
         var csrfName = '{{csrf.key}}';
-        var csrfValue = '{{csrfValue}}';
+        var csrfValue = '{{csrf.value}}';
         var csrfData = {csrfName : csrfValue, "com" : comentarioid, "value" : 1};
         $.ajax({
             url : urlVote,
@@ -376,7 +376,7 @@
     $('body').on('click','.votar-down',function(){
         var comentarioid = $(this).data('comentarioid');
         var csrfName = '{{csrf.key}}';
-        var csrfValue = '{{csrfValue}}';
+        var csrfValue = '{{csrf.value}}';
         var csrfData = {csrfName : csrfValue, "com" : comentarioid, "value" : 1};
         $.ajax({
             url : urlVote,
@@ -388,6 +388,25 @@
             },
             error: function (jqXHR, textStatus, errorThrown){
                 showModalDanger('No se ha podido votar el comentario');
+            }
+        });
+    });
+    $('body').on('click','.boton-bancar-proyecto',function(){
+        var comentarioid = $(this).data('comentarioid');
+        var csrfKey = '{{csrf.key}}';
+        var csrf = {};
+        csrf[csrfKey] = '{{csrf.value}}';
+        var csrfData = csrf;
+        $.ajax({
+            url : urlBancar,
+            type: "POST",
+            data : csrfData,
+            success: function(data, textStatus, jqXHR){
+                //data - response from server
+                showModalSuccess(data.mensaje);
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                showModalDanger('Error al bancar el proyecto');
             }
         });
     });

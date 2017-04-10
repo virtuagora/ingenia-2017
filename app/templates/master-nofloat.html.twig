@@ -27,7 +27,7 @@
         </script>
     </head>
     <body>
-        <a href="javascript:void(0)" class="boton-bancar is-{{categoria}}">
+        <a href="javascript:void(0)" class="boton-bancar boton-bancar-proyecto is-{{categoria}}">
             {% include 'muscle.html.twig' %}
         </a>
         <div id="modal" class="modal">
@@ -40,6 +40,11 @@
             </div>
             <button class="modal-close"></button>
         </div>
+        {% if user is not null %}
+        <form id="salir" action="{{path_for('logoutPost')}}" method="POST">
+            <input id="csrf_name" type="hidden" name="{{csrf.key}}" value="{{csrf.value}}">
+        </form>
+        {% endif %}
         {% block body %}
         {% endblock %}
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -90,7 +95,9 @@
                 $('.modal').addClass('is-active');
                 $('.modal .notification').addClass('is-info');
             }
-
+            function salir(){
+                $('form#salir').submit();
+            }
         </script>
         {% block javascript %}
         {% endblock %}
