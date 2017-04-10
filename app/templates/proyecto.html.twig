@@ -367,6 +367,7 @@
         var csrf = {};
         csrf[csrfKey] = '{{csrf.value}}';
         csrf['value'] = 1;
+        var csrfData = csrf;
         var finalUrl = urlVote.replace('COMMENTIDHERE',comentarioid);
         $.ajax({
             url : finalUrl,
@@ -374,6 +375,8 @@
             data : csrfData,
             success: function(data, textStatus, jqXHR){
                 //data - response from server
+                $('.votar-up-' + comentarioid).addClass('is-hidden');
+                $('.votar-down-' + comentarioid).addClass('is-hidden');
                 showModalSuccess(data.mensaje);
             },
             error: function (jqXHR, textStatus, errorThrown){
@@ -399,6 +402,8 @@
             data : csrfData,
             success: function(data, textStatus, jqXHR){
                 //data - response from server
+                $('.votar-up-' + comentarioid).addClass('is-hidden');
+                $('.votar-down-' + comentarioid).addClass('is-hidden');
                 showModalSuccess(data.mensaje);
             },
             error: function (jqXHR, textStatus, errorThrown){
