@@ -27,4 +27,4 @@ $app->get('/proyecto/{pro}', 'ProjectAction:viewProject')->setName('proViewGet')
 $app->post('/proyecto/{pro}/comentario', 'ProjectAction:commentProject')->setName('proCommentPost');
 $app->post('/proyecto/{pro}/voto', 'ProjectAction:voteProject')->setName('proVotePost');
 $app->post('/comentario/{com}/respuesta', 'ProjectAction:replyComment')->setName('comReplyPost');
-$app->post('/comentario/{com}/voto', 'ProjectAction:voteComment')->setName('comVotePost');
+$app->post('/comentario/{com}/voto', 'ProjectAction:rateComment')->setName('comVotePost');
