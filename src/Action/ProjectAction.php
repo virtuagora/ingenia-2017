@@ -91,9 +91,13 @@ final class ProjectAction extends AbstractAction
         $comment = $this->db->query('App:Comment')->findOrFail($arg['com']);
         $params = $req->getParsedBody();
         if (!$this->validator['rate']->validate($params)) {
-            throw new \App\Util\AppException('Parametros invalidos.', 400);
+            throw new \App\Util\AppException('Tu comentario es muy largo o muy corto.', 400);
         }
-        $comment->raters()->updateExistingPivot($userID, ['value' => $params['value']]);
+        if ($comment->raters()->where('user_id', $userID)->exists()) {
+            $comment->raters()->updateExistingPivot($userID, ['value' => $params['value']]);
+        } else {
+            $comment->raters()->attach($userID, ['value' => $params['value']]);
+        }
         $comment->votes = $comment->raters->sum('pivot.value');
         $comment->save();
         /*
@@ -105,6 +109,7 @@ final class ProjectAction extends AbstractAction
         */
         return $res->withJSON([
             'mensaje' => 'Comentario votado.',
+            'likes' => $comment->votes,
         ]);
     }
 
@@ -129,12 +134,12 @@ final class ProjectAction extends AbstractAction
         }
         if (isset($params['sort'])) {
             $sorter = $params['sort'];
-            $direction = 'ASC';
+            $direction = 'asc';
+            if (substr($sorter, 0, 1) == '-') {
+                $direction = 'desc';
+                $sorter = substr($sorter, 1);
+            }
             if (in_array($sorter, ['likes', 'created_at'])) {
-                if (substr($sorter, 0, 1) == '-') {
-                    $direction = 'DESC';
-                    $sorter = substr($sorter, 1);
-                }
                 $query = $query->orderBy($sorter, $direction);
             }
         }

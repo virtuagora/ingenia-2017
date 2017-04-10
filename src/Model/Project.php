@@ -30,6 +30,6 @@ class Project extends Model
 
     public function comments()
     {
-        return $this->hasMany('App\Model\Comment', 'project_id');
+        return $this->hasMany('App\Model\Comment', 'project_id')->latest();
     }
 }

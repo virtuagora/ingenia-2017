@@ -49,7 +49,7 @@ $container['image'] = function ($c) {
     return new Intervention\Image\ImageManager(['driver' => 'imagick']);
 };
 $container['validator'] = function ($c) {
-    $commentVdt = v::key('content', v::alnum()->length(2, 5000));
+    $commentVdt = v::key('content', v::length(2, 5000));
     $rateVdt = v::key('value', v::in([-1, 1]));
     $pageVdt = v
             ::key('page', v::intVal()->positive(), false)
@@ -95,7 +95,7 @@ $container['errorHandler'] = function ($c) {
         } else {
             return $c->get('view')->render($res, 'error.html.twig', [
                 'mensaje' => $mssg,
-            ]);
+            ])->withStatus($stat);
         }
     };
 };
