@@ -9,7 +9,7 @@
             <p>
                 <strong>{{ reply.user.id == project.user.id ? '[&#9733;] ' : ''}}{{reply.user.name}}</strong> <small>{{reply.created_at|date("Y-m-d")}} - &hearts; <span id="likes-{{reply.id}}">{{reply.votes}}</span></small>
                 <br>
-                {{reply.content}}
+                {{reply.content|nl2br}}
             </p>
         </div>
         <nav class="level is-mobile is-hidden-tablet">

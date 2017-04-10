@@ -336,7 +336,7 @@
 <script>
     var urlReply = '{{path_for('comReplyPost', {'com' : 'COMMENTIDHERE'})}}';
     var urlComment = '{{path_for('proCommentPost', {'pro' : project.id})}}';
-    var urlVote = '{{path_for('proVotePost', {'pro' : project.id})}}';
+    var urlVote = '{{path_for('comVotePost', {'com' : 'COMMENTIDHERE'})}}';
     var urlBancar = '{{path_for('proVotePost', {'pro' : project.id})}}';
     var cantBancan = {{project.likes}};
     var userLogueado = {{user is not null ? 'true' : 'false'}};
@@ -358,12 +358,18 @@
     });
 
     $('body').on('click','.votar-up',function(){
+        if(!userLogueado){
+            showModalInfo('Por favor, inicie sesion para votar');
+            return false;
+        }
         var comentarioid = $(this).data('comentarioid');
-        var csrfName = '{{csrf.key}}';
-        var csrfValue = '{{csrf.value}}';
-        var csrfData = {csrfName : csrfValue, "com" : comentarioid, "value" : 1};
+        var csrfKey = '{{csrf.key}}';
+        var csrf = {};
+        csrf[csrfKey] = '{{csrf.value}}';
+        csrf['value'] = 1;
+        var finalUrl = urlVote.replace('COMMENTIDHERE',comentarioid);
         $.ajax({
-            url : urlVote,
+            url : finalUrl,
             type: "POST",
             data : csrfData,
             success: function(data, textStatus, jqXHR){
@@ -376,12 +382,19 @@
         });
     });
     $('body').on('click','.votar-down',function(){
+        if(!userLogueado){
+            showModalInfo('Por favor, inicie sesion para votar');
+            return false;
+        }
         var comentarioid = $(this).data('comentarioid');
-        var csrfName = '{{csrf.key}}';
-        var csrfValue = '{{csrf.value}}';
-        var csrfData = {csrfName : csrfValue, "com" : comentarioid, "value" : 1};
+        var csrfKey = '{{csrf.key}}';
+        var csrf = {};
+        csrf[csrfKey] = '{{csrf.value}}';
+        csrf['value'] = -1;
+        var csrfData = csrf;
+        var finalUrl = urlVote.replace('COMMENTIDHERE',comentarioid);
         $.ajax({
-            url : urlVote,
+            url : finalUrl,
             type: "POST",
             data : csrfData,
             success: function(data, textStatus, jqXHR){
@@ -398,7 +411,6 @@
             showModalInfo('Por favor, inicie sesion para votar');
             return false;
         }
-        var comentarioid = $(this).data('comentarioid');
         var csrfKey = '{{csrf.key}}';
         var csrf = {};
         csrf[csrfKey] = '{{csrf.value}}';
