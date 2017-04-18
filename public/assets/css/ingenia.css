@@ -6689,7 +6689,7 @@ h1.is-white, h2.is-white, h3.is-white, h4.is-white, h5.is-white, h6.is-white {
 
 /* line 1, ../sass/_proyecto.scss */
 #proyecto {
-  background-image: url("../img/patternbg.svg");
+  background-image: url("../img/pattern-bg-white-large.svg");
   background-attachment: fixed;
   background-position: center center;
 }
