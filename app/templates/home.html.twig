@@ -6,7 +6,7 @@
     <div class="hero-body">
         <div class="container">
             <div class="">
-                <img src="{{base_url()}}/assets/img/ingenia-logo2.svg" class="logo image" alt="">
+                <img src="{{base_url()}}/assets/img/ingenia-logo5.svg" class="logo image" alt="">
             </div>
             {#
             <nav class="level">
@@ -37,9 +37,9 @@
             </nav>
             #}
             <div class="columns">
-                <div class="column">
-                    <a href="{{path_for('proLoadGet')}}" class="button is-primary is-large is-hidden-mobile is-inverted is-fullwidth">Registrá tu proyecto</a>
-                    <a href="{{path_for('proLoadGet')}}" class="button is-primary is-hidden-tablet is-inverted is-fullwidth">Registrá tu proyecto</a>
+                <div class="column is-half is-offset-one-quarter">
+                    <a href="{{path_for('proLoadGet')}}" class="button is-primary is-focused is-large is-hidden-mobile is-inverted is-fullwidth">Registrá tu proyecto</a>
+                    <a href="{{path_for('proLoadGet')}}" class="button is-primary is-focused is-hidden-tablet is-inverted is-fullwidth">Registrá tu proyecto</a>
                 </div>
             </div>
 
@@ -48,7 +48,7 @@
 
 </section>
 
-<section class="section">
+<section id="home-pattern" class="section">
     <div class="container-fluid">
         <nav class="level">
             <!-- Left side -->
@@ -71,7 +71,7 @@
             <div class="level-right">
                 <p class="level-item">
                     <a href="javascript:void(0)" data-orden="0" id="orden-fecha" class="button is-primary is-outlined"><span class="icon is-small"><i class="fa fa-sort-amount-asc"></i></span> &nbsp;&nbsp;Fecha</a></p>
-                <p class="level-item">
+                <p class="level-item is-hidden">
                     <a href="javascript:void(0)" data-orden="0" id="orden-likes" class="button is-primary is-outlined">
                         <span class="icon is-small"><i class="fa fa-sort-amount-desc"></i></span>
                         &nbsp;&nbsp;Votos
@@ -146,17 +146,17 @@
             <div class="columns">
                 <div class="column has-text-centered">
                     <a href="http://virtuagora.org">
-                        <img src="{{base_url()}}/assets/img/logo-virtuagora.svg" class="image logo"alt="">
+                        <img src="{{base_url()}}/assets/img/logo-virtuagora-comic.svg" class="image logo"alt="">
                     </a>
                 </div>
                 <div class="column has-text-centered">
                     <a href="https://web.facebook.com/GabineteJoven">
-                        <img src="{{base_url()}}/assets/img/gabinetejoven.svg" class="image logo" alt="">
+                        <img src="{{base_url()}}/assets/img/gabinetejoven-comic.svg" class="image logo" alt="">
                     </a>
                 </div>
                 <div class="column has-text-centered">
                     <a href="http://www.santafe.gob.ar/index.php/web/content/view/full/114387/">
-                        <img src="{{base_url()}}/assets/img/ingenia-logo2.svg" class="image logo" alt="">
+                        <img src="{{base_url()}}/assets/img/ingenia-logo5.svg" class="image logo" alt="">
                     </a>
                 </div>
             </div>
@@ -167,12 +167,12 @@
     <div class="container">
         <div class="content has-text-centered">
             <p>
-                Trabajo realizado en conjunto con <a href="http://www.virtuagora.org"><strong>Virtuagora</strong></a> e <a href="http://www.santafe.gob.ar/index.php/web/content/view/full/114387/"><strong>Ingenia</strong></a> y el <a href="https://web.facebook.com/GabineteJoven"><strong>Gabinete Joven</strong></a><br>Virtuagora se distruye bajo licencia
+                Trabajo realizado en conjunto con <a href="http://www.virtuagora.org"><strong>Virtuágora</strong></a> e <a href="http://www.santafe.gob.ar/index.php/web/content/view/full/114387/"><strong>Ingenia</strong></a> del <a href="https://web.facebook.com/GabineteJoven"><strong>Gabinete Joven</strong></a><br>Virtuágora se distruye bajo licencia
                 <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
             </p>
             <p>
                 <a href="https://www.santafe.gob.ar">
-                    <img src="{{base_url()}}/assets/img/santafe-logo-color.svg" class="image is-128x128 logo-santafe" alt="">
+                    <img src="{{base_url()}}/assets/img/santafelogo-dark.svg" class="image is-128x128 logo-santafe" alt="">
                 </a>
             </p>
         </div>
@@ -398,7 +398,7 @@
         if(contenido.has_image){
             $brick = $brick.replace(new RegExp('##IMAGENURL##', 'g'),baseUrl+'/img/project/'+contenido.id+'.jpg');
         } else {
-            $brick = $brick.replace(new RegExp('##IMAGENURL##', 'g'),baseUrl+'/assets/img/placeholder-'+contenido.category+'.png');
+            $brick = $brick.replace(new RegExp('##IMAGENURL##', 'g'),baseUrl+'/assets/img/placeholder-proyecto.png');
         }
         $(".proyectos").append($brick);
     }

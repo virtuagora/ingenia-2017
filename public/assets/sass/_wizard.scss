@@ -1,9 +1,16 @@
 .hero.is-wizard{
-    background-image: url("../img/roadmap-10opacity.svg");
+    background-image: url("../img/pattern-bg-white.svg");
+
     background-size: cover;
     background-position: center center;
     .hero-foot img {
          height: 30px;
+    }
+    &.is-primary{
+        background-color: #FFF;
+    }
+    &.is-primary .title, &.is-primary .subtitle{
+        color: #1d1d24;
     }
 }
 

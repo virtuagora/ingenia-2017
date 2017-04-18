@@ -53,10 +53,21 @@
     }
 }
 
-#home-header{
-    background-image: url("../img/roadmap-10opacity.svg");
+#home-pattern{
+    background-image: url("../img/patternbg.svg");
+    background-color: #FFF;
     background-size: cover;
-    background-position: bottom center;
+    background-position: center center;
+}
+
+#home-header{
+    background-image: url("../img/trama-multicolor.svg");
+    background-color: #FFF;
+    background-size: cover;
+    background-position: center center;
+    .hero-body{
+        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    }
     img.logo{
          margin: 50px auto 30px;
         padding:10px;
@@ -75,8 +86,15 @@
 }
 
 #logos-nosotros{
+     background-image: url("../img/trama-multicolor.svg");
+    background-color: #FFF;
+    background-size: cover;
+    background-position: center center;
     img.logo{
-        max-height: 40px;
+        max-height: 60px;
         margin: 0 auto;
+    }
+     .hero-body{
+        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     }
 }

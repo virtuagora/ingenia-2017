@@ -1,5 +1,5 @@
 #proyecto{
-    background-image: url("../img/roadmap-10opacity.svg");
+    background-image: url("../img/patternbg.svg");
     background-attachment: fixed;
     //background-size: cover;
     background-position: center center;
@@ -157,4 +157,14 @@ a.boton-bancar-tablet {
     border-top: 0;
     margin-top: 0;
     padding-top: 0;
+}
+
+.comentario .media .content:not(:last-child){
+    margin-bottom: 0;
+}
+
+.comentario .votar-up,
+.comentario .votar-down,
+.comentario .responder{
+    color:$info;
 }
