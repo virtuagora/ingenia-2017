@@ -11,7 +11,7 @@
 {% if project.has_image == true %}
 <meta property="og:image" content="{{ base_url() }}/img/project/{{project.id}}.jpg" />
 {% else %}
-<meta property="og:image" content="{{ base_url() }}/assets/img/sharer-proyecto.png" />
+<meta property="og:image" content="{{ base_url() }}/assets/img/sharer-{{project.category}}.png" />
 {% endif %}
 {% endblock %}
 {% block body %}
