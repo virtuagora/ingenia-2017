@@ -4,7 +4,7 @@
 {% extends 'master-nofloat.html.twig' %}
 {% block titulo %}{{project.name}} - INGENIA - Bancamos tus ideas {% endblock %}
 {% block opengraph %}
-<meta property="og:url" content="{{ path_for('proViewGet', { 'pro': project.id }) }}" />
+<meta property="og:url" content="path_for('proViewGet', { 'pro': project.id })" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="{{project.name}} - Ingenia, bancamos tus ideas" />
 <meta property="og:description" content="{{project.description}}" />
