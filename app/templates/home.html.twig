@@ -397,8 +397,10 @@
                                  }
         if(contenido.has_image){
             $brick = $brick.replace(new RegExp('##IMAGENURL##', 'g'),baseUrl+'/img/project/'+contenido.id+'.jpg');
+            $brick = $brick.replace(new RegExp('##DIMENSION##', 'g'),'4by3');
         } else {
             $brick = $brick.replace(new RegExp('##IMAGENURL##', 'g'),baseUrl+'/assets/img/placeholder-proyecto.png');
+            $brick = $brick.replace(new RegExp('##DIMENSION##', 'g'),'16by9');
         }
         $(".proyectos").append($brick);
     }
