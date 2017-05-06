@@ -11,7 +11,7 @@
                 <p>
                     <strong>{{ comment.user.id == project.user.id ? '[&#9733;] ' : ''}}{{comment.user.name}}</strong> <small>{{comment.created_at|date("Y-m-d")}} - &hearts; <span class="likes-{{comment.id}}">{{comment.votes}}</span></small>
                     <br>
-                    {{comment.content|nl2br}}
+                    {{comment.content|emoji|nl2br}}
                 </p>
             </div>
             <nav class="level is-mobile">

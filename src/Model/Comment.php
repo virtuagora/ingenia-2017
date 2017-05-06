@@ -8,6 +8,9 @@ class Comment extends Model
     protected $table = 'comments';
     protected $visible = ['id', 'content', 'votes', 'created_at', 'deleted_at', 'user', 'replies'];
     protected $with = ['user', 'replies'];
+    protected $casts = [
+        'content' => 'json',
+    ];
     
     public function user()
     {

@@ -7,9 +7,11 @@ final class ProjectAction extends AbstractAction
         $userID = $this->session->get('user.id', null);
         $project = $this->db->query('App:Project')->with('comments')->findOrFail($arg['pro']);
         $voted = is_null($userID)? false: $project->voters->contains($userID);
+        $lala = $this->emojione->shortnameToImage('Hello world! :smile: ');
         return $this->view->render($res, 'proyecto.html.twig', [
             'project' => $project,
             'voted' => $voted,
+            'lala' => $lala,
         ]);
     }
 
@@ -49,7 +51,7 @@ final class ProjectAction extends AbstractAction
         $comment = new \App\Model\Comment();
         $comment->user_id = $userID;
         $comment->project_id = $project->id;
-        $comment->content = $params['content'];
+        $comment->content = $this->emojione->toShort($params['content']);
         $comment->save();
         return $res->withJSON([
             'mensaje' => 'Comentario realizado.',
@@ -74,7 +76,7 @@ final class ProjectAction extends AbstractAction
         $comment = new \App\Model\Comment();
         $comment->user_id = $userID;
         $comment->parent_id = $parent->id;
-        $comment->content = $params['content'];
+        $comment->content = $this->emojione->toShort($params['content']);
         $comment->save();
         return $res->withJSON([
             'mensaje' => 'Comentario respondido.',
