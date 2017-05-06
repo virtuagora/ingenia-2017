@@ -108,7 +108,7 @@ final class HomeAction extends AbstractAction
         $project->foundation = $this->session->get('project.foundation');
         $project->execution = $this->session->get('project.execution');
         $project->organization = $this->session->get('project.organization');
-        $project->total_budget = ltrim($this->session->get('project.total_budget'), '$');
+        $project->total_budget = trim($this->session->get('project.total_budget'), '$');
         $project->place = $this->session->get('project.place');
         if (isset($categoryList[$this->session->get('project.category')])) {
             $project->category = $categoryList[$this->session->get('project.category')];
