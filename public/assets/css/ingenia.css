@@ -6904,3 +6904,13 @@ a.boton-bancar-tablet:hover {
 .comentario .responder {
   color: #3273dc;
 }
+
+/* line 172, ../sass/_proyecto.scss */
+.comentario .image {
+  height: auto;
+}
+
+/* line 175, ../sass/_proyecto.scss */
+.emojione {
+  max-height: 1.5em;
+}
