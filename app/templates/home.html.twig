@@ -335,6 +335,8 @@
             query.push({name:'sort', value:'created_at'});
         } else if(orden_fecha == -1) {
             query.push({name:'sort', value:'-created_at'});
+        } else if(orden_fecha == 0) {
+            query.push({name:'sort', value:'-created_at'});
         }
         // Ordenar por likes
         var orden_likes = $('#orden-likes').data('orden');
@@ -421,6 +423,7 @@
             link = parseLinkHeader(request.getResponseHeader('link'));
             $('#ejecutando').hide();
             if(resultados.length > 0){
+                shuffle(resultados);
                 for (i = 0; i < resultados.length; i++) {
                     crearBrick(resultados[i]);
                 }
@@ -435,6 +438,17 @@
             $('#ejecutando').hide();
             $('#error').show();
         });
+    }
+
+    function shuffle(sourceArray) {
+        for (var i = 0; i < sourceArray.length - 1; i++) {
+            var j = i + Math.floor(Math.random() * (sourceArray.length - i));
+
+            var temp = sourceArray[j];
+            sourceArray[j] = sourceArray[i];
+            sourceArray[i] = temp;
+        }
+        return sourceArray;
     }
 </script>
 {% endblock %}
