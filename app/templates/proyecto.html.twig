@@ -95,6 +95,11 @@
                                 <h1 class="title is-6 is-raleway has-text-centered" style="margin-top: -1rem;"><img src="https://graph.facebook.com/v2.8/{{project.user.facebook}}/picture?type=normal" class="image is-24x24"  class="image is-24x24" alt="" style="display: inline-block;vertical-align: middle;"> {{project.user.name}}</h1>
                             </div>
                         </div>
+                         {% if user.id == project.user.id %}
+                        <div class="notification is-info has-text-centered">
+                            <b>NOTA:</b> Recordá que podes cambiar la imagen de tu proyecto haciendo <a href="{{path_for('proSetImgGet',{ 'pro': project.id })}}" class="button is-small is-white"><span class="icon is-small"><i class="fa fa-camera"></i></span>&nbsp;&nbsp;&nbsp;Clic aquí</a>
+                        </div>
+                        {% endif %}
                         <h1 class="title is-3 is-raleway is-800">Resumen del proyecto</h1>
                         <p>
                             {{project.description|nl2br}}
@@ -288,6 +293,9 @@
                                 </a>
                             </div>
                             <div class="">
+                               <h1 class="subtitle is-600 is-white titulo-bancar {{voted ? 'is-hidden'}}">¡Bancalo!</h1>
+                               <h1 class="subtitle is-600 is-6 is-white titulo-dejar-bancar {{voted ? : 'is-hidden'}}"><i>Dejar de bancar</i></h1>
+                                <hr>
                                 <h1 class="title is-600 is-white contador-bancan">{{ project.likes }}</h1>
                                 <h1 class="subtitle is-raleway is-white">bancan esta idea</h1>
                                 <span class="tag is-white user-lo-banca {{voted ? : 'is-hidden'}}" >¡Vos también!&nbsp;<span class="icon is-small"><i class="fa fa-smile-o fa-fw"></i></span></span>
@@ -297,10 +305,7 @@
                             <div>
                                 <a href="https://www.facebook.com/sharer.php?u={{base_url()}}{{ share_link }}" target="_blank" class="boton-social">
                                     <span class="icon is-large"><i class="fa fa-facebook-square"></i></span>
-                                </a>
-                            </div>
-                            <div>
-                                <a href="https://twitter.com/share?text={{ twitter_txt }}&url={{base_url()}}{{ share_link }}" target="_blank" class="boton-social">
+                                </a> <a href="https://twitter.com/share?text={{ twitter_txt }}&url={{base_url()}}{{ share_link }}" target="_blank" class="boton-social">
                                     <span class="icon is-large"><i class="fa fa-twitter-square"></i></span>
                                 </a>
                             </div>
@@ -449,11 +454,15 @@
                     showModalSuccess(data.mensaje);
                     cantBancan = cantBancan + 1;
                     $('.user-lo-banca').removeClass('is-hidden');
+                    $('.titulo-dejar-bancar').removeClass('is-hidden');
+                    $('.titulo-bancar').addClass('is-hidden');
                     $('.contador-bancan').html(cantBancan)
                 } else {
                     showModalInfo(data.mensaje);
                     cantBancan = cantBancan - 1;
                     $('.user-lo-banca').addClass('is-hidden');
+                    $('.titulo-dejar-bancar').addClass('is-hidden');
+                    $('.titulo-bancar').removeClass('is-hidden');
                     $('.contador-bancan').html(cantBancan)
                 }
             },
