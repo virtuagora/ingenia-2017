@@ -28,11 +28,14 @@ $container['facebook'] = function ($c) {
     $settings = $c->get('settings')['facebook'];
     return new Facebook\Facebook($settings);
 };
+$container['emojione'] = function ($c) {
+    return new Emojione\Client(new Emojione\Ruleset());
+};
 $container['view'] = function ($c) {
     $settings = $c->get('settings')['twig'];
     $view = new Slim\Views\Twig($settings['path'], $settings['options']);
     $view->addExtension(new App\Util\TwigExtension(
-        $c['helper'], $c['facebook'], $c['session']
+        $c['helper'], $c['facebook'], $c['session'], $c['emojione']
     ));
     return $view;
 };

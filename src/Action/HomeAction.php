@@ -71,11 +71,14 @@ final class HomeAction extends AbstractAction
         }
         $response = $this->facebook->get('/me?fields=id,name,email', $accessToken);
         $userNode = $response->getGraphUser();
-        $user = $this->db->query('App:User')->firstOrCreate([
-            'name' => $userNode['name'],
+        $user = $this->db->query('App:User')->firstOrNew([
             'facebook' => $userNode['id'],
-            'email' => $userNode['email'],
         ]);
+        if (!$user->exists) {
+            $user->email = $userNode['email'];
+            $user->name = $userNode['name'];
+            $user->save();
+        }
         $this->session->set('user', $user->toArray());
         $redirectUrl = $this->session->has('project')?
             $this->helper->completePathFor('proRegisterGet'):
@@ -105,7 +108,7 @@ final class HomeAction extends AbstractAction
         $project->foundation = $this->session->get('project.foundation');
         $project->execution = $this->session->get('project.execution');
         $project->organization = $this->session->get('project.organization');
-        $project->total_budget = $this->session->get('project.total_budget');
+        $project->total_budget = trim($this->session->get('project.total_budget'), '$');
         $project->place = $this->session->get('project.place');
         if (isset($categoryList[$this->session->get('project.category')])) {
             $project->category = $categoryList[$this->session->get('project.category')];
@@ -138,6 +141,7 @@ final class HomeAction extends AbstractAction
         $project->user_id = $this->session->get('user.id');
         $project->save();
         $this->jotform->editSubmission($project->jotform, ['348' => 'SI']);
+        $this->session->delete('project');
         return $res->withRedirect($this->helper->completePathFor(
             'proSetImgGet',
             ['pro' => $project->id]

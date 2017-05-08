@@ -7,11 +7,12 @@ class TwigExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
     private $facebook;
     private $session;
     
-    public function __construct($helper, $facebook, $session)
+    public function __construct($helper, $facebook, $session, $emojione)
     {
         $this->helper = $helper;
         $this->facebook = $facebook;
         $this->session = $session;
+        $this->emojione = $emojione;
     }
 
     public function getName()
@@ -30,6 +31,13 @@ class TwigExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
         ];
     }
 
+    public function getFilters()
+    {
+        return [
+            new \Twig_Filter('emoji', [$this, 'emoji'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
+        ];
+    }
+
     public function getFunctions()
     {
         return [
@@ -42,6 +50,11 @@ class TwigExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
             new \Twig_SimpleFunction('categories', array($this, 'categories')),
             new \Twig_SimpleFunction('places', array($this, 'places')),
         ];
+    }
+
+    public function emoji($str)
+    {
+        return $this->emojione->shortnameToImage($str);
     }
 
     public function pathFor($name, $params = [], $query = [], $appName = 'default')
