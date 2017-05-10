@@ -38,8 +38,8 @@ final class HomeAction extends AbstractAction
             'foundation' => $subBody['answers']['83']['answer'],
             'execution' => isset($subBody['answers']['86'])?
                 $subBody['answers']['86']['answer']: null,
-            'organization' => isset($subBody['answers']['89'])?
-                $subBody['answers']['89']['answer']: null,
+            'organization' => empty($subBody['answers']['6'])?
+                null: $subBody['answers']['6']['answer'],
             'schedule' => $subBody['answers']['96']['answer'],
             'budget' => $subBody['answers']['98']['answer'],
             'total_budget' => $subBody['answers']['99']['answer'],
@@ -178,8 +178,15 @@ final class HomeAction extends AbstractAction
             throw new \App\Util\AppException('No se envió ninguna imagen.', 400);
         }
         $imgFile = $files['imagen'];
-        if ($imgFile->getError() !== UPLOAD_ERR_OK) {
-            throw new \App\Util\AppException('Hubo un error con la imagen recibida', 400);
+        if ($imgFile->getError() == UPLOAD_ERR_NO_FILE) {
+            return $res->withRedirect(
+                $this->helper->completePathFor('proViewGet', ['pro' => $project->id])
+            );
+        } elseif ($imgFile->getError() !== UPLOAD_ERR_OK) {
+            throw new \App\Util\AppException(
+                'Hubo un error con la imagen recibida ('.$imgFile->getError().')',
+                400
+            );
         }
         $imgStrm = $this->image->make($imgFile->getStream()->detach())
             ->fit(800, 565, function ($constraint) {
