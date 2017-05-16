@@ -7,6 +7,11 @@ final class HomeAction extends AbstractAction
         return $this->view->render($res, 'home.html.twig');
     }
 
+    public function viewTos($req, $res, $arg)
+    {
+        return $this->view->render($res, 'privacidad.html.twig');
+    }
+
     public function logout($req, $res, $arg)
     {
         $this->session->delete('user');
