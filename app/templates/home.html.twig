@@ -37,6 +37,14 @@
             </nav>
             #}
             <div class="columns">
+                <div class="column is-8 is-offset-2">
+                    <div class="notification is-warning has-text-centered">
+                    	<h1 class="title is-4 is-500" style="color:#333333"><b>¿Problemas con registrar tu proyecto?</b></h1>
+						Hoy ha sido un gran día con <u>muchos nuevos proyectos INGENIA</u>, pero por un impedimiento técnico, hemos tocado el limite diario para agregar proyectos a esta a la plataforma de participación <i>(Tranquilos, ¡Es solo por hoy!)</i><br><br><a href="https://form.jotformz.com/70926839979682" class="button is-dark is-outlined is-small">Aun podes completar el formulario INGENIA</a> y <b>¡<u>MAÑANA sabado</u> ya pueden volver a registrar sus proyectos en la plataforma de participación y seguir participando! ¡No te olvides, así podes hacer tu proyecto crecer y ser bancado por mas personas!</b>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
                 <div class="column is-half is-offset-one-quarter">
                     <a href="{{path_for('proLoadGet')}}" class="button is-primary is-focused is-large is-hidden-mobile is-inverted is-fullwidth">Registrá tu proyecto</a>
                     <a href="{{path_for('proLoadGet')}}" class="button is-primary is-focused is-hidden-tablet is-inverted is-fullwidth">Registrá tu proyecto</a>
@@ -168,7 +176,7 @@
         <div class="content has-text-centered">
             <p>
                 Trabajo realizado en conjunto con <a href="http://www.virtuagora.org"><strong>Virtuágora</strong></a> e <a href="http://www.santafe.gob.ar/index.php/web/content/view/full/114387/"><strong>Ingenia</strong></a> del <a href="https://web.facebook.com/GabineteJoven"><strong>Gabinete Joven</strong></a><br>Virtuágora se distruye bajo licencia
-                <a href="http://opensource.org/licenses/mit-license.php">MIT</a> - Nuestra <a href="{{path_for('ourPrivacy')}}">política de privacidad</a>
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
             </p>
             <p>
                 <a href="https://www.santafe.gob.ar">
@@ -335,8 +343,6 @@
             query.push({name:'sort', value:'created_at'});
         } else if(orden_fecha == -1) {
             query.push({name:'sort', value:'-created_at'});
-        } else if(orden_fecha == 0) {
-            query.push({name:'sort', value:'-created_at'});
         }
         // Ordenar por likes
         var orden_likes = $('#orden-likes').data('orden');
@@ -423,7 +429,6 @@
             link = parseLinkHeader(request.getResponseHeader('link'));
             $('#ejecutando').hide();
             if(resultados.length > 0){
-                shuffle(resultados);
                 for (i = 0; i < resultados.length; i++) {
                     crearBrick(resultados[i]);
                 }
@@ -438,17 +443,6 @@
             $('#ejecutando').hide();
             $('#error').show();
         });
-    }
-
-    function shuffle(sourceArray) {
-        for (var i = 0; i < sourceArray.length - 1; i++) {
-            var j = i + Math.floor(Math.random() * (sourceArray.length - i));
-
-            var temp = sourceArray[j];
-            sourceArray[j] = sourceArray[i];
-            sourceArray[i] = temp;
-        }
-        return sourceArray;
     }
 </script>
 {% endblock %}
