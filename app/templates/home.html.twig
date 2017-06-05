@@ -8,41 +8,35 @@
             <div class="">
                 <img src="{{base_url()}}/assets/img/ingenia-logo5.svg" class="logo image" alt="">
             </div>
-            {#
+            <div class="box">
+
             <nav class="level">
                 <div class="level-item has-text-centered">
                     <div>
-                        <p class="heading">Proyectos que participan</p>
-                        <p class="title">3,456</p>
+                        <p class="heading">Proyectos participando</p>
+                        <p class="title">{{stats.proyectos}}</p>
                     </div>
                 </div>
                 <div class="level-item has-text-centered">
                     <div>
-                        <p class="heading">Usuarios que bancan!</p>
-                        <p class="title">123</p>
+                        <p class="heading">Usuarios bancando</p>
+                        <p class="title">{{stats.usuarios}}</p>
                     </div>
                 </div>
                 <div class="level-item has-text-centered">
                     <div>
-                        <p class="heading">Votos contados</p>
-                        <p class="title">456K</p>
+                        <p class="heading">Votos apoyando</p>
+                        <p class="title">{{stats.votos}}</p>
                     </div>
                 </div>
                 <div class="level-item has-text-centered">
                     <div>
-                        <p class="heading">Dias restantes</p>
-                        <p class="title">789</p>
+                        <p class="heading">Comentarios hechos</p>
+                        <p class="title">{{stats.comentarios}}</p>
                     </div>
                 </div>
             </nav>
-            #}
-            <div class="columns">
-                <div class="column is-half is-offset-one-quarter">
-                    <a href="{{path_for('proLoadGet')}}" class="button is-primary is-focused is-large is-hidden-mobile is-inverted is-fullwidth">Registrá tu proyecto</a>
-                    <a href="{{path_for('proLoadGet')}}" class="button is-primary is-focused is-hidden-tablet is-inverted is-fullwidth">Registrá tu proyecto</a>
-                </div>
             </div>
-
         </div>
     </div>
 

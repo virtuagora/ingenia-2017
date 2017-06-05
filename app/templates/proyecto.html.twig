@@ -78,6 +78,13 @@
                     <div class="has-text-centered">
                         <h1 class="title is-5 is-white is-300"><span class="tag is-white">{{category_name(project.category)}}</span>&nbsp;&nbsp;&nbsp;
                             <span class="icon is-middle"><i class="fa fa-comments"></i></span>&nbsp;&nbsp;&nbsp;{{project.comments|length}} comentarios</h1>
+                            <div class="is-hidden-tablet">
+
+                        <h1 class="title is-600 is-white contador-bancan">{{ project.likes }}</h1>
+                                <h1 class="subtitle is-raleway is-white is-margin">bancan esta idea</h1>
+                                <span class="tag is-white user-lo-banca {{voted ? : 'is-hidden'}}" >¡Vos también!&nbsp;<span class="icon is-small"><i class="fa fa-smile-o fa-fw"></i></span></span>
+                                <hr>
+                            </div>
                         <h1 class="title titulo-proyecto is-1 is-500 is-raleway is-white">{{project.name}}</h1>
 
                     </div>

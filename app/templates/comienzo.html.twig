@@ -5,16 +5,14 @@
     <!-- Hero content: will be in the middle -->
     <div class="hero-body">
         <div class="container has-text-centered">
-            <div class="columns">
+            <div class="columns is-multiline">
                 <div class="column is-half is-offset-one-quarter">
                     <a href="{{path_for('homeGet')}}"><img class="logo-vg" src="{{base_url()}}/assets/img/ingenia-logo5.svg" alt=""></a>
-                        <h1 class="title is-2 is-raleway is-700">¡Sumá tu proyecto a participar!</h1>
-                    <h4 class="subtitle is-4 is-raleway">¡Participá con tu proyecto en la instancia de votación!</h4>
-                    <div class="box">
-                        <h2 class="is-3 is-raleway is-hidden-tablet"><a href="{{ facebook_login_link() }}" class="button is-info is-400 is-raleway"><span class="icon"><i class="fa fa-facebook"></i></span>&nbsp;&nbsp;Continuar con Facebook</a></h2>
-                        <h2 class="title is-3 is-raleway is-hidden-mobile"><a href="{{ facebook_login_link() }}" class="button is-info is-400 is-medium is-raleway"><span class="icon"><i class="fa fa-facebook"></i></span>&nbsp;&nbsp;Continuar con Facebook</a></h2>
-                    </div>
-                    <p>Registrate en la plataforma, agregale una imagen a tu proyecto, y ya estas participando en la votación popular junto con otros proyectos. ¡Luego queda en en vos difundir y ganar muchos votos!</p>
+                    <h1 class="title is-2 is-raleway is-700">¡Convocatoria cerrada!</h1>
+                    <h4 class="subtitle is-4 is-raleway">La convocatoria de proyectos se encuentra cerrada.<br>¿Consultas? Comunicate a <u>ingenia@santafe.gob.ar</u></h4>
+                </div>
+                <div class="column is-half is-offset-one-quarter">
+                    <p><a href="{{path_for('homeGet')}}" class="button is-large is-outlined is-primary">Volver al inicio</a></p>
                 </div>
             </div>
         </div>

@@ -8,34 +8,11 @@
             <div class="columns is-multiline">
                 <div class="column is-half is-offset-one-quarter">
                     <a href="{{path_for('homeGet')}}"><img class="logo-vg" src="{{base_url()}}/assets/img/ingenia-logo5.svg" alt=""></a>
-                    <h1 class="title is-2 is-raleway is-700">¡Sumá tu proyecto a participar!</h1>
-                    <h4 class="subtitle is-4 is-raleway">¡Participá con tu proyecto!</h4>
-                </div>
-                <div class="column is-4 is-offset-4">
-                    <div class="box">
-                        <h4 class="title is-6 is-raleway is-600">Ingresá el código asignado a tu proyecto</h4>
-                        <form id="codigo" method="GET">
-                            <div class="field has-addons has-addons-centered">
-                                <p class="control has-icon">
-                                    <input name="codigo" class="input is-large" type="text" placeholder="Código">
-                                    <span class="icon is-large">
-                                        <i class="fa fa-lock"></i>
-                                    </span>
-                                </p>
-                                <p class="control">
-                                    <button type="submit" class="button is-primary is-large">
-                                        <span class="icon is-medium">
-                                            <i class="fa fa-send"></i>
-                                        </span>
-                                    </button>
-                                </p>
-                            </div>
-                        </form>
-                    </div>
+                    <h1 class="title is-2 is-raleway is-700">¡Convocatoria cerrada!</h1>
+                    <h4 class="subtitle is-4 is-raleway">La convocatoria de proyectos se encuentra cerrada.<br>¿Consultas? Comunicate a <u>ingenia@santafe.gob.ar</u></h4>
                 </div>
                 <div class="column is-half is-offset-one-quarter">
-                    <h4 class="subtitle is-5 is-raleway is-600">¿No registraste tu proyecto aún?</h4>
-                    <p><a href="https://form.jotformz.com/70926839979682" class="button is-large is-outlined is-primary">Completá el formulario</a></p>
+                    <p><a href="{{path_for('homeGet')}}" class="button is-large is-outlined is-primary">Volver al inicio</a></p>
                 </div>
             </div>
         </div>
