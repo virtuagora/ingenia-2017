@@ -4,7 +4,10 @@ final class HomeAction extends AbstractAction
 {
     public function viewHome($req, $res, $arg)
     {
-        return $this->view->render($res, 'home.html.twig');
+        $stats = $this->db->table('options')->pluck('value', 'key');
+        return $this->view->render($res, 'home.html.twig', [
+            'stats' => $stats,
+        ]);
     }
 
     public function viewTos($req, $res, $arg)
@@ -25,6 +28,7 @@ final class HomeAction extends AbstractAction
 
     public function newProject($req, $res, $arg)
     {
+        /*
         $subId = $arg['sub-id'];
         if (!$this->validator['submission']->validate($subId)) {
             throw new \App\Util\AppException('El código del proyecto no es válido.', 400);
@@ -58,6 +62,8 @@ final class HomeAction extends AbstractAction
         } else {
             return $this->view->render($res, 'comienzo.html.twig');
         }
+        */
+        return $this->view->render($res, 'comienzo.html.twig');
     }
 
     public function facebookLogin($req, $res, $arg)
@@ -83,6 +89,7 @@ final class HomeAction extends AbstractAction
             $user->email = $userNode['email'];
             $user->name = $userNode['name'];
             $user->save();
+            $this->db->table('options')->where('key', 'usuarios')->increment('value');
         }
         $this->session->set('user', $user->toArray());
         $redirectUrl = $this->session->has('project')?
@@ -93,6 +100,7 @@ final class HomeAction extends AbstractAction
 
     public function registerProject($req, $res, $arg)
     {
+        /*
         if (!$this->session->has('user')) {
             throw new \App\Util\AppException('Necesitás identificarte para realizar esta acción.', 403);
         }
@@ -151,6 +159,8 @@ final class HomeAction extends AbstractAction
             'proSetImgGet',
             ['pro' => $project->id]
         ));
+        */
+        return $this->view->render($res, 'comienzo.html.twig');
     }
 
     public function viewSetImageProject($req, $res, $arg)

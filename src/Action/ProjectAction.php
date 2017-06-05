@@ -31,6 +31,11 @@ final class ProjectAction extends AbstractAction
         $project->likes = $project->voters()->count();
         $project->save();
         $vote = empty($result['detached']);
+        if ($vote) {
+            $this->db->table('options')->where('key', 'votos')->increment('value');
+        } else {
+            $this->db->table('options')->where('key', 'votos')->decrement('value');
+        }
         return $res->withJSON([
             'mensaje' => $vote? '¡Proyecto bancado!': 'Proyecto ya no bancado.',
             'vote' => $vote,
@@ -53,6 +58,7 @@ final class ProjectAction extends AbstractAction
         $comment->project_id = $project->id;
         $comment->content = $this->emojione->toShort($params['content']);
         $comment->save();
+        $this->db->table('options')->where('key', 'comentarios')->increment('value');
         return $res->withJSON([
             'mensaje' => 'Comentario realizado.',
             'id' => $comment->id,
@@ -78,6 +84,7 @@ final class ProjectAction extends AbstractAction
         $comment->parent_id = $parent->id;
         $comment->content = $this->emojione->toShort($params['content']);
         $comment->save();
+        $this->db->table('options')->where('key', 'comentarios')->increment('value');
         return $res->withJSON([
             'mensaje' => 'Comentario respondido.',
             'id' => $comment->id,
