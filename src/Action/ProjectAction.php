@@ -141,7 +141,7 @@ final class ProjectAction extends AbstractAction
                 ->where('name_trace', 'LIKE', "%$filter%")
                 ->orWhere('group_trace', 'LIKE', "%$filter%");
         }
-        if (isset($params['sort'])) {
+        if (!isset($params['explore']) && isset($params['sort'])) {
             $sorter = $params['sort'];
             $direction = 'asc';
             if (substr($sorter, 0, 1) == '-') {

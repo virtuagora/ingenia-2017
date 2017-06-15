@@ -15,9 +15,18 @@ class Paginator
         $take =isset($params['take'])? $params['take']: 10;
         $endless = isset($params['endless']);
         if ($endless) {
+            $moreRows = false;
+            if (isset($params['explore']) && $params['explore']) {
+                $page = 1;
+                $moreRows = true;
+                $query = $query->whereIn('id', array_unique([
+                    rand(7,1064),rand(7,1064),rand(7,1064),rand(7,1064),rand(7,1064),
+	                rand(7,1064),rand(7,1064),rand(7,1064),rand(7,1064),rand(7,1064),
+                ]));
+            }
             $this->query = $query->skip(($page-1)*$take)->take($take+1);
             $this->rows = $this->query->get();
-            $moreRows = ($this->rows->count() > $take);
+            $moreRows = $moreRows || ($this->rows->count() > $take);
         } else {
             $lastPage = ceil($query->count()/$take);
             $page = min($page, $lastPage);
