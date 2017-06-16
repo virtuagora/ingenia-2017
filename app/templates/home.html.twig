@@ -376,7 +376,7 @@
             query.push({name:'sort', value:'-likes'});
         }
         var explorar = $('#explorar').data('explore');
-        if( explorar == true ){
+        if( explorar == true && string == '' ){
             query.push({name:'explore', value:'true'});
         }
         // Por string
