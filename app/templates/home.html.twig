@@ -375,14 +375,15 @@
         } else if(orden_likes == -1){
             query.push({name:'sort', value:'-likes'});
         }
-        var explorar = $('#explorar').data('explore');
-        if( explorar == true && string == '' ){
-            query.push({name:'explore', value:'true'});
-        }
         // Por string
         var string = $('input[name="stringquery"]').val();
         if( string != ''){
             query.push({name:'s', value:string});
+        } else {
+            var explorar = $('#explorar').data('explore');
+        if( explorar == true && string == '' ){
+            query.push({name:'explore', value:'true'});
+        }
         }
         //query.push({name:'take', value:'10'});
         //        if(where_value.length > 0){
